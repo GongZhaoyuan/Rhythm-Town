@@ -5,28 +5,20 @@ using TMPro;
 
 public class NoteController : MonoBehaviour
 {
-    Vector2 position;
-    Vector2 endPosition;
-    float speed;
+    Vector2 position, endPosition;
     public TMP_Text gradeText;
-    public GameObject ghost;
-    public GameObject checkObject;
-    float ghostSpeed;
-    float BPM = GameController.BPM;
-    float beat;
-    float fullBeat;
+    public GameObject ghost, checkObject;
+    float speed, ghostSpeed, beat, fullBeat;
     float perfectThreshold = 5f;
     float goodThreshold = 10f;
-    bool isDetected;
-    bool isTarget;
+    bool isDetected, isTarget;
     bool isClicked = false;
-    Rigidbody2D rb;
-    Rigidbody2D ghostRb;
+    Rigidbody2D rb, ghostRb;
     
     // Start is called before the first frame update
     void Start()
     {
-        fullBeat = 60 / BPM;
+        fullBeat = 60 / GameController.BPM;
         beat = fullBeat;
         position = GameController.spawnPosition;
         endPosition = GameController.endPosition;
@@ -50,7 +42,7 @@ public class NoteController : MonoBehaviour
         beat -= Time.deltaTime;
         rb.MovePosition(Vector2.MoveTowards(rb.position, endPosition, speed));
         if (beat <= 0)
-        {            
+        {
             beat = fullBeat;
             if (isClicked)
             {
@@ -60,7 +52,7 @@ public class NoteController : MonoBehaviour
             {
                 position = Vector2.MoveTowards(ghostRb.position, endPosition, ghostSpeed);
             }
-        }        
+        }
         else
         {
             ghostRb.MovePosition(position);
@@ -79,6 +71,7 @@ public class NoteController : MonoBehaviour
                     isClicked = true;
                 }
             }
+
             if (isClicked)
             {
                 if (transform.position.x <= 1f)
@@ -95,24 +88,15 @@ public class NoteController : MonoBehaviour
                         gradeText.text = (isPerfect) ? "Perfect!" : "Good!";
                         GameController.comboCount += 1;
                     }
-                    else 
+                    else
                     {
                         gradeText.text = "Wrong!";
                         GameController.comboCount = 0;
                     }
                 }
-                isDetected = false;
             }
         }
-
-        if (transform.position.x < -1f && isTarget && !isClicked)
-        {
-            gradeText.text = "Miss!";
-            GameController.noteCount += 1;
-            GameController.comboCount = 0;
-            isTarget = false;
-        }
-
+        
         if (transform.position.x == endPosition.x)
         {
             Destroy(gameObject);
@@ -127,5 +111,12 @@ public class NoteController : MonoBehaviour
     void OnTriggerExit2D(Collider2D collision)
     {
         isDetected = false;
+
+        if (isTarget && !isClicked)
+        {
+            gradeText.text = "Miss!";
+            GameController.noteCount += 1;
+            GameController.comboCount = 0;
+        }
     }
 }
