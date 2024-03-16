@@ -532,7 +532,7 @@ Transform:
   m_GameObject: {fileID: 581475179}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -195.37, y: -244.31999, z: 3.2903}
+  m_LocalPosition: {x: -195.37, y: -244.53, z: 3.2903}
   m_LocalScale: {x: 0.06966784, y: 0.06966784, z: 0.06966784}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -805,7 +805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 137, y: 60}
+  m_AnchoredPosition: {x: 137, y: 40}
   m_SizeDelta: {x: 86.9, y: 22.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &621227595
@@ -1418,9 +1418,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 543980360}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+        m_TargetAssemblyTypeName: BookManager, Assembly-CSharp
+        m_MethodName: OnEquipButtonClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2166,7 +2166,7 @@ Transform:
   m_GameObject: {fileID: 1149689235}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -192.31, y: -244.32, z: 3.2903}
+  m_LocalPosition: {x: -192.31, y: -244.53001, z: 3.2903}
   m_LocalScale: {x: 0.06966784, y: 0.06966784, z: 0.06966784}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3036,7 +3036,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 283, y: 60}
+  m_AnchoredPosition: {x: 283, y: 40}
   m_SizeDelta: {x: 86.9, y: 22.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1769514630
