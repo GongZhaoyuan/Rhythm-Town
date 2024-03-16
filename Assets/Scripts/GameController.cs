@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public static float BPM = 142f;
     public float speed = 10f;
     public static float noteSpeed;
+    public float generateSpeed = 0.25f;
     public static int noteCount = 0;    
     public static float grade = 0f;
     public static float accuracy = 100f;
@@ -44,7 +45,7 @@ public class GameController : MonoBehaviour
             beat -= Time.deltaTime;
             if (beat <= 0)
             {
-                beat = 240 / BPM;
+                beat = fullBeat / generateSpeed;
                 Instantiate(notePrefab, spawnPosition, Quaternion.identity);
             }
             accuracy = Mathf.Round(grade / noteCount * 10000) / 100f;

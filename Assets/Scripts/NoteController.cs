@@ -50,14 +50,9 @@ public class NoteController : MonoBehaviour
             }
             else
             {
-                position = Vector2.MoveTowards(ghostRb.position, endPosition, ghostSpeed);
+                ghostRb.MovePosition(Vector2.MoveTowards(ghostRb.position, endPosition, ghostSpeed));
             }
         }
-        else
-        {
-            ghostRb.MovePosition(position);
-        }
-        
         if (isDetected)
         {
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
@@ -77,14 +72,12 @@ public class NoteController : MonoBehaviour
                 if (transform.position.x <= 1f)
                 {
                     float timing = beat;
-                    position.x = 0;
-                    position.y = -2;
-                    rb.MovePosition(position);
+                    rb.MovePosition(new Vector2(0, -2));
                     GameController.noteCount += 1;
                     if (isTarget)
                     {
                         bool isPerfect = timing >= fullBeat - perfectThreshold || timing <= perfectThreshold;
-                        GameController.grade += (isPerfect) ? 1f : 0.9f;   
+                        GameController.grade += (isPerfect) ? 1f : 0.9f;
                         gradeText.text = (isPerfect) ? "Perfect!" : "Good!";
                         GameController.comboCount += 1;
                     }
