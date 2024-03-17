@@ -5,14 +5,14 @@ using TMPro;
 
 public class NoteController : MonoBehaviour
 {
-    Vector2 position, endPosition;
+    Vector2 position, endPosition, checkPosition;
     public TMP_Text gradeText;
     public GameObject ghost, checkObject;
-    float speed, ghostSpeed, beat, fullBeat;
+    float speed, ghostSpeed, beat, fullBeat, distanceThreshold, destroyTimer;
     float perfectThreshold = 5f;
     float goodThreshold = 10f;
     bool isDetected, isTarget;
-    bool isClicked = false;
+    public bool isClicked = false;
     Rigidbody2D rb, ghostRb;
     
     // Start is called before the first frame update
@@ -22,10 +22,13 @@ public class NoteController : MonoBehaviour
         beat = fullBeat;
         position = GameController.spawnPosition;
         endPosition = GameController.endPosition;
+        checkPosition = GameController.checkPosition;
         ghostSpeed = GameController.noteSpeed;
         speed = GameController.noteSpeed * Time.fixedDeltaTime / fullBeat;
         perfectThreshold *= Time.fixedDeltaTime;
+        distanceThreshold = ghostSpeed;
         goodThreshold *= Time.fixedDeltaTime;
+        destroyTimer = -1f;
         isTarget = Random.value > 0.5f;
         if (isTarget)
         {
@@ -40,56 +43,43 @@ public class NoteController : MonoBehaviour
     void Update()
     {
         beat -= Time.deltaTime;
-        rb.MovePosition(Vector2.MoveTowards(rb.position, endPosition, speed));
-        if (beat <= 0)
+        if (destroyTimer < 0)
         {
-            beat = fullBeat;
-            if (isClicked)
+            if (beat <= 0)
             {
+                beat = fullBeat;
+                ghostRb.MovePosition(Vector2.MoveTowards(ghostRb.position, endPosition, ghostSpeed));            
+            }
+            rb.MovePosition(Vector2.MoveTowards(rb.position, endPosition, speed));
+        }
+        else
+        {
+            destroyTimer -= Time.deltaTime;
+            if (destroyTimer <= 0)
                 Destroy(gameObject);
+        }            
+        
+        if (isDetected && isClicked)
+        {
+            float timing = beat;
+            rb.MovePosition(new Vector2(0, -2));                    
+            ghostRb.MovePosition(new Vector2(0, -2));
+            destroyTimer = fullBeat / 2;
+            GameController.noteCount += 1;
+            if (isTarget)
+            {                    
+                bool isPerfect = getDistance(checkPosition) < distanceThreshold &&
+                    (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
+                GameController.grade += (isPerfect) ? 1f : 0.9f;
+                gradeText.text = (isPerfect) ? "Perfect!" : "Good!";
+                GameController.comboCount += 1;
             }
             else
             {
-                ghostRb.MovePosition(Vector2.MoveTowards(ghostRb.position, endPosition, ghostSpeed));
+                gradeText.text = "Wrong!";
+                GameController.comboCount = 0;
             }
-        }
-        if (isDetected)
-        {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-            {
-                Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
-
-                //If something was hit, the RaycastHit2D.collider will not be null.
-                if (hit.collider.gameObject.name == checkObject.name)
-                {
-                    isClicked = true;
-                }
-            }
-
-            if (isClicked)
-            {
-                if (transform.position.x <= 1f)
-                {
-                    float timing = beat;
-                    rb.MovePosition(new Vector2(0, -2));                    
-                    ghostRb.MovePosition(new Vector2(0, -2));
-                    GameController.noteCount += 1;
-                    if (isTarget)
-                    {
-                        bool isPerfect = timing >= fullBeat - perfectThreshold || timing <= perfectThreshold;
-                        GameController.grade += (isPerfect) ? 1f : 0.9f;
-                        gradeText.text = (isPerfect) ? "Perfect!" : "Good!";
-                        GameController.comboCount += 1;
-                    }
-                    else
-                    {
-                        gradeText.text = "Wrong!";
-                        GameController.comboCount = 0;
-                    }
-                }
-            }
-        }
+        }        
         
         if (transform.position.x == endPosition.x)
         {
@@ -97,9 +87,15 @@ public class NoteController : MonoBehaviour
         }
     }
 
+    public float getDistance(Vector2 position)
+    {
+        return Vector2.Distance(rb.position, position);
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         isDetected = true;
+        GameController.noteObjects.Add(this.gameObject);
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -112,5 +108,7 @@ public class NoteController : MonoBehaviour
             GameController.noteCount += 1;
             GameController.comboCount = 0;
         }
+
+        GameController.noteObjects.Remove(this.gameObject);
     }
 }

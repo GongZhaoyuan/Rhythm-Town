@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,15 +9,16 @@ public class GameController : MonoBehaviour
     public static float BPM = 142f;
     public float speed = 10f;
     public static float noteSpeed;
-    public float generateSpeed = 0.5f;
+    public float generateSpeed = 0.25f;
     public static int noteCount = 0;    
     public static float grade = 0f;
     public static int comboCount = 0;
+    public static List<GameObject> noteObjects;
     float beat;
     float fullBeat;
-    public GameObject notePrefab;
-    public Transform spawnPoint, endPoint;
-    public static Vector2 spawnPosition, endPosition;
+    public GameObject notePrefab, checkObject;
+    public Transform spawnPoint, endPoint, checkPoint;
+    public static Vector2 spawnPosition, endPosition, checkPosition;
     public TMP_Text countdownText, accuracyText, comboText;
     public AudioClip countIn;
     AudioSource audioSource;
@@ -28,9 +30,11 @@ public class GameController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
+        checkPosition = checkPoint.position;
         fullBeat = 60 / BPM;
         beat = fullBeat;
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
+        noteObjects = new List<GameObject>();
         audioSource.Play();
     }
 
@@ -49,6 +53,7 @@ public class GameController : MonoBehaviour
             }
             accuracyText.text = "Accuracy: " + AccuracyCalculate() + "%";
             comboText.text = (comboCount == 0) ? "" : comboCount + "\nCombo";
+            ClickNote();
         }
     }
 
@@ -80,5 +85,24 @@ public class GameController : MonoBehaviour
         }
         
         return accuracy;
+    }
+
+    void ClickNote()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+
+            //If something was hit, the RaycastHit2D.collider will not be null.
+            if (hit.collider.gameObject.name == checkObject.name)
+            {
+                if (noteObjects.Count != 0)
+                {
+                    noteObjects.Sort((o1, o2) => (int)(o1.GetComponent<NoteController>().getDistance(checkPosition) - o2.GetComponent<NoteController>().getDistance(checkPosition)));
+                    noteObjects[0].GetComponent<NoteController>().isClicked = true;
+                }
+            }
+        }
     }
 }
