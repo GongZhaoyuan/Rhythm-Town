@@ -72,7 +72,8 @@ public class NoteController : MonoBehaviour
                 if (transform.position.x <= 1f)
                 {
                     float timing = beat;
-                    rb.MovePosition(new Vector2(0, -2));
+                    rb.MovePosition(new Vector2(0, -2));                    
+                    ghostRb.MovePosition(new Vector2(0, -2));
                     GameController.noteCount += 1;
                     if (isTarget)
                     {

@@ -8,10 +8,9 @@ public class GameController : MonoBehaviour
     public static float BPM = 142f;
     public float speed = 10f;
     public static float noteSpeed;
-    public float generateSpeed = 0.25f;
+    public float generateSpeed = 0.5f;
     public static int noteCount = 0;    
     public static float grade = 0f;
-    public static float accuracy = 100f;
     public static int comboCount = 0;
     float beat;
     float fullBeat;
@@ -48,12 +47,7 @@ public class GameController : MonoBehaviour
                 beat = fullBeat / generateSpeed;
                 Instantiate(notePrefab, spawnPosition, Quaternion.identity);
             }
-            accuracy = Mathf.Round(grade / noteCount * 10000) / 100f;
-            if (float.IsNaN(accuracy))
-            {
-                accuracy = 100f;
-            }
-            accuracyText.text = "Accuracy: " + accuracy + "%";
+            accuracyText.text = "Accuracy: " + AccuracyCalculate() + "%";
             comboText.text = (comboCount == 0) ? "" : comboCount + "\nCombo";
         }
     }
@@ -75,5 +69,16 @@ public class GameController : MonoBehaviour
         }
         
         return countdown < 0;
+    }
+
+    float AccuracyCalculate()
+    {
+        float accuracy = Mathf.Round(grade / noteCount * 10000) / 100f;
+        if (float.IsNaN(accuracy))
+        {
+            accuracy = 100f;
+        }
+        
+        return accuracy;
     }
 }
