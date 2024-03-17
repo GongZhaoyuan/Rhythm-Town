@@ -79,6 +79,7 @@ public class NoteController : MonoBehaviour
                 gradeText.text = "Wrong!";
                 GameController.comboCount = 0;
             }
+            isDetected = false;
         }        
         
         if (transform.position.x == endPosition.x)

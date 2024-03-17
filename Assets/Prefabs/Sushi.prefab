@@ -180,7 +180,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5b7aabfb9be02455a9fc194463045501, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -232,7 +232,6 @@ MonoBehaviour:
   gradeText: {fileID: 3065761614117160032}
   ghost: {fileID: 4457183908977711819}
   checkObject: {fileID: 6758822594644373473, guid: 551fa96694f444cbfa37c6244a94ba23, type: 3}
-  checkPoint: {fileID: 0}
   isClicked: 0
 --- !u!61 &7409843261090691163
 BoxCollider2D:
