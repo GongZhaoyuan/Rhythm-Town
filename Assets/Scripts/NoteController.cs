@@ -5,42 +5,36 @@ using TMPro;
 
 public class NoteController : MonoBehaviour
 {
-    Vector2 position, endPosition, checkPosition;
+    protected Vector2 position, endPosition, checkPosition, destination;
     public TMP_Text gradeText;
-    public GameObject ghost, checkObject;
-    float speed, ghostSpeed, beat, fullBeat, distanceThreshold, destroyTimer;
+    public GameObject display;
+    float speed, displaySpeed, beat, fullBeat, distanceThreshold, destroyTimer;
     float perfectThreshold = 5f;
-    float goodThreshold = 10f;
-    bool isDetected, isTarget;
+    protected int noteType;
+    protected bool isDetected, isTarget;
     public bool isClicked = false;
-    Rigidbody2D rb, ghostRb;
+    public string clickSource, targetSource;
+    protected Rigidbody2D rb, displayRb;
     
-    // Start is called before the first frame update
-    void Start()
+    protected void LoadData()
     {
         fullBeat = 60 / GameController.BPM;
         beat = fullBeat;
         position = GameController.spawnPosition;
         endPosition = GameController.endPosition;
         checkPosition = GameController.checkPosition;
-        ghostSpeed = GameController.noteSpeed;
+        displaySpeed = GameController.noteSpeed;
         speed = GameController.noteSpeed * Time.fixedDeltaTime / fullBeat;
         perfectThreshold *= Time.fixedDeltaTime;
-        distanceThreshold = ghostSpeed;
-        goodThreshold *= Time.fixedDeltaTime;
+        distanceThreshold = displaySpeed;
         destroyTimer = -1f;
-        isTarget = Random.value > 0.5f;
-        if (isTarget)
-        {
-            ghost.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sushi/Sushi Orange");
-        }        
+        
         rb = GetComponent<Rigidbody2D>();
-        ghostRb = ghost.GetComponent<Rigidbody2D>();
+        displayRb = display.GetComponent<Rigidbody2D>();
         rb.MovePosition(position);
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         beat -= Time.deltaTime;
         if (destroyTimer < 0)
@@ -48,7 +42,7 @@ public class NoteController : MonoBehaviour
             if (beat <= 0)
             {
                 beat = fullBeat;
-                ghostRb.MovePosition(Vector2.MoveTowards(ghostRb.position, endPosition, ghostSpeed));            
+                displayRb.MovePosition(Vector2.MoveTowards(displayRb.position, endPosition, displaySpeed));            
             }
             rb.MovePosition(Vector2.MoveTowards(rb.position, endPosition, speed));
         }
@@ -62,11 +56,14 @@ public class NoteController : MonoBehaviour
         if (isDetected && isClicked)
         {
             float timing = beat;
-            rb.MovePosition(new Vector2(0, -2));                    
-            ghostRb.MovePosition(new Vector2(0, -2));
+            if (destination == new Vector2(-99,-99))
+            {
+                destination = GameObject.Find(clickSource).transform.position;
+            }
+            MoveToDestination();
             destroyTimer = fullBeat / 2;
             GameController.noteCount += 1;
-            if (isTarget)
+            if (clickSource == targetSource)
             {                    
                 bool isPerfect = getDistance(checkPosition) < distanceThreshold &&
                     (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
@@ -82,10 +79,16 @@ public class NoteController : MonoBehaviour
             isDetected = false;
         }        
         
-        if (transform.position.x == endPosition.x)
+        if ((Vector2)transform.position == endPosition)
         {
             Destroy(gameObject);
         }
+    }
+
+    protected virtual void MoveToDestination()
+    {
+        rb.MovePosition(destination);                    
+        displayRb.MovePosition(destination);
     }
 
     public float getDistance(Vector2 position)
@@ -103,7 +106,7 @@ public class NoteController : MonoBehaviour
     {
         isDetected = false;
 
-        if (isTarget && !isClicked)
+        if (targetSource != "None" && !isClicked)
         {
             gradeText.text = "Miss!";
             GameController.noteCount += 1;

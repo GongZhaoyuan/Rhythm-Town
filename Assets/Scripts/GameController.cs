@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     public static List<GameObject> noteObjects;
     float beat;
     float fullBeat;
-    public GameObject notePrefab, checkObject;
+    public GameObject notePrefab;
     public Transform spawnPoint, endPoint, checkPoint;
     public static Vector2 spawnPosition, endPosition, checkPosition;
     public TMP_Text countdownText, accuracyText, comboText;
@@ -49,10 +49,10 @@ public class GameController : MonoBehaviour
             if (beat <= 0)
             {
                 beat = fullBeat / generateSpeed;
-                Instantiate(notePrefab, spawnPosition, Quaternion.identity);
+                Instantiate(notePrefab, spawnPosition, notePrefab.transform.rotation);
             }
-            accuracyText.text = "Accuracy: " + AccuracyCalculate() + "%";
-            comboText.text = (comboCount == 0) ? "" : comboCount + "\nCombo";
+            accuracyText.text = $"Accuracy: {AccuracyCalculate()}%";
+            comboText.text = (comboCount == 0) ? "" : $"{comboCount}\nCombo";
             ClickNote();
         }
     }
@@ -95,11 +95,12 @@ public class GameController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
 
             //If something was hit, the RaycastHit2D.collider will not be null.
-            if (hit.collider.gameObject.name == checkObject.name)
+            if (hit.collider != null)
             {
                 if (noteObjects.Count != 0)
                 {
                     noteObjects.Sort((o1, o2) => (int)(o1.GetComponent<NoteController>().getDistance(checkPosition) - o2.GetComponent<NoteController>().getDistance(checkPosition)));
+                    noteObjects[0].GetComponent<NoteController>().clickSource = hit.collider.gameObject.name;
                     noteObjects[0].GetComponent<NoteController>().isClicked = true;
                 }
             }
