@@ -11,8 +11,8 @@ public class NoteController : MonoBehaviour
     float speed, displaySpeed, beat, fullBeat, distanceThreshold, destroyTimer;
     float perfectThreshold = 5f;
     protected int noteType;
-    protected bool isDetected, isTarget;
-    public bool isClicked = false;
+    protected bool isDetected;
+    public bool isClicked = false, isTarget;
     public string clickSource, targetSource;
     protected Rigidbody2D rb, displayRb;
     
@@ -87,8 +87,8 @@ public class NoteController : MonoBehaviour
 
     protected virtual void MoveToDestination()
     {
-        rb.MovePosition(destination);                    
         displayRb.MovePosition(destination);
+        rb.MovePosition(destination);
     }
 
     public float getDistance(Vector2 position)

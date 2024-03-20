@@ -14,8 +14,7 @@ public class GameController : MonoBehaviour
     public static float grade = 0f;
     public static int comboCount = 0;
     public static List<GameObject> noteObjects;
-    float beat;
-    float fullBeat;
+    float beat, fullBeat;
     public GameObject notePrefab;
     public Transform spawnPoint, endPoint, checkPoint;
     public static Vector2 spawnPosition, endPosition, checkPosition;
@@ -23,6 +22,7 @@ public class GameController : MonoBehaviour
     public AudioClip countIn;
     AudioSource audioSource;
     int countdown = 4;
+    Queue<bool> score;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
         beat = fullBeat;
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
         noteObjects = new List<GameObject>();
+        score = ScoreGenerator.GetScore(320, 42);
         audioSource.Play();
     }
 
@@ -49,7 +50,8 @@ public class GameController : MonoBehaviour
             if (beat <= 0)
             {
                 beat = fullBeat / generateSpeed;
-                Instantiate(notePrefab, spawnPosition, notePrefab.transform.rotation);
+                GameObject newNote = Instantiate(notePrefab, spawnPosition, notePrefab.transform.rotation);
+                newNote.GetComponent<NoteController>().isTarget = score.Dequeue();
             }
             accuracyText.text = $"Accuracy: {AccuracyCalculate()}%";
             comboText.text = (comboCount == 0) ? "" : $"{comboCount}\nCombo";

@@ -471,6 +471,10 @@ PrefabInstance:
       propertyPath: countdownText
       value: 
       objectReference: {fileID: 2092555627}
+    - target: {fileID: 9191321459616194144, guid: 3cb0b78bd22ed4ca3b4d3ec8cfd9a8e7, type: 3}
+      propertyPath: generateSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

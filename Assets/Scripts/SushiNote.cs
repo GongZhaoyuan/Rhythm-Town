@@ -8,7 +8,6 @@ public class SushiNote : NoteController
     void Start()
     {
         LoadData();
-        isTarget = Random.value > 0.5f;
         noteType = (isTarget) ? 1: 0;
         destination = new Vector2(0, -2);
         Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
@@ -16,6 +15,12 @@ public class SushiNote : NoteController
         if (isTarget)
         {
             display.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sushi/Sushi Orange");
+        }
+        else{
+            if (Random.value > 0.5f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

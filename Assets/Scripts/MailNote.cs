@@ -8,12 +8,14 @@ public class MailNote : NoteController
     void Start()
     {
         LoadData();
-        isTarget = Random.value > 0.5f;
-        noteType = (isTarget) ? 1: 0;
+        noteType = (Random.value > 0.5f) ? 1: 0;
         Sprite[] sprites = Resources.LoadAll<Sprite>("Mail/Envelope");
         targetSource = $"Cardboard Box_{noteType}";
         destination = new Vector2(-99,-99);
         display.GetComponent<SpriteRenderer>().sprite = sprites[noteType];
+        if (!isTarget) {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
