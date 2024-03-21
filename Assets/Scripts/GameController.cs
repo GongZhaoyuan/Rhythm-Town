@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public static float BPM = 142f;
+    public float musicBPM;
+    public static float BPM;
     public float speed = 10f;
     public static float noteSpeed;
     public float generateSpeed = 0.25f;
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BPM = musicBPM;
         audioSource = GetComponent<AudioSource>();
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
@@ -102,8 +104,9 @@ public class GameController : MonoBehaviour
                 if (noteObjects.Count != 0)
                 {
                     noteObjects.Sort((o1, o2) => (int)(o1.GetComponent<NoteController>().getDistance(checkPosition) - o2.GetComponent<NoteController>().getDistance(checkPosition)));
-                    noteObjects[0].GetComponent<NoteController>().clickSource = hit.collider.gameObject.name;
-                    noteObjects[0].GetComponent<NoteController>().isClicked = true;
+                    NoteController nearestNote = noteObjects[0].GetComponent<NoteController>();
+                    nearestNote.clickSource = hit.collider.gameObject.name;
+                    nearestNote.isClicked = true;
                 }
             }
         }

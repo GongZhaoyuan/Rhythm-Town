@@ -16,7 +16,7 @@ public class NoteController : MonoBehaviour
     public string clickSource, targetSource;
     protected Rigidbody2D rb, displayRb;
     
-    protected void LoadData()
+    protected virtual void Start()
     {
         fullBeat = 60 / GameController.BPM;
         beat = fullBeat;

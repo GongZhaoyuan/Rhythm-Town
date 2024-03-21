@@ -5,9 +5,9 @@ using UnityEngine;
 public class SushiNote : NoteController
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        LoadData();
+        base.Start();
         noteType = (isTarget) ? 1: 0;
         destination = new Vector2(0, -2);
         Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
