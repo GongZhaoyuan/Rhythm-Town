@@ -1,28 +1,24 @@
-using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public float musicBPM;
-    public static float BPM;
-    public float speed = 10f;
-    public static float noteSpeed;
-    public float generateSpeed = 0.25f;
-    public static int noteCount = 0;    
-    public static float grade = 0f;
-    public static int comboCount = 0;
+    public float musicBPM, speed = 10f, generateSpeed = 0.25f;
+    public static float BPM, noteSpeed, grade;
+    public static int noteCount, comboCount;
     public static List<GameObject> noteObjects;
-    float beat, fullBeat;
+    static float beat, countdownBeat, fullBeat;
+    public static bool isPaused;
     public GameObject notePrefab;
     public Transform spawnPoint, endPoint, checkPoint;
+    public RectTransform accuracyBar;
     public static Vector2 spawnPosition, endPosition, checkPosition;
     public TMP_Text countdownText, accuracyText, comboText;
     public AudioClip countIn;
-    AudioSource audioSource;
-    int countdown = 4;
+    AudioSource audioSource, bgmAudioSource;
+    static int countdown = 4;
     Queue<bool> score;
 
     // Start is called before the first frame update
@@ -30,65 +26,83 @@ public class GameController : MonoBehaviour
     {
         BPM = musicBPM;
         audioSource = GetComponent<AudioSource>();
+        bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
         checkPosition = checkPoint.position;
         fullBeat = 60 / BPM;
         beat = fullBeat;
+        countdownBeat = fullBeat;
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
         noteObjects = new List<GameObject>();
         score = ScoreGenerator.GetScore(320, 42);
-        audioSource.Play();
+        accuracyBar.anchorMax = new Vector2(1, 1);
+        accuracyText.text = "100%";
+        isPaused = false;
+        grade = 0f;
+        noteCount = 0;
+        comboCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CountIn())
+        if (isPaused)
         {
-            countdownText.enabled = false;
-
-            beat -= Time.deltaTime;
-            if (beat <= 0)
+            countdownText.text = "3";
+            if (bgmAudioSource.isPlaying) { bgmAudioSource.Pause(); }
+        }
+        else
+        {
+            if (CountIn())
             {
-                beat = fullBeat / generateSpeed;
-                GameObject newNote = Instantiate(notePrefab, spawnPosition, notePrefab.transform.rotation);
-                newNote.GetComponent<NoteController>().isTarget = score.Dequeue();
+                countdownText.enabled = false;
+
+                beat -= Time.deltaTime;
+                if (beat <= 0)
+                {
+                    beat = fullBeat / generateSpeed;
+                    GameObject newNote = Instantiate(notePrefab, spawnPosition, notePrefab.transform.rotation);
+                    newNote.GetComponent<NoteController>().isTarget = score.Dequeue();
+                }
+                AccuracyCalculate();                
+                ClickNote();
             }
-            accuracyText.text = $"Accuracy: {AccuracyCalculate()}%";
-            comboText.text = (comboCount == 0) ? "" : $"{comboCount}\nCombo";
-            ClickNote();
         }
     }
 
     bool CountIn()
-    {        
+    {
+        countdownText.enabled = countdown >= 0;
         if (countdown >= 0)
         {            
-            beat -= Time.deltaTime;
-            if (beat <= 0) {
+            countdownBeat -= Time.deltaTime;
+            if (countdownBeat <= 0) {
                 countdown--;
-                if (countdown >=0)
+                if (countdown >= 0)
                 {
                     audioSource.PlayOneShot(countIn);
                 }     
-                beat = fullBeat;
+                countdownBeat = fullBeat;
                 countdownText.text = (countdown > 0) ? countdown.ToString(): "GO!";                
             }
         }
+        else
+        {
+            if (!bgmAudioSource.isPlaying) { bgmAudioSource.Play(); }
+        }
         
+        NoteController.isPaused = countdown >= 0;
         return countdown < 0;
     }
 
-    float AccuracyCalculate()
+    void AccuracyCalculate()
     {
-        float accuracy = Mathf.Round(grade / noteCount * 10000) / 100f;
-        if (float.IsNaN(accuracy))
-        {
-            accuracy = 100f;
-        }
-        
-        return accuracy;
+        float accuracy = grade / noteCount;
+        if (float.IsNaN(accuracy)) { accuracy = 1f; }
+        accuracyBar.anchorMax = Vector2.Lerp(accuracyBar.anchorMax, new Vector2(accuracy, 1), 3 * Time.deltaTime);
+        accuracyText.text = $"{ Mathf.Round(accuracy * 10000) / 100f }%";
+        comboText.text = (comboCount == 0) ? "" : $"{comboCount}\nCombo";
     }
 
     void ClickNote()
@@ -110,5 +124,28 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+        NoteController.isPaused = true;
+        countdown = 4;
+        countdownBeat = fullBeat;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;        
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadScene("Map");
     }
 }
