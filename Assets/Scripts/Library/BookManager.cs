@@ -117,7 +117,7 @@ public class BookManager : MonoBehaviour
             objectLevelRecord[clickedObject] += 1;
 
             levelDisplay.text = "Current level: " + objectLevelRecord[clickedObject];
-            Debug.Log("updating" + objectLevelRecord[clickedObject]);
+            Debug.Log("updating " + objectLevelRecord[clickedObject]);
         }
     }
 
