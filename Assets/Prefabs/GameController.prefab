@@ -338,12 +338,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0940dabe9b374f2f999abf7eae207b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicBPM: 0
   speed: 10
   generateSpeed: 0.25
   notePrefab: {fileID: 0}
   spawnPoint: {fileID: 3294165347781571603}
   endPoint: {fileID: 2083946167455200965}
   checkPoint: {fileID: 5249116961170128019}
+  accuracyBar: {fileID: 0}
   countdownText: {fileID: 0}
   accuracyText: {fileID: 0}
   comboText: {fileID: 0}
@@ -360,7 +362,7 @@ GameObject:
   - component: {fileID: 8920941677835665781}
   m_Layer: 0
   m_Name: BackgroundMusic
-  m_TagString: Untagged
+  m_TagString: BGM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

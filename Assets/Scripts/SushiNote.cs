@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SushiNote : NoteController
@@ -8,7 +6,7 @@ public class SushiNote : NoteController
     protected override void Start()
     {
         base.Start();
-        noteType = (isTarget) ? 1: 0;
+        noteType = isTarget? 1: 0;
         destination = new Vector2(0, -2);
         Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
         targetSource = (noteType > 0) ? "ServiceBell" : "None";
