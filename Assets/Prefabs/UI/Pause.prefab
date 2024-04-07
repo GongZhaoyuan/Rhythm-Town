@@ -317,7 +317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -330,11 +330,11 @@ PrefabInstance:
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 11407852}
+      objectReference: {fileID: 168017175233214024}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 9191321459616194144, guid: 3cb0b78bd22ed4ca3b4d3ec8cfd9a8e7, type: 3}
+      objectReference: {fileID: 168017175233214024}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -345,15 +345,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Close
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: Quit
+      value: OpenPopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Ricimi.PopupOpener, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: GameController, Assembly-CSharp
+      value: Ricimi.PopupOpener, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -366,8 +370,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2864486697453313663, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 168017175233214024}
   m_SourcePrefab: {fileID: 100100000, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
+--- !u!1 &2906082078194384968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2864486697453313663, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
+  m_PrefabInstance: {fileID: 1122743454970846775}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &168017175233214024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906082078194384968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729d3571ed7354ba184275ba6042151c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupPrefab: {fileID: 178356, guid: 306fea43cd4864a9b9d472baa0825385, type: 3}
 --- !u!224 &2906082078194384983 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2864486697453313632, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
@@ -1048,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -1061,7 +1086,7 @@ PrefabInstance:
     - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 11407852}
+      objectReference: {fileID: 1175158180323812774}
     - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -1076,11 +1101,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Close
+      value: OpenPopup
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Ricimi.PopupOpener, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -1097,10 +1126,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2864486697453313663, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1175158180323812774}
   m_SourcePrefab: {fileID: 100100000, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
 --- !u!224 &5147054632357090859 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2864486697453313632, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
   m_PrefabInstance: {fileID: 6966700920531126347}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5147054632357090868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2864486697453313663, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
+  m_PrefabInstance: {fileID: 6966700920531126347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1175158180323812774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147054632357090868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729d3571ed7354ba184275ba6042151c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupPrefab: {fileID: 178356, guid: f32b8398e1ad74bdeb2293b7ee38373e, type: 3}

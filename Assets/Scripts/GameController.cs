@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour
+public class GameController : NetworkBehaviour
 {
     public float musicBPM, speed = 10f, generateSpeed = 0.25f;
     public static float BPM, noteSpeed, grade;
@@ -19,10 +20,11 @@ public class GameController : MonoBehaviour
     public AudioClip countIn;
     AudioSource audioSource, bgmAudioSource;
     static int countdown = 4;
-    Queue<bool> score;
+    protected int noteID;
+    protected Queue<bool> score;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         BPM = musicBPM;
         audioSource = GetComponent<AudioSource>();
@@ -40,6 +42,7 @@ public class GameController : MonoBehaviour
         accuracyText.text = "100%";
         isPaused = false;
         grade = 0f;
+        noteID = 0;
         noteCount = 0;
         comboCount = 0;
     }
@@ -49,24 +52,21 @@ public class GameController : MonoBehaviour
     {
         if (isPaused)
         {
-            countdownText.text = "3";
+            countdownText.text = "";
             if (bgmAudioSource.isPlaying) { bgmAudioSource.Pause(); }
         }
         else
         {
             if (CountIn())
             {
-                countdownText.enabled = false;
-
                 beat -= Time.deltaTime;
                 if (beat <= 0)
                 {
                     beat = fullBeat / generateSpeed;
-                    GameObject newNote = Instantiate(notePrefab, spawnPosition, notePrefab.transform.rotation);
-                    newNote.GetComponent<NoteController>().isTarget = score.Dequeue();
+                    GenerateNote();
                 }
-                AccuracyCalculate();                
-                ClickNote();
+                AccuracyCalculate();
+                DetectClick();
             }
         }
     }
@@ -105,7 +105,7 @@ public class GameController : MonoBehaviour
         comboText.text = (comboCount == 0) ? "" : $"{comboCount}\nCombo";
     }
 
-    void ClickNote()
+    void DetectClick()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
@@ -121,11 +121,21 @@ public class GameController : MonoBehaviour
                     NoteController nearestNote = noteObjects[0].GetComponent<NoteController>();
                     nearestNote.clickSource = hit.collider.gameObject.name;
                     nearestNote.isClicked = true;
+                    RecordNote(noteObjects[0]);
                 }
             }
         }
     }
 
+    protected virtual void RecordNote(GameObject noteObject) {}
+
+    protected virtual void GenerateNote()
+    {
+        GameObject newNote = Instantiate(notePrefab, spawnPosition, notePrefab.transform.rotation);
+        newNote.GetComponent<NoteController>().isTarget = score.Dequeue();
+        newNote.GetComponent<NoteController>().noteID = noteID++;
+    }
+    
     public void Pause()
     {
         isPaused = true;

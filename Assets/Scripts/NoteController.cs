@@ -5,7 +5,9 @@ using TMPro;
 
 public class NoteController : MonoBehaviour
 {
-    protected Vector2 position, endPosition, checkPosition, destination;
+    protected Vector2 position, endPosition, checkPosition;
+    public Vector2 destination { get; protected set; }
+    public int noteID;
     public TMP_Text gradeText;
     public GameObject display;
     float speed, displaySpeed, beat, fullBeat, distanceThreshold, destroyTimer;
@@ -64,15 +66,14 @@ public class NoteController : MonoBehaviour
                 {
                     destination = GameObject.Find(clickSource).transform.position;
                 }
-                MoveToDestination();
-                destroyTimer = fullBeat / 2;
+                MoveToDestination();                
                 GameController.noteCount += 1;
                 if (clickSource == targetSource)
                 {                    
                     bool isPerfect = getDistance(checkPosition) < distanceThreshold &&
                         (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
-                    GameController.grade += (isPerfect) ? 1f : 0.9f;
-                    gradeText.text = (isPerfect) ? "Perfect!" : "Good!";
+                    GameController.grade += isPerfect? 1f : 0.9f;
+                    gradeText.text = isPerfect? "Perfect!" : "Good!";
                     GameController.comboCount += 1;
                 }
                 else
@@ -94,6 +95,7 @@ public class NoteController : MonoBehaviour
     {
         displayRb.MovePosition(destination);
         rb.MovePosition(destination);
+        destroyTimer = fullBeat / 2;
     }
 
     public float getDistance(Vector2 position)

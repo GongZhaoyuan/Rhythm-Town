@@ -5,10 +5,10 @@ public class SushiNote : NoteController
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();
-        noteType = isTarget? 1: 0;
+        base.Start();        
         destination = new Vector2(0, -2);
         Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
+        noteType = isTarget? 1: 0;
         targetSource = (noteType > 0) ? "ServiceBell" : "None";
         if (isTarget)
         {
