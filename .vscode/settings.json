@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Rhythm Town.sln"
+    "dotnet.defaultSolution": "Rhythm-Town.sln"
 }

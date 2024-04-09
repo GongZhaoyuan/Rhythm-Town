@@ -30,8 +30,9 @@ public class BookManager_Cloud : MonoBehaviour
 
     private Dictionary<GameObject, string> objectTextMap_Cloud;
     public Dictionary<GameObject, BookData> objectData_Cloud;
+    public Dictionary<GameObject, BookData> objectData_CloudUpload;
 
-    LoanDisplayManager_Cloud loanDisplayManager = FindObjectOfType<LoanDisplayManager_Cloud>();
+    // LoanDisplayManager_Cloud loanDisplayManager = FindObjectOfType<LoanDisplayManager_Cloud>();
 
     public class BookData
     {
@@ -70,6 +71,25 @@ public class BookManager_Cloud : MonoBehaviour
             {
                 energyObject,
                 new BookData { Grade = 3, IsEquipped = false }
+            }
+        };
+        objectData_CloudUpload = new Dictionary<GameObject, BookData>()
+        {
+            {
+                missObject,
+                new BookData { Grade = objectData_Cloud[missObject].Grade, IsEquipped = false }
+            },
+            {
+                coinObject,
+                new BookData { Grade = objectData_Cloud[coinObject].Grade, IsEquipped = false }
+            },
+            {
+                rangeObject,
+                new BookData { Grade = objectData_Cloud[rangeObject].Grade, IsEquipped = false }
+            },
+            {
+                energyObject,
+                new BookData { Grade = objectData_Cloud[energyObject].Grade, IsEquipped = false }
             }
         };
         //Upgrade button
@@ -134,23 +154,38 @@ public class BookManager_Cloud : MonoBehaviour
     public async void OnEquipButtonClick()
     {
         Debug.Log("Equip button clicked");
+        foreach (var kvp in objectData_CloudUpload)
+        {
+            kvp.Value.IsEquipped = false;
+        }
 
         if (objectData_Cloud.ContainsKey(clickedObject))
         {
             objectData_Cloud[clickedObject].IsEquipped = true;
+            objectData_CloudUpload[clickedObject].IsEquipped = true;
         }
 
+        // foreach (var kvp in objectData_CloudUpload)
+        // {
+        //     Debug.Log(
+        //         "Key: "
+        //             + kvp.Key.name
+        //             + ", Grade: "
+        //             + kvp.Value.Grade
+        //             + ", IsEquipped: "
+        //             + kvp.Value.IsEquipped
+        //     );
+        // }
         await UpdateRecordAsync();
-        loanDisplayManager.ResetLoanDisplayStatus();
     }
 
-    private async Task UpdateRecordAsync()
+    public async Task UpdateRecordAsync()
     {
         Debug.Log("cloud function called");
         // Save the objectLevelRecord_Cloud to the cloud or perform any other necessary updates
         var data = new Dictionary<string, object>
         {
-            { "objectLevelRecord_Cloud", objectData_Cloud }
+            { "objectLevelRecord_Cloud", objectData_CloudUpload }
         };
         // Task CloudSaveService.Instance.Data.Player.SaveAsync(Dictionary<string, object> data)；
         await CloudSaveService.Instance.Data.Player.SaveAsync(data);

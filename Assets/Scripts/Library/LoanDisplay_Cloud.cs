@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class LoanDisplayManager_Cloud : MonoBehaviour
 {
-    public Image image;
-    public Sprite sprite1;
-    public Sprite sprite2;
-    public Sprite sprite3;
-    public Sprite sprite4;
+    public GameObject OnLoan;
+    public GameObject miss_position;
+    public GameObject coin_position;
+    public GameObject range_position;
+    public GameObject energy_position;
 
     private BookManager_Cloud Cloud_bookManager;
 
@@ -18,6 +19,7 @@ public class LoanDisplayManager_Cloud : MonoBehaviour
         {
             Debug.LogError("Cloud_bookManager not found in the scene.");
         }
+        OnLoan.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -41,34 +43,31 @@ public class LoanDisplayManager_Cloud : MonoBehaviour
 
             if (missObjectValue)
             {
-                image.sprite = sprite1;
-                // Cloud_bookManager.objectData_Cloud[Cloud_bookManager.missObject].IsEquipped = false;
+                OnLoan.gameObject.SetActive(true);
+                OnLoan.transform.position = miss_position.transform.position;
+
+                Cloud_bookManager.objectData_Cloud[Cloud_bookManager.missObject].IsEquipped = false;
             }
             else if (coinObjectValue)
             {
-                image.sprite = sprite2;
-                // Cloud_bookManager.objectData_Cloud[Cloud_bookManager.coinObject].IsEquipped = false;
+                OnLoan.gameObject.SetActive(true);
+                OnLoan.transform.position = coin_position.transform.position;
+                Cloud_bookManager.objectData_Cloud[Cloud_bookManager.coinObject].IsEquipped = false;
             }
             else if (rangeObjectValue)
             {
-                image.sprite = sprite3;
-                // Cloud_bookManager.objectData_Cloud[Cloud_bookManager.rangeObject].IsEquipped =
-                //     false;
+                OnLoan.gameObject.SetActive(true);
+                OnLoan.transform.position = range_position.transform.position;
+                Cloud_bookManager.objectData_Cloud[Cloud_bookManager.rangeObject].IsEquipped =
+                    false;
             }
             else if (energyObjectValue)
             {
-                image.sprite = sprite4;
-                // Cloud_bookManager.objectData_Cloud[Cloud_bookManager.energyObject].IsEquipped =
-                //     false;
+                OnLoan.gameObject.SetActive(true);
+                OnLoan.transform.position = energy_position.transform.position;
+                Cloud_bookManager.objectData_Cloud[Cloud_bookManager.energyObject].IsEquipped =
+                    false;
             }
-        }
-    }
-
-    public void ResetLoanDisplayStatus()
-    {
-        foreach (var kvp in Cloud_bookManager.objectData_Cloud)
-        {
-            Cloud_bookManager.objectData_Cloud[kvp.Key].IsEquipped = false;
         }
     }
 }
