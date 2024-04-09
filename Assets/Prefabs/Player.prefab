@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -765641297320597646}
   - component: {fileID: 5170529802247872067}
   - component: {fileID: 3720049744730953375}
+  - component: {fileID: 1794374415636776876}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -122,7 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  timeInvincible: 2
 --- !u!61 &5170529802247872067
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -158,8 +158,8 @@ BoxCollider2D:
   m_Offset: {x: 0.0061413646, y: -0.8033042}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.25, y: 2.53125}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 3, y: 3}
     newSize: {x: 0.4, y: 0.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -195,3 +195,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!81 &1794374415636776876
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597290081262073769}
+  m_Enabled: 1
