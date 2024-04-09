@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SushiNote : NoteController
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        LoadData();
-        noteType = (isTarget) ? 1: 0;
+        base.Start();        
         destination = new Vector2(0, -2);
         Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
+        noteType = isTarget? 1: 0;
         targetSource = (noteType > 0) ? "ServiceBell" : "None";
         if (isTarget)
         {

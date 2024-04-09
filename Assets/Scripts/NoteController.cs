@@ -5,7 +5,9 @@ using TMPro;
 
 public class NoteController : MonoBehaviour
 {
-    protected Vector2 position, endPosition, checkPosition, destination;
+    protected Vector2 position, endPosition, checkPosition;
+    public Vector2 destination { get; protected set; }
+    public int noteID;
     public TMP_Text gradeText;
     public GameObject display;
     float speed, displaySpeed, beat, fullBeat, distanceThreshold, destroyTimer;
@@ -13,10 +15,11 @@ public class NoteController : MonoBehaviour
     protected int noteType;
     protected bool isDetected;
     public bool isClicked = false, isTarget;
+    public static bool isPaused;
     public string clickSource, targetSource;
     protected Rigidbody2D rb, displayRb;
     
-    protected void LoadData()
+    protected virtual void Start()
     {
         fullBeat = 60 / GameController.BPM;
         beat = fullBeat;
@@ -28,6 +31,7 @@ public class NoteController : MonoBehaviour
         perfectThreshold *= Time.fixedDeltaTime;
         distanceThreshold = displaySpeed;
         destroyTimer = -1f;
+        isPaused = false;
         
         rb = GetComponent<Rigidbody2D>();
         displayRb = display.GetComponent<Rigidbody2D>();
@@ -36,52 +40,54 @@ public class NoteController : MonoBehaviour
 
     protected virtual void Update()
     {
-        beat -= Time.deltaTime;
-        if (destroyTimer < 0)
+        if (!isPaused)
         {
-            if (beat <= 0)
+            beat -= Time.deltaTime;
+            if (destroyTimer < 0)
             {
-                beat = fullBeat;
-                displayRb.MovePosition(Vector2.MoveTowards(displayRb.position, endPosition, displaySpeed));            
-            }
-            rb.MovePosition(Vector2.MoveTowards(rb.position, endPosition, speed));
-        }
-        else
-        {
-            destroyTimer -= Time.deltaTime;
-            if (destroyTimer <= 0)
-                Destroy(gameObject);
-        }            
-        
-        if (isDetected && isClicked)
-        {
-            float timing = beat;
-            if (destination == new Vector2(-99,-99))
-            {
-                destination = GameObject.Find(clickSource).transform.position;
-            }
-            MoveToDestination();
-            destroyTimer = fullBeat / 2;
-            GameController.noteCount += 1;
-            if (clickSource == targetSource)
-            {                    
-                bool isPerfect = getDistance(checkPosition) < distanceThreshold &&
-                    (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
-                GameController.grade += (isPerfect) ? 1f : 0.9f;
-                gradeText.text = (isPerfect) ? "Perfect!" : "Good!";
-                GameController.comboCount += 1;
+                if (beat <= 0)
+                {
+                    beat = fullBeat;
+                    displayRb.MovePosition(Vector2.MoveTowards(displayRb.position, endPosition, displaySpeed));            
+                }
+                rb.MovePosition(Vector2.MoveTowards(rb.position, endPosition, speed));
             }
             else
             {
-                gradeText.text = "Wrong!";
-                GameController.comboCount = 0;
+                destroyTimer -= Time.deltaTime;
+                if (destroyTimer <= 0)
+                    Destroy(gameObject);
+            }            
+            
+            if (isDetected && isClicked)
+            {
+                float timing = beat;
+                if (destination == new Vector2(-99,-99))
+                {
+                    destination = GameObject.Find(clickSource).transform.position;
+                }
+                MoveToDestination();                
+                GameController.noteCount += 1;
+                if (clickSource == targetSource)
+                {                    
+                    bool isPerfect = getDistance(checkPosition) < distanceThreshold &&
+                        (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
+                    GameController.grade += isPerfect? 1f : 0.9f;
+                    gradeText.text = isPerfect? "Perfect!" : "Good!";
+                    GameController.comboCount += 1;
+                }
+                else
+                {
+                    gradeText.text = "Wrong!";
+                    GameController.comboCount = 0;
+                }
+                isDetected = false;
+            }        
+            
+            if ((Vector2)transform.position == endPosition)
+            {
+                Destroy(gameObject);
             }
-            isDetected = false;
-        }        
-        
-        if ((Vector2)transform.position == endPosition)
-        {
-            Destroy(gameObject);
         }
     }
 
@@ -89,6 +95,7 @@ public class NoteController : MonoBehaviour
     {
         displayRb.MovePosition(destination);
         rb.MovePosition(destination);
+        destroyTimer = fullBeat / 2;
     }
 
     public float getDistance(Vector2 position)

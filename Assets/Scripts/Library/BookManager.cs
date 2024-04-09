@@ -2,10 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
+using Unity.Services.Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+
+// await UnityServices.InitializeAsync();
+// await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+//Examples for saving data in the cloud.
+// var data = new Dictionary<string, object>{ { "MySaveKey", "HelloWorld" } };
+// await CloudSaveService.Instance.Data.ForceSaveAsync(data);
 
 public class BookManager : MonoBehaviour
 {
@@ -107,7 +116,7 @@ public class BookManager : MonoBehaviour
             objectLevelRecord[clickedObject] += 1;
 
             levelDisplay.text = "Current level: " + objectLevelRecord[clickedObject];
-            Debug.Log("updating" + objectLevelRecord[clickedObject]);
+            Debug.Log("updating " + objectLevelRecord[clickedObject]);
         }
     }
 
