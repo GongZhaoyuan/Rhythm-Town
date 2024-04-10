@@ -195,6 +195,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4125913772809849118, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2363879807
+      objectReference: {fileID: 0}
     - target: {fileID: 4637951213721849323, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -206,6 +210,10 @@ PrefabInstance:
     - target: {fileID: 5502784092506404479, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_LocalPosition.y
       value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456348908512050457, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: scene
+      value: MailGameEnd
       objectReference: {fileID: 0}
     - target: {fileID: 9007552110436054185, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_LocalPosition.x

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameController : NetworkBehaviour
 {
     public float musicBPM, speed = 10f, generateSpeed = 0.25f;
-    public static float BPM, noteSpeed, grade;
+    public static float BPM, noteSpeed, grade, accuracy;
     public static int noteCount, comboCount;
     public static List<GameObject> noteObjects;
     static float beat, countdownBeat, fullBeat;
@@ -21,7 +21,7 @@ public class GameController : NetworkBehaviour
     public AudioClip countIn;
     AudioSource audioSource, bgmAudioSource;
     static int countdown = 4;
-    protected int noteID;
+    protected int noteID, difficulty;
     protected Queue<bool> score;
 
     // Start is called before the first frame update
@@ -47,13 +47,14 @@ public class GameController : NetworkBehaviour
         noteCount = 0;
         comboCount = 0;
         isOver = false;
+        difficulty = GameStartManager.lastDifficulty;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (isOver) return;
-        
+
         if (isPaused)
         {
             countdownText.text = "";
@@ -69,7 +70,7 @@ public class GameController : NetworkBehaviour
                     beat = fullBeat / generateSpeed;
                     GenerateNote();
                 }
-                AccuracyCalculate();
+                accuracy = AccuracyCalculate();
                 DetectClick();
                 if (score.Count <= 0)
                 {
@@ -105,13 +106,16 @@ public class GameController : NetworkBehaviour
         return countdown < 0;
     }
 
-    void AccuracyCalculate()
+    float AccuracyCalculate()
     {
         float accuracy = grade / noteCount;
         if (float.IsNaN(accuracy)) { accuracy = 1f; }
         accuracyBar.anchorMax = Vector2.Lerp(accuracyBar.anchorMax, new Vector2(accuracy, 1), 3 * Time.deltaTime);
-        accuracyText.text = $"{ Mathf.Round(accuracy * 10000) / 100f }%";
+        accuracy = Mathf.Round(accuracy * 10000) / 100f;
+        accuracyText.text = $"{ accuracy }%";
         comboText.text = (comboCount == 0) ? "" : $"{comboCount}\nCombo";
+
+        return accuracy;
     }
 
     void DetectClick()
