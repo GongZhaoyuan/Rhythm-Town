@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Core;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AuthManager : MonoBehaviour
 {
@@ -50,7 +51,10 @@ public class AuthManager : MonoBehaviour
 
     public async void On_LogIn_LogInPressed()
     {
-        await SignInWithUsernamePasswordAsync(logInEmail.text, logInPassword.text);
+        await SignInWithUsernamePasswordAsync(
+            logInEmail.text.Replace("\u200B", ""),
+            logInPassword.text.Replace("\u200B", "")
+        );
     }
 
     async Task SignUpWithUsernamePasswordAsync(string username, string password)
@@ -66,6 +70,7 @@ public class AuthManager : MonoBehaviour
             Debug.Log("SignUp is successful.");
             Debug.Log("PlayerID: " + AuthenticationService.Instance.PlayerId);
             SignUpPanel.gameObject.SetActive(false);
+            // SignInPanel.gameObject.SetActive(true);
             AvatarChoosing.gameObject.SetActive(true);
             await UpdateRecordAsync(
                 signUpNickName.text.Replace("\u200B", ""),
@@ -99,6 +104,7 @@ public class AuthManager : MonoBehaviour
             );
             Debug.Log("SignIn is successful.");
             Debug.Log("PlayerID: " + AuthenticationService.Instance.PlayerId);
+            SceneManager.LoadScene("Map");
         }
         catch (AuthenticationException ex)
         {
@@ -116,7 +122,7 @@ public class AuthManager : MonoBehaviour
 
     public async Task UpdateRecordAsync(string nickname, string username, string password)
     {
-        Debug.Log(nickname + "saved to cloud");
+        Debug.Log(nickname + " saved to cloud");
         // Save the objectLevelRecord_Cloud to the cloud or perform any other necessary updates
         var data = new Dictionary<string, object>
         {
