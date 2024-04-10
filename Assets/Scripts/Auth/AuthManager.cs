@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
 using Unity.Services.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AuthManager : MonoBehaviour
 {
-    public GameObject AvatarChoosing;
     public GameObject SignUpPanel;
+    public GameObject SignInPanel;
+    public GameObject AvatarChoosing;
 
     const string LAST_USERNAME_KEY = "LAST_USERNAME",
         LAST_PASSWORD_KEY = "LAST_PASSWORD";
@@ -18,7 +21,11 @@ public class AuthManager : MonoBehaviour
     TMP_Text signUpEmailAsUserName;
 
     [SerializeField]
+    // InputField signUpPassword;
     TMP_Text signUpPassword;
+
+    [SerializeField]
+    TMP_Text signUpNickName;
 
     [SerializeField]
     TMP_Text logInEmail;
@@ -26,9 +33,19 @@ public class AuthManager : MonoBehaviour
     [SerializeField]
     TMP_Text logInPassword;
 
+    void Start()
+    {
+        SignInPanel.gameObject.SetActive(true);
+        SignUpPanel.gameObject.SetActive(false);
+        AvatarChoosing.gameObject.SetActive(false);
+    }
+
     public async void On_SignUp_SignUpPressed()
     {
-        await SignUpWithUsernamePasswordAsync(signUpEmailAsUserName.text, signUpPassword.text);
+        await SignUpWithUsernamePasswordAsync(
+            signUpEmailAsUserName.text.Replace("\u200B", ""),
+            signUpPassword.text.Replace("\u200B", "")
+        );
     }
 
     public async void On_LogIn_LogInPressed()
@@ -50,6 +67,11 @@ public class AuthManager : MonoBehaviour
             Debug.Log("PlayerID: " + AuthenticationService.Instance.PlayerId);
             SignUpPanel.gameObject.SetActive(false);
             AvatarChoosing.gameObject.SetActive(true);
+            await UpdateRecordAsync(
+                signUpNickName.text.Replace("\u200B", ""),
+                signUpEmailAsUserName.text.Replace("\u200B", ""),
+                signUpPassword.text.Replace("\u200B", "")
+            );
         }
         catch (AuthenticationException ex)
         {
@@ -90,5 +112,20 @@ public class AuthManager : MonoBehaviour
             // Notify the player with the proper error message
             Debug.LogException(ex);
         }
+    }
+
+    public async Task UpdateRecordAsync(string nickname, string username, string password)
+    {
+        Debug.Log(nickname + "saved to cloud");
+        // Save the objectLevelRecord_Cloud to the cloud or perform any other necessary updates
+        var data = new Dictionary<string, object>
+        {
+            { "inGameDisplayNickName", nickname },
+            { "PlayerInfo_email", username },
+            { "PlayerInfo_psw", password }
+        };
+
+        // Task CloudSaveService.Instance.Data.Player.SaveAsync(Dictionary<string, object> data)；
+        await CloudSaveService.Instance.Data.Player.SaveAsync(data);
     }
 }
