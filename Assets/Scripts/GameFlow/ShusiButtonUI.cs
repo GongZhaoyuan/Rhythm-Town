@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class ShusiButtonUI : MonoBehaviour
 {
     [SerializeField]
-    private string newGameLevel = "Sushi";
+    private string SushiGameLevel = "Sushi";
 
     public GameObject dialogBox;
 
     public void NewGameButton()
     {
-        SceneManager.LoadScene(newGameLevel);
+        SceneManager.LoadScene(SushiGameLevel);
     }
 
     public void ClosePage()

@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class EmailButtonUI : MonoBehaviour
 {
     [SerializeField]
-    private string MailGameLevel = "Mail";
+    private string GameLevel;
 
     public GameObject dialogBox;
 
     public void NewGameButton()
     {
-        SceneManager.LoadScene(MailGameLevel);
+        SceneManager.LoadScene(GameLevel);
     }
 
     public void ClosePage()
