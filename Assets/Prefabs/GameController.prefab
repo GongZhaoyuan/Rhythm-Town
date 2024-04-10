@@ -202,7 +202,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2659730527143669311}
   - component: {fileID: 5873496341977212279}
+  - component: {fileID: 7634808300467292580}
   - component: {fileID: 9191321459616194144}
+  - component: {fileID: 2732705871378840995}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -326,6 +328,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7634808300467292580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7512130864350164287}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2050197304
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &9191321459616194144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +373,21 @@ MonoBehaviour:
   accuracyText: {fileID: 0}
   comboText: {fileID: 0}
   countIn: {fileID: 8300000, guid: aa97ce2eceec14e008bdcf3dd6a542d0, type: 3}
+--- !u!114 &2732705871378840995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7512130864350164287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f7eaf6dd2a2478c939f6bb532e39ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: GameEnd
+  duration: 1
+  color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &8121701692437104355
 GameObject:
   m_ObjectHideFlags: 0
