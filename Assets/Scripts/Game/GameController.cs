@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ricimi;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class GameController : NetworkBehaviour
     public static int noteCount, comboCount;
     public static List<GameObject> noteObjects;
     static float beat, countdownBeat, fullBeat;
-    public static bool isPaused;
+    public static bool isPaused, isOver;
     public GameObject notePrefab;
     public Transform spawnPoint, endPoint, checkPoint;
     public RectTransform accuracyBar;
@@ -45,11 +46,14 @@ public class GameController : NetworkBehaviour
         noteID = 0;
         noteCount = 0;
         comboCount = 0;
+        isOver = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isOver) return;
+        
         if (isPaused)
         {
             countdownText.text = "";
@@ -67,6 +71,11 @@ public class GameController : NetworkBehaviour
                 }
                 AccuracyCalculate();
                 DetectClick();
+                if (score.Count <= 0)
+                {
+                    GetComponent<SceneTransition>().PerformTransition();
+                    isOver = true;
+                }
             }
         }
     }
