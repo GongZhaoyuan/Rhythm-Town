@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 namespace Ricimi
 {
-    // This class is responsible for popup management. Popups follow the traditional behavior of
-    // automatically blocking the input on elements behind it and adding a background texture.
     public class Popup : MonoBehaviour
     {
         public Color backgroundColor = new Color(10.0f / 255.0f, 10.0f / 255.0f, 10.0f / 255.0f, 0.6f);

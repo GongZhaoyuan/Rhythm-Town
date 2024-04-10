@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 7811354892569445471}
   - component: {fileID: 4605687509102928702}
   - component: {fileID: 7363478391566633584}
-  - component: {fileID: 1917343393490994326}
   m_Layer: 0
   m_Name: PlayerG1
   m_TagString: Untagged
@@ -190,7 +189,7 @@ BoxCollider2D:
   m_Offset: {x: -0.03733465, y: -1.5250608}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.15}
     oldSize: {x: 4.8, y: 4.8}
     newSize: {x: 0.4, y: 0.81}
     adaptiveTilingThreshold: 0.5
@@ -227,11 +226,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!81 &1917343393490994326
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9189820207245861125}
-  m_Enabled: 1
