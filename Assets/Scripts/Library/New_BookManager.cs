@@ -34,6 +34,12 @@ public class New_BookManager : MonoBehaviour
     public Button Range4Borrow;
     public Button Range4Return;
 
+    //OnLoan
+    public GameObject CoinStar;
+    public GameObject EnergyStar;
+    public GameObject MissStar;
+    public GameObject RangeStar;
+
     public Dictionary<string, BookData> objectData_Cloud;
 
     // LoanDisplayManager_Cloud loanDisplayManager = FindObjectOfType<LoanDisplayManager_Cloud>();
@@ -132,10 +138,46 @@ public class New_BookManager : MonoBehaviour
         {
             bookData.IsEquipped = false;
         }
+        Coin1Return.gameObject.SetActive(false);
+        Coin1Borrow.gameObject.SetActive(true);
+        CoinStar.gameObject.SetActive(false);
+        Energy2Return.gameObject.SetActive(false);
+        Energy2Borrow.gameObject.SetActive(true);
+        EnergyStar.gameObject.SetActive(false);
+        Miss3Return.gameObject.SetActive(false);
+        Miss3Borrow.gameObject.SetActive(true);
+        MissStar.gameObject.SetActive(false);
+        Range4Return.gameObject.SetActive(false);
+        Range4Borrow.gameObject.SetActive(true);
+        RangeStar.gameObject.SetActive(false);
 
         if (objectData_Cloud.ContainsKey(bookName))
         {
             objectData_Cloud[bookName].IsEquipped = isEquipped;
+            switch (bookName)
+            {
+                case "Coin":
+                    Coin1Return.gameObject.SetActive(isEquipped);
+                    Coin1Borrow.gameObject.SetActive(!isEquipped);
+                    CoinStar.gameObject.SetActive(isEquipped);
+                    break;
+                case "Energy":
+                    Energy2Return.gameObject.SetActive(isEquipped);
+                    Energy2Borrow.gameObject.SetActive(!isEquipped);
+                    EnergyStar.gameObject.SetActive(isEquipped);
+                    break;
+                case "Miss":
+                    Miss3Return.gameObject.SetActive(isEquipped);
+                    Miss3Borrow.gameObject.SetActive(!isEquipped);
+                    MissStar.gameObject.SetActive(isEquipped);
+                    break;
+                case "Range":
+                    Range4Return.gameObject.SetActive(isEquipped);
+                    Range4Borrow.gameObject.SetActive(!isEquipped);
+                    RangeStar.gameObject.SetActive(isEquipped);
+                    break;
+                // Add cases for other books if needed
+            }
         }
         await UpdateRecordAsync();
     }
