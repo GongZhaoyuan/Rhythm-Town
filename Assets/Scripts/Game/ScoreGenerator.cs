@@ -10,10 +10,12 @@ public class ScoreGenerator
         new List<bool>() {true, false, false, true}
     };
 
-    public static Queue<bool> GetScore(float length, int seed)
+    public static Queue<bool> GetScore(int musicLength, int barLength, int seed)
     {
+        float length = musicLength * (barLength - 2);
         Queue<bool> score = new Queue<bool>();
         Random.InitState(seed);
+
         while (length > 0)
         {
             List<bool> choice = easy[Random.Range(0, easy.Count - 1)];
@@ -23,6 +25,12 @@ public class ScoreGenerator
             }
             length -= choice.Count;
         }
+
+        for (int i = 0; i < barLength * 3; i++)
+        {
+            score.Enqueue(false);
+        }
+
         return score;
     }
 }
