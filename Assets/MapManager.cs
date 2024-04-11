@@ -10,6 +10,7 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         Debug.Log("start");
+
         string toggleName = ToggleManager.selectedToggleName;
 
         if (toggleName == "Toggle4")

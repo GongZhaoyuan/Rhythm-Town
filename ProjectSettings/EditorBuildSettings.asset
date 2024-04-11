@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Mail.unity
     guid: 4fe5ca064e3394c0d97b39c002fa0290
   - enabled: 1
-    path: Assets/Scenes/SushiGameOver.unity
+    path: Assets/Scenes/BAK/SushiGameOver.unity
     guid: e0f809f34eaed46d2b7934f89850a3ea
   - enabled: 1
     path: Assets/Scenes/MultiplayerMenu.unity
@@ -27,13 +27,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: aeae720b7e03dfc488ec67ee00f23c3c
   - enabled: 1
-    path: Assets/Scenes/Library_BK.unity
+    path: Assets/Scenes/BAK/Library_BK.unity
     guid: f7aaf42fea91548ad803aae7d15cfec8
   - enabled: 1
-    path: Assets/Scenes/GameStart.unity
+    path: Assets/Scenes/SushiGameStart.unity
     guid: 0cbaecb27f61a4d1b880b67fe76d8a94
   - enabled: 1
-    path: Assets/Scenes/GameEnd.unity
+    path: Assets/Scenes/SushiGameEnd.unity
     guid: 0c94ab991601c47248e6a883f5b16323
   - enabled: 1
     path: Assets/Scenes/Library.unity
