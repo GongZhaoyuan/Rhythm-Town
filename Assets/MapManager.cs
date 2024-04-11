@@ -12,16 +12,22 @@ public class MapManager : MonoBehaviour
         Debug.Log("start");
         string toggleName = ToggleManager.selectedToggleName;
 
-        if (toggleName == "Toggle4")
+        switch (toggleName)
         {
-            playerInstance = Instantiate(G1PlayerPrefab, Vector2.zero, Quaternion.identity);
+            case "Toggle4":
+                playerInstance = Instantiate(G1PlayerPrefab, Vector2.zero, Quaternion.identity);
+                Debug.Log("prefab4");
+                break;
+            
+            case "Toggle2":
+                playerInstance = Instantiate(B1PlayerPrefab, Vector2.zero, Quaternion.identity);
+                Debug.Log("prefab2");
+                break;
 
-            Debug.Log("prefab4");
-        }
-        else if (toggleName == "Toggle2")
-        {
-            playerInstance = Instantiate(B1PlayerPrefab, Vector2.zero, Quaternion.identity);
-            Debug.Log("prefab2");
+            default:
+                playerInstance = Instantiate(G1PlayerPrefab, Vector2.zero, Quaternion.identity);
+                Debug.Log("default");
+                break;
         }
     }
 }
