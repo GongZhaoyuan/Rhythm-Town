@@ -12,11 +12,27 @@ public class MapManager : MonoBehaviour
 
     public static GameObject playerInstance;
 
+
     private void Start()
     {
-        Debug.Log("start");
+        LoadData();
+    }
 
-        string toggleName = ToggleManager.selectedToggleName;
+    public async void LoadData()
+    {
+        var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
+          "Avatar"
+        });
+
+        string toggleName = string.Empty;
+
+        if (playerData != null && playerData.ContainsKey("Avatar"))
+        {
+            toggleName = playerData["Avatar"].ToString();
+        }
+
+
+
 
         switch (toggleName)
         {
@@ -35,13 +51,7 @@ public class MapManager : MonoBehaviour
                 Debug.Log("default");
                 break;
         }
-    }
 
-    public async void LoadData()
-    {
-        var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
-          "firstKeyName"
-        });
     }
 
 }
