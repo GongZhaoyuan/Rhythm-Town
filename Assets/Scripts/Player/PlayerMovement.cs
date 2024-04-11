@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
                 isInvincible = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 2f, LayerMask.GetMask("Entry"));
             if (hit.collider != null)
