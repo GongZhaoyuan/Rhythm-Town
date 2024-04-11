@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
+using Unity.Services.CloudSave.Models;
+using Unity.Services.Core;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -19,7 +24,7 @@ public class MapManager : MonoBehaviour
                 playerInstance = Instantiate(G1PlayerPrefab, Vector2.zero, Quaternion.identity);
                 Debug.Log("prefab4");
                 break;
-            
+
             case "Toggle2":
                 playerInstance = Instantiate(B1PlayerPrefab, Vector2.zero, Quaternion.identity);
                 Debug.Log("prefab2");
@@ -31,4 +36,12 @@ public class MapManager : MonoBehaviour
                 break;
         }
     }
+
+    public async void LoadData()
+    {
+        var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
+          "firstKeyName"
+        });
+    }
+
 }
