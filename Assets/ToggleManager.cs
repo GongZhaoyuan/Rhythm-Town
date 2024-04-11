@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Unity.Services.CloudSave;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,11 +14,9 @@ public class ToggleManager : MonoBehaviour
 
     public static string selectedToggleName;
 
-    private void Start()
-    {
-    }
+    private void Start() { }
 
-    public void HandleConfirm()
+    public async void HandleConfirm()
     {
         // 获取选中的Toggle
         Toggle activeToggle = toggleGroup.ActiveToggles().FirstOrDefault();
@@ -39,16 +41,26 @@ public class ToggleManager : MonoBehaviour
             if (activeToggle != null)
             {
                 selectedToggleName = activeToggle.name;
-
+                await UpdateRecordAsync(selectedToggleName);
                 SceneManager.LoadScene("Map");
             }
         }
         Debug.Log("button pressed");
-
     }
+
     public string GetSelectedToggleName()
     {
         return selectedToggleName;
     }
 
+    public async Task UpdateRecordAsync(string selectedToggleName)
+    {
+        String sendback = GetSelectedToggleName();
+        Debug.Log("avatar" + selectedToggleName + " saved to cloud");
+        // Save the objectLevelRecord_Cloud to the cloud or perform any other necessary updates
+        var data = new Dictionary<string, object> { { "Avatar", selectedToggleName }, };
+
+        // Task CloudSaveService.Instance.Data.Player.SaveAsync(Dictionary<string, object> data)；
+        await CloudSaveService.Instance.Data.Player.SaveAsync(data);
+    }
 }

@@ -52,9 +52,10 @@ public class New_BookManager : MonoBehaviour
         public bool IsEquipped { get; set; }
     }
 
-    void Start()
+    async void Start()
     {
         StartCoroutine(StartAsync());
+        await LoadData();
     }
 
     private IEnumerator StartAsync()
@@ -252,6 +253,20 @@ public class New_BookManager : MonoBehaviour
             objectData_Cloud["Range"].IsEquipped = false;
             SetBookEquipped("Range", false);
         }
+    }
+
+    public async Task LoadData()
+    {
+        Debug.Log("testing cloud load data");
+        var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(
+            new HashSet<string> { "objectLevelRecord_Cloud" }
+        );
+
+        if (playerData.TryGetValue("objectLevelRecord_Cloud", out var firstKey))
+        {
+            Debug.Log($"firstKeyName value: {firstKey.Value.GetAs<string>()}");
+        }
+        Debug.Log("playerdata from cloud:" + playerData);
     }
 
     public async Task UpdateRecordAsync()
