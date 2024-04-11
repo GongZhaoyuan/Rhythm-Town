@@ -517,9 +517,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4125913772809849118, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1085282866
+      objectReference: {fileID: 0}
     - target: {fileID: 4637951213721849323, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456348908512050457, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: scene
+      value: SushiGameEnd
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
