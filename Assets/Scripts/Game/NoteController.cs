@@ -21,7 +21,7 @@ public class NoteController : MonoBehaviour
     
     protected virtual void Start()
     {
-        fullBeat = 60 / GameController.BPM;
+        fullBeat = 60 / GameController.BPM / GameController.generateSpeed;
         beat = fullBeat;
         position = GameController.spawnPosition;
         endPosition = GameController.endPosition;
@@ -48,8 +48,9 @@ public class NoteController : MonoBehaviour
                 if (beat <= 0)
                 {
                     beat = fullBeat;
-                    displayRb.MovePosition(Vector2.MoveTowards(displayRb.position, endPosition, displaySpeed));            
+                    //displayRb.MovePosition(Vector2.MoveTowards(displayRb.position, endPosition, displaySpeed));            
                 }
+                displayRb.MovePosition(Vector2.MoveTowards(displayRb.position, endPosition, speed));
                 rb.MovePosition(Vector2.MoveTowards(rb.position, endPosition, speed));
             }
             else

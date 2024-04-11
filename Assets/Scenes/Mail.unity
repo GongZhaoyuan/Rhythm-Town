@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: notePrefab
       value: 
       objectReference: {fileID: 6898789336938769288, guid: b260624e1b6114b6395e02ec6cd83de0, type: 3}
+    - target: {fileID: 3402569775353601754, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: musiclength
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 3777289826792048534, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5

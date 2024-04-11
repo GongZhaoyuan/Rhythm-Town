@@ -10,7 +10,7 @@ public class ScoreGenerator
         new List<bool>() {true, false, false, true}
     };
 
-    public static Queue<bool> GetScore(int length, int seed)
+    public static Queue<bool> GetScore(float length, int seed)
     {
         Queue<bool> score = new Queue<bool>();
         Random.InitState(seed);
