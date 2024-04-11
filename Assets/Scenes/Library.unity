@@ -3177,55 +3177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1121171541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1121171542}
-  - component: {fileID: 1121171543}
-  m_Layer: 0
-  m_Name: Cloud_LoanDisplay
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1121171542
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121171541}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3, y: -3.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1121171543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121171541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ebf957c798c6e74bae6fb0045b0867e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  sprite1: {fileID: 0}
-  sprite2: {fileID: 0}
-  sprite3: {fileID: 0}
-  sprite4: {fileID: 0}
 --- !u!224 &1180081705 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5594455886266072352, guid: fef951ddcbc034ba9aec2effa028492e, type: 3}
@@ -4958,8 +4909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5557645be8af34debbc50cbe8b5b7f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInfinite: 0
-  difficulty: 0
+  gameName: 
   skillNo: 0
   skillLevel: 0
 --- !u!4 &1964012921
@@ -6349,5 +6299,4 @@ SceneRoots:
   - {fileID: 1404182682}
   - {fileID: 1964012921}
   - {fileID: 2098648173}
-  - {fileID: 1121171542}
   - {fileID: 2050119750}

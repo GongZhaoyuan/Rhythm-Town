@@ -1,11 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
+using Unity.Services.CloudSave.Models;
 using Unity.Services.Core;
+using Unity.Services.Samples.ServerlessMultiplayerGame;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,11 +46,12 @@ public class New_BookManager : MonoBehaviour
     public GameObject RangeStar;
 
     public Dictionary<string, BookData> objectData_Cloud;
+    public Dictionary<string, BookData> cloudLoadDic;
 
     // LoanDisplayManager_Cloud loanDisplayManager = FindObjectOfType<LoanDisplayManager_Cloud>();
 
 
-
+    [System.Serializable]
     public class BookData
     {
         public int Level { get; set; }
@@ -56,6 +62,10 @@ public class New_BookManager : MonoBehaviour
     {
         StartCoroutine(StartAsync());
         await LoadData();
+        CoinLevelText.text = "Lv." + objectData_Cloud["Coin"].Level + "/bla";
+        EnergyLevelText.text = "Lv." + objectData_Cloud["Energy"].Level + "/bla";
+        MissLevelText.text = "Lv." + objectData_Cloud["Miss"].Level + "/bla";
+        RangeLevelText.text = "Lv." + objectData_Cloud["Range"].Level + "/bla";
     }
 
     private IEnumerator StartAsync()
@@ -257,16 +267,44 @@ public class New_BookManager : MonoBehaviour
 
     public async Task LoadData()
     {
-        Debug.Log("testing cloud load data");
         var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(
             new HashSet<string> { "objectLevelRecord_Cloud" }
         );
 
-        if (playerData.TryGetValue("objectLevelRecord_Cloud", out var firstKey))
+        if (playerData.ContainsKey("objectLevelRecord_Cloud"))
         {
-            Debug.Log($"firstKeyName value: {firstKey.Value.GetAs<string>()}");
+            Item item = playerData["objectLevelRecord_Cloud"];
+
+            Debug.Log(item.Value);
+            cloudLoadDic = item.Value.GetAs<Dictionary<string, BookData>>();
+
+            Debug.Log("newDic" + cloudLoadDic);
+            Debug.Log("newDic coin level:" + cloudLoadDic["Coin"].Level);
+
+            foreach (var kvp in objectData_Cloud.ToList())
+            {
+                string fieldName = kvp.Key;
+                BookData originalBookData = kvp.Value;
+                BookData cloudBookData = cloudLoadDic.ContainsKey(fieldName)
+                    ? cloudLoadDic[fieldName]
+                    : null;
+
+                if (cloudBookData != null)
+                {
+                    BookData updatedBookData = new BookData
+                    {
+                        Level = cloudBookData.Level,
+                        IsEquipped = cloudBookData.IsEquipped
+                    };
+
+                    objectData_Cloud[fieldName] = updatedBookData;
+                }
+            }
         }
-        Debug.Log("playerdata from cloud:" + playerData);
+        else
+        {
+            Debug.Log("Error when fetching objectLevelRecord_Cloud from cloud.");
+        }
     }
 
     public async Task UpdateRecordAsync()
