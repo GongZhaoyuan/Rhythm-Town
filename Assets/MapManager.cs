@@ -5,35 +5,22 @@ using Unity.Services.CloudSave.Models;
 using Unity.Services.Core;
 using UnityEngine;
 
+using Cinemachine;
+
 public class MapManager : MonoBehaviour
 {
     public GameObject G1PlayerPrefab;
     public GameObject B1PlayerPrefab;
+    public GameObject virtualCamera;
 
     public static GameObject playerInstance;
+    private string toggleName;
+
 
 
     private void Start()
     {
         LoadData();
-    }
-
-    public async void LoadData()
-    {
-        var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
-          "Avatar"
-        });
-
-        string toggleName = string.Empty;
-
-        if (playerData != null && playerData.ContainsKey("Avatar"))
-        {
-            toggleName = playerData["Avatar"].ToString();
-        }
-
-
-
-
         switch (toggleName)
         {
             case "Toggle4":
@@ -51,6 +38,31 @@ public class MapManager : MonoBehaviour
                 Debug.Log("default");
                 break;
         }
+
+        virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerInstance.transform;
+
+    }
+
+
+
+    public async void LoadData()
+    {
+        var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> {
+          "Avatar"
+        });
+
+        if (playerData.ContainsKey("Avatar"))
+        {
+            Item item = playerData["Avatar"];
+
+            toggleName = item.Value.GetAsString();
+
+            Debug.Log("toggleName value: " + toggleName);
+        }
+
+
+
+
 
     }
 
