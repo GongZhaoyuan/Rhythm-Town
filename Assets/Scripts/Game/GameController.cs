@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class GameController : NetworkBehaviour
 {
-    public float musicBPM, speed = 10f, generateSpeed = 0.25f;
-    public static float BPM, noteSpeed, grade, accuracy;
+    public float musicBPM, speed = 10f, musiclength;
+    public static float BPM, noteSpeed, generateSpeed, grade, accuracy;
     public static int noteCount, comboCount;
     public static List<GameObject> noteObjects;
     static float beat, countdownBeat, fullBeat;
-    public static bool isPaused, isOver;
+    public static bool isPaused, isOver, isGameEnd;
     public GameObject notePrefab;
     public Transform spawnPoint, endPoint, checkPoint;
     public RectTransform accuracyBar;
@@ -20,8 +20,8 @@ public class GameController : NetworkBehaviour
     public TMP_Text countdownText, accuracyText, comboText;
     public AudioClip countIn;
     AudioSource audioSource, bgmAudioSource;
-    static int countdown = 4;
-    protected int noteID, difficulty;
+    static int countdown = 4, barLength;
+    protected int noteID, difficulty = 1;
     protected Queue<bool> score;
 
     // Start is called before the first frame update
@@ -30,30 +30,57 @@ public class GameController : NetworkBehaviour
         BPM = musicBPM;
         audioSource = GetComponent<AudioSource>();
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
         checkPosition = checkPoint.position;
+
         fullBeat = 60 / BPM;
         beat = fullBeat;
-        countdownBeat = fullBeat;
+        countdownBeat = fullBeat;        
+
+        difficulty = GameStartManager.lastDifficulty;
+        List<int> barLengths = new List<int> {2, 4, 4, 8};
+        barLength = barLengths[difficulty];
+        generateSpeed = (float)barLength / 4;
+        score = ScoreGenerator.GetScore(musiclength * barLength, 42);
+
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
         noteObjects = new List<GameObject>();
-        score = ScoreGenerator.GetScore(320, 42);
+
         accuracyBar.anchorMax = new Vector2(1, 1);
         accuracyText.text = "100%";
+
         isPaused = false;
+        isOver = false;
+        isGameEnd = false;
+
         grade = 0f;
         noteID = 0;
         noteCount = 0;
         comboCount = 0;
-        isOver = false;
-        difficulty = GameStartManager.lastDifficulty;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isOver) return;
+        if (isGameEnd) return;
+
+        if (isOver) {
+            beat -= Time.deltaTime;
+            if (beat <= 0)
+            {
+                beat = fullBeat / generateSpeed;
+                countdown--;
+                Debug.Log("" + countdown);
+            }
+            if (countdown <= 0)
+            {
+                GetComponent<SceneTransition>().PerformTransition();
+                isGameEnd = true;                
+            }
+            return;        
+        }
 
         if (isPaused)
         {
@@ -73,9 +100,9 @@ public class GameController : NetworkBehaviour
                 accuracy = AccuracyCalculate();
                 DetectClick();
                 if (score.Count <= 0)
-                {
-                    GetComponent<SceneTransition>().PerformTransition();
+                {                    
                     isOver = true;
+                    countdown = barLength * 2;
                 }
             }
         }
@@ -140,7 +167,7 @@ public class GameController : NetworkBehaviour
         }
     }
 
-    protected virtual void RecordNote(GameObject noteObject) {}
+    protected virtual void RecordNote(GameObject noteObject) { return; }
 
     protected virtual void GenerateNote()
     {
