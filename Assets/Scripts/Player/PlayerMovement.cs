@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -14,12 +12,18 @@ public class PlayerMovement : MonoBehaviour
 
     Animator animator;
     Vector2 lookDirection = new Vector2(1, 0);
+    static Vector2 position, lastPosition;
 
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        if (lastPosition != null)
+        {
+            Debug.Log(lastPosition);
+            rigidbody2d.MovePosition(lastPosition);
+        }
 
     }
 
@@ -49,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.E))
-        {
+        {            
+            /*
             RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 2f, LayerMask.GetMask("Entry"));
             if (hit.collider != null)
             {
@@ -59,12 +64,20 @@ public class PlayerMovement : MonoBehaviour
                     character.DisplayDialog();
                 }
             }
+            */
         }
+    }
+
+    public static void RecordLastPosition()
+    {
+        lastPosition = position;
     }
 
     void FixedUpdate()
     {
-        Vector2 position = rigidbody2d.position;
+        Debug.Log("p"+position);
+
+        position = rigidbody2d.position;
         position.x = position.x + speed * horizontal * Time.deltaTime;
         position.y = position.y + speed * vertical * Time.deltaTime;
 

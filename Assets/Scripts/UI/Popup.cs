@@ -17,6 +17,7 @@ namespace Ricimi
         public void Open()
         {
             AddBackground();
+            EnterBuilding.isPopupOpened = true;
         }
 
         public void Close()
@@ -27,6 +28,7 @@ namespace Ricimi
 
             RemoveBackground();
             StartCoroutine(RunPopupDestroy());
+            EnterBuilding.isPopupOpened = false;
         }
 
         // We destroy the popup automatically 0.5 seconds after closing it.

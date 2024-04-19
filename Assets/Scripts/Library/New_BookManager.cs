@@ -50,6 +50,8 @@ public class New_BookManager : MonoBehaviour
 
     // LoanDisplayManager_Cloud loanDisplayManager = FindObjectOfType<LoanDisplayManager_Cloud>();
 
+    int maxLevel = 5;
+
 
     [System.Serializable]
     public class BookData
@@ -62,10 +64,10 @@ public class New_BookManager : MonoBehaviour
     {
         StartCoroutine(StartAsync());
         await LoadData();
-        CoinLevelText.text = "Lv." + objectData_Cloud["Coin"].Level + "/bla";
-        EnergyLevelText.text = "Lv." + objectData_Cloud["Energy"].Level + "/bla";
-        MissLevelText.text = "Lv." + objectData_Cloud["Miss"].Level + "/bla";
-        RangeLevelText.text = "Lv." + objectData_Cloud["Range"].Level + "/bla";
+        CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}";
+        EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}";
+        MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";
+        RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";
     }
 
     private IEnumerator StartAsync()
@@ -114,32 +116,32 @@ public class New_BookManager : MonoBehaviour
         infoText.text = "Range: The accuracy detection rage will increase!";
     }
 
-    public void CoinLevelUP()
+    public async void CoinLevelUP()
     {
         Debug.Log("coin level up");
         objectData_Cloud["Coin"].Level += 1;
-        CoinLevelText.text = "Lv." + objectData_Cloud["Coin"].Level + "/bla";
-        // UpdateRecordAsync();
+        CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}";;
+        await UpdateRecordAsync();
     }
 
     public async void EnergyLevelUP()
     {
         objectData_Cloud["Energy"].Level += 1;
-        EnergyLevelText.text = "Lv." + objectData_Cloud["Energy"].Level + "/bla";
+        EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}";;
         await UpdateRecordAsync();
     }
 
     public async void MissLevelUP()
     {
         objectData_Cloud["Miss"].Level += 1;
-        MissLevelText.text = "Lv." + objectData_Cloud["Miss"].Level + "/bla";
+        MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";;
         await UpdateRecordAsync();
     }
 
     public async void RangeLevelUP()
     {
         objectData_Cloud["Range"].Level += 1;
-        RangeLevelText.text = "Lv." + objectData_Cloud["Range"].Level + "/bla";
+        RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";;
         await UpdateRecordAsync();
     }
 

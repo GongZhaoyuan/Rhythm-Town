@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : NetworkBehaviour
 {
-    public float musicBPM, speed = 10f, musiclength;
+    public float musicBPM, speed = 10f;
+    public int musiclength;
     public static float BPM, noteSpeed, generateSpeed, grade, accuracy;
     public static int noteCount, comboCount;
     public static List<GameObject> noteObjects;
@@ -43,7 +44,7 @@ public class GameController : NetworkBehaviour
         List<int> barLengths = new List<int> {2, 4, 4, 8};
         barLength = barLengths[difficulty];
         generateSpeed = (float)barLength / 4;
-        score = ScoreGenerator.GetScore(musiclength * barLength, 42);
+        score = ScoreGenerator.GetScore(musiclength, barLength, 42);
 
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
         noteObjects = new List<GameObject>();
