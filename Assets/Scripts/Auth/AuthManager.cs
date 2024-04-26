@@ -19,20 +19,20 @@ public class AuthManager : MonoBehaviour
         LAST_PASSWORD_KEY = "LAST_PASSWORD";
 
     [SerializeField]
-    TMP_Text signUpEmailAsUserName;
+    TMP_InputField signUpEmailAsUserName;
 
     [SerializeField]
     // InputField signUpPassword;
-    TMP_Text signUpPassword;
+    TMP_InputField signUpPassword;
 
     [SerializeField]
-    TMP_Text signUpNickName;
+    TMP_InputField signUpNickName;
 
     [SerializeField]
-    TMP_Text logInEmail;
+    TMP_InputField logInEmail;
 
     [SerializeField]
-    TMP_Text logInPassword;
+    TMP_InputField logInPassword;
 
     void Start()
     {
