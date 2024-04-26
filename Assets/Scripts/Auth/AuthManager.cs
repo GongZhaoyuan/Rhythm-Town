@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Ricimi;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
@@ -104,7 +105,7 @@ public class AuthManager : MonoBehaviour
             );
             Debug.Log("SignIn is successful.");
             Debug.Log("PlayerID: " + AuthenticationService.Instance.PlayerId);
-            SceneManager.LoadScene("Map");
+            GetComponent<SceneTransition>().PerformTransition();
         }
         catch (AuthenticationException ex)
         {

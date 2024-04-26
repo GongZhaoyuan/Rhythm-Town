@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ricimi;
 using Unity.Services.CloudSave;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -42,7 +43,7 @@ public class ToggleManager : MonoBehaviour
             {
                 selectedToggleName = activeToggle.name;
                 await UpdateRecordAsync(selectedToggleName);
-                SceneManager.LoadScene("Map");
+                GetComponent<SceneTransition>().PerformTransition();
             }
         }
         Debug.Log("button pressed");

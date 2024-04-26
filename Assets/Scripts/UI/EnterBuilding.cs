@@ -25,7 +25,6 @@ public class EnterBuilding : MonoBehaviour
 
     void Enter()
     {
-        PlayerMovement.RecordLastPosition();
         GetComponent<PopupOpener>().OpenPopup();
     }
 
