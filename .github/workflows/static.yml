@@ -31,12 +31,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: CompressFiles
-        uses: stefh/ghaction-CompressFiles@v2
-        with:
-          path: ${{ env.PUBLISH_DIR }}
-          extensions: '.js,.css,.html'
-          tools: 'brotli,gzip'
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
