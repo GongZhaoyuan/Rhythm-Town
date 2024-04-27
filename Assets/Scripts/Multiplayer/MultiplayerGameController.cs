@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class MultiplayerGameController : GameController
 {
-    public static NetworkList<NoteData> notes;
-
     public struct NoteData : INetworkSerializable, IEquatable<NoteData>
     {
         public int noteID;
@@ -23,6 +21,8 @@ public class MultiplayerGameController : GameController
 
         public bool Equals(NoteData other) { return other.noteID == noteID; }
     }
+
+    public static NetworkList<NoteData> notes;
 
     protected override void Start()
     {
