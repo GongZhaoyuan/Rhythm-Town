@@ -43,7 +43,7 @@ public class GameController : NetworkBehaviour
         difficulty = GameStartManager.lastDifficulty;
         List<int> barLengths = new List<int> {2, 4, 4, 8};
         barLength = barLengths[difficulty];
-        generateSpeed = (float)barLength / 4;
+        generateSpeed = barLength / 4f;
         score = ScoreGenerator.GetScore(musiclength, barLength, 42);
 
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
@@ -73,7 +73,6 @@ public class GameController : NetworkBehaviour
             {
                 beat = fullBeat / generateSpeed;
                 countdown--;
-                Debug.Log("" + countdown);
             }
             if (countdown <= 0)
             {
