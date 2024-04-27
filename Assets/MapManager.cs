@@ -14,16 +14,12 @@ public class MapManager : MonoBehaviour
     public GameObject virtualCamera;
 
     public static GameObject playerInstance;
-    private string toggleName;
+    private int avatarNo;
     GameObject playerPrefab;
 
     private async void Start()
     {
-        if (playerPrefab == null)
-        {
-            playerPrefab = playerPrefabs[0];
-            await LoadData();
-        }        
+        if (playerPrefab == null) { await LoadData(); }        
         Vector2 spawnPosition = (PlayerMovement.lastPosition == null) ? Vector2.zero : PlayerMovement.lastPosition;
         playerInstance = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
         virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerInstance.transform;
@@ -37,31 +33,14 @@ public class MapManager : MonoBehaviour
             if (playerData.ContainsKey("Avatar"))
             {
                 Item item = playerData["Avatar"];
-                toggleName = item.Value.GetAsString();
-                Debug.Log("toggleName value: " + toggleName);            
+                if (!int.TryParse(item.Value.GetAsString(), out avatarNo)) { avatarNo = 0; }
+                playerPrefab = playerPrefabs[avatarNo];
+                Debug.Log("toggleName value: " + avatarNo);            
             }
         }
         catch (Exception ex)
         {
             Debug.Log(ex);
         }
-
-        switch (toggleName)
-        {
-            case "G1":
-                playerPrefab = playerPrefabs[0];                
-                Debug.Log("prefab4");
-                break;
-
-            case "B1":
-                playerPrefab = playerPrefabs[1];
-                Debug.Log("prefab2");
-                break;
-
-            default:
-                playerPrefab = playerPrefabs[0];
-                Debug.Log("default");
-                break;
-        }     
     }
 }

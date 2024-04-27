@@ -2458,7 +2458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 712251557}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: PopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2655,7 +2655,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 69cd2fe530a4c49518708f83a12cddff, type: 3}
     - target: {fileID: 5539348502203136101, guid: 68ada5acde3a14a65b74cdc4cd00a374, type: 3}
       propertyPath: m_Name
-      value: B1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6730216154941781763, guid: 68ada5acde3a14a65b74cdc4cd00a374, type: 3}
       propertyPath: m_Group
@@ -5370,7 +5370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1634775651}
   m_Layer: 5
-  m_Name: LogIn
+  m_Name: Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8945,7 +8945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5539348502203136101, guid: 68ada5acde3a14a65b74cdc4cd00a374, type: 3}
       propertyPath: m_Name
-      value: G1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6730216154941781763, guid: 68ada5acde3a14a65b74cdc4cd00a374, type: 3}
       propertyPath: m_IsOn
