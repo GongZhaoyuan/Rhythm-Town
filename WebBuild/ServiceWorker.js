@@ -1,9 +1,9 @@
 const cacheName = "SD3985 Team 10-Rhythm Town-1.0";
 const contentToCache = [
     "Build/9853637125e801e9aae48e78dbbdcfca.loader.js",
-    "Build/d7ff335ddaa2b011c0078feefe3c04be.framework.js.unityweb",
-    "Build/cfc43b42e5bfc4fc5eaab1c8a3a3789c.data.unityweb",
-    "Build/b7b82677b33bcb53096fb6538a9fc6be.wasm.unityweb",
+    "Build/be704544f23af505d99d44a24786ef98.framework.js.unityweb",
+    "Build/35bbe0a0ff14447b736728cba2f066f4.data.unityweb",
+    "Build/ffc562093fab65eb9b25c931e3a56dd5.wasm.unityweb",
     "TemplateData/style.css"
 
 ];
