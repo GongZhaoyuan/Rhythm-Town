@@ -357,13 +357,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7352968393138254443, guid: 0376c8a3de6b542fb9f84c6c4b2e82f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 518437811}
-    - targetCorrespondingSourceObject: {fileID: 7352968393138254443, guid: 0376c8a3de6b542fb9f84c6c4b2e82f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 518437812}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0376c8a3de6b542fb9f84c6c4b2e82f2, type: 3}
 --- !u!1 &89856700
 GameObject:
@@ -1721,40 +1715,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491695308}
   m_CullTransparentMesh: 0
---- !u!1 &518437807 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7352968393138254443, guid: 0376c8a3de6b542fb9f84c6c4b2e82f2, type: 3}
-  m_PrefabInstance: {fileID: 86144475}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &518437811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518437807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76cbf27e1d8874abcb1f9b863c2e8466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charactersPerSecond: 40
-  interpunctuationDelay: 0.5
-  quickSkip: 0
-  skipSpeedup: 5
-  sendDoneDelay: 0.25
---- !u!114 &518437812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518437807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec1c91971084d46a6b6cbc159ce60b02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &537974124
 GameObject:
   m_ObjectHideFlags: 0
@@ -7008,6 +6968,7 @@ MonoBehaviour:
   signUpNickName: {fileID: 1720473450}
   logInEmail: {fileID: 1738188693}
   logInPassword: {fileID: 1122747709}
+  dialogueBox: {fileID: 0}
 --- !u!114 &2060582274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7704,7 +7665,7 @@ PrefabInstance:
     - target: {fileID: 5585583631189188578, guid: beacd15a131834893afe77890d8c73e9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
-      objectReference: {fileID: 518437812}
+      objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: beacd15a131834893afe77890d8c73e9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
