@@ -124,7 +124,6 @@ public class AuthManager : MonoBehaviour
             Debug.Log("requestfailed");
             Debug.LogException(ex);
             Debug.Log("(SignUp)request exception: " + ex.ErrorCode + "()msg: " + ex.Message);
-            ErrorMsg = ex.Message;
             Debug.Log("--------------------current error code: " + ex.Message);
             DisplayErrorMsgInDialougueBox(ex.ErrorCode, ex.Message);
         }
@@ -213,7 +212,7 @@ public class AuthManager : MonoBehaviour
         }
         else if (errorCode == AuthenticationErrorCodes.ClientInvalidProfile)
         {
-            displayErrorMsg = "";
+            displayErrorMsg = "user name invalid...................";
         }
         else if (errorCode == AuthenticationErrorCodes.InvalidSessionToken)
         {
@@ -225,7 +224,7 @@ public class AuthManager : MonoBehaviour
         }
         else if (errorCode == AuthenticationErrorCodes.BannedUser)
         {
-            displayErrorMsg = "";
+            displayErrorMsg = "Ooops you have been banned.";
         }
         else if (errorCode == AuthenticationErrorCodes.EnvironmentMismatch)
         {
