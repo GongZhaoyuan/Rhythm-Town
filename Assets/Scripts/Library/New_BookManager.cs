@@ -314,7 +314,6 @@ public class New_BookManager : MonoBehaviour
             foreach (var kvp in objectData_Cloud.ToList())
             {
                 string fieldName = kvp.Key;
-                BookData originalBookData = kvp.Value;
                 BookData cloudBookData = cloudLoadDic.ContainsKey(fieldName)
                     ? cloudLoadDic[fieldName]
                     : null;

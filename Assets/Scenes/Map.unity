@@ -1460,19 +1460,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &264156820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264156814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba307c1ed6ba4d09bb5d097e9d85f59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogBox: {fileID: 0}
 --- !u!58 &264156821
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3395,9 +3382,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1328291710453922030, guid: 7441a68beabd249a7a5843ce6a512354, type: 3}
       insertIndex: -1
       addedObject: {fileID: 264156819}
-    - targetCorrespondingSourceObject: {fileID: 1328291710453922030, guid: 7441a68beabd249a7a5843ce6a512354, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 264156820}
     - targetCorrespondingSourceObject: {fileID: 1328291710453922030, guid: 7441a68beabd249a7a5843ce6a512354, type: 3}
       insertIndex: -1
       addedObject: {fileID: 264156821}
@@ -47047,8 +47031,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0049ca407fb44dd2b44a3b7a2424cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G1PlayerPrefab: {fileID: 9189820207245861125, guid: ab46df997fd0d44049882a2915bb2102, type: 3}
-  B1PlayerPrefab: {fileID: 4541316246605153155, guid: 70878fecfac5a4ba78fc9a055515f5cb, type: 3}
+  playerPrefabs:
+  - {fileID: 5676198370238709882, guid: 3db8e68bc004144eeb25c09b1c3cb215, type: 3}
+  - {fileID: 9189820207245861125, guid: ab46df997fd0d44049882a2915bb2102, type: 3}
   virtualCamera: {fileID: 907776501}
 --- !u!4 &1521047640
 Transform:

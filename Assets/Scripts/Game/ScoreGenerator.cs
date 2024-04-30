@@ -12,7 +12,7 @@ public class ScoreGenerator
 
     public static Queue<bool> GetScore(int musicLength, int barLength, int seed)
     {
-        float length = musicLength * (barLength - 2);
+        float length = (musicLength - 2) * barLength;
         Queue<bool> score = new Queue<bool>();
         Random.InitState(seed);
 
