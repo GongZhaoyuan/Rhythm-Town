@@ -228,20 +228,26 @@ public class AuthManager : MonoBehaviour
         }
         else
         {
-            if (isSignUp == false)
+            if (errorCode != 10000)
             {
-                displayErrorMsg = "Invalid username or password.";
+                if (
+                    (isSignUp == false)
+                    && (Convert.ToInt32(errorCode.ToString().Substring(0, 1)) != 2)
+                )
+                {
+                    displayErrorMsg = "Invalid username or password.";
+                }
+                else if (errorMsg.Contains("Username"))
+                {
+                    displayErrorMsg =
+                        "username(3-20 digits): Insert only letters, digits and symbols among . - _ @";
+                }
+                else if (errorMsg.Contains("Password"))
+                    displayErrorMsg =
+                        "password(3-30 digits):Insert at least 1 uppercase, 1 lowercase, 1 digit and 1 symbol.";
+                else
+                    displayErrorMsg = "Something went wrong.";
             }
-            else if (errorMsg.Contains("Username"))
-            {
-                displayErrorMsg =
-                    "username(3-20 digits): Insert only letters, digits and symbols among . - _ @";
-            }
-            else if (errorMsg.Contains("Password"))
-                displayErrorMsg =
-                    "password(3-30 digits):Insert at least 1 uppercase, 1 lowercase, 1 digit and 1 symbol.";
-            else
-                displayErrorMsg = "Something went wrong.";
         }
         dialogueManager.SetText(displayErrorMsg);
     }
