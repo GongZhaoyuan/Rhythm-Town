@@ -40,6 +40,7 @@ public class AuthManager : MonoBehaviour
     TMP_InputField logInPassword;
 
     public GameObject dialogueBox;
+
     DialogueManager dialogueManager;
 
     void Start()
@@ -187,17 +188,9 @@ public class AuthManager : MonoBehaviour
 
     public void DisplayErrorMsgInDialougueBox(int errorCode, string errorMsg)
     {
-        if (errorCode == AuthenticationErrorCodes.ClientInvalidUserState)
+        if (errorCode == AuthenticationErrorCodes.InvalidParameters)
         {
-            displayErrorMsg = "test";
-        }
-        else if (errorCode == AuthenticationErrorCodes.ClientNoActiveSession)
-        {
-            displayErrorMsg = "";
-        }
-        else if (errorCode == AuthenticationErrorCodes.InvalidParameters)
-        {
-            displayErrorMsg = "";
+            displayErrorMsg = "The input is not in the correct format.";
         }
         else if (
             (errorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
@@ -208,7 +201,8 @@ public class AuthManager : MonoBehaviour
         }
         else if (errorCode == AuthenticationErrorCodes.ClientUnlinkExternalIdNotFound)
         {
-            displayErrorMsg = "";
+            displayErrorMsg =
+                "the developer doesnot understand what this is about, try again in the next version.";
         }
         else if (errorCode == AuthenticationErrorCodes.ClientInvalidProfile)
         {
@@ -216,11 +210,12 @@ public class AuthManager : MonoBehaviour
         }
         else if (errorCode == AuthenticationErrorCodes.InvalidSessionToken)
         {
-            displayErrorMsg = "";
+            displayErrorMsg = "Gosh! The session token is invalid.";
         }
         else if (errorCode == AuthenticationErrorCodes.InvalidProvider)
         {
-            displayErrorMsg = "";
+            displayErrorMsg =
+                "Bad luck~ API refused to process, the provider was invalid for the request";
         }
         else if (errorCode == AuthenticationErrorCodes.BannedUser)
         {
@@ -228,11 +223,21 @@ public class AuthManager : MonoBehaviour
         }
         else if (errorCode == AuthenticationErrorCodes.EnvironmentMismatch)
         {
-            displayErrorMsg = "";
+            displayErrorMsg =
+                "There is a mismatch between the requested environment and the one configured.";
         }
         else
         {
-            displayErrorMsg = "something went wrong, try again later.";
+            if (errorMsg.Contains("Username"))
+            {
+                displayErrorMsg =
+                    "username(3-20 digits): Insert only letters, digits and symbols among {., -, _, @}";
+            }
+            else if (errorMsg.Contains("Password"))
+                displayErrorMsg =
+                    "password(3-30 digits):Insert at least 1 uppercase, 1 lowercase, 1 digit and 1 symbol.";
+            else
+                displayErrorMsg = "Something went wrong.";
         }
         dialogueManager.SetText(displayErrorMsg);
     }
