@@ -65,7 +65,7 @@ namespace ChristinaCreatesGames.Typography.Typewriter
         #region Skipfunctionality
         private void Update()
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {
                 if (_textBox.maxVisibleCharacters != _textBox.textInfo.characterCount - 1)
                     Skip();
