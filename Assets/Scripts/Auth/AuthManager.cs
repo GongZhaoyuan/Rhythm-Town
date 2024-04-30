@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Net;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Core;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class AuthManager : MonoBehaviour
@@ -14,9 +17,10 @@ public class AuthManager : MonoBehaviour
     public GameObject SignUpPanel;
     public GameObject SignInPanel;
     public GameObject AvatarChoosing;
+    public TMP_Text displayText;
 
-    const string LAST_USERNAME_KEY = "LAST_USERNAME",
-        LAST_PASSWORD_KEY = "LAST_PASSWORD";
+    static int ErrorCode;
+    bool isSignUp = false;
 
     [SerializeField]
     TMP_Text signUpEmailAsUserName;
@@ -39,6 +43,31 @@ public class AuthManager : MonoBehaviour
         SignInPanel.gameObject.SetActive(true);
         SignUpPanel.gameObject.SetActive(false);
         AvatarChoosing.gameObject.SetActive(false);
+        displayText.text = "Welcome to the Rhythm Town! May I have your ID?";
+    }
+
+    void Update()
+    {
+        int errorFirstDigit = Convert.ToInt32(ErrorCode.ToString().Substring(0, 1));
+        Debug.Log("***********errorFirstDigit" + errorFirstDigit);
+        if ((errorFirstDigit == 4) && (isSignUp = true))
+        {
+            displayText.text =
+                "The username requires a minimum of 3-20 characters and only supports letters, numbers and symbols like ., -, @ or _"
+                + "The password requires 8-30 characters and at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 symbol.";
+        }
+        else if ((errorFirstDigit == 4) && (isSignUp = false))
+        {
+            displayText.text = "Incorrect username or password.";
+        }
+        else if (errorFirstDigit == 5)
+        {
+            displayText.text = "Unity server error";
+        }
+        else
+        {
+            displayText.text = "Oops something went wrong.";
+        }
     }
 
     public async void On_SignUp_SignUpPressed()
@@ -59,6 +88,7 @@ public class AuthManager : MonoBehaviour
 
     async Task SignUpWithUsernamePasswordAsync(string username, string password)
     {
+        isSignUp = true;
         await UnityServices.InitializeAsync();
         try
         {
@@ -82,18 +112,48 @@ public class AuthManager : MonoBehaviour
         {
             // Compare error code to AuthenticationErrorCodes
             // Notify the player with the proper error message
+
+            Debug.Log("authentication");
             Debug.LogException(ex);
+            Debug.Log("(SignUp)authentication exception: " + ex.ErrorCode + "()msg: " + ex.Message);
+            // ErrorCode = ex.ErrorCode;
+            Debug.Log("--------------------current error code: " + ErrorCode);
+
+            var webRequestException = ex.InnerException as WebRequestException;
+            if (webRequestException != null)
+            {
+                // Handle the WebRequestException
+                Debug.Log("WebRequestException: " + ex.InnerException.Message);
+
+                // Access the response code
+                long responseCode = webRequestException.GetResponseCode();
+                Debug.Log("Response Code: " + responseCode);
+            }
+            else
+            {
+                // Handle other types of AuthenticationException
+                Debug.Log("AuthenticationException: " + ex.Message);
+            }
         }
         catch (RequestFailedException ex)
         {
             // Compare error code to CommonErrorCodes
             // Notify the player with the proper error message
+            Debug.Log("requestfailed");
             Debug.LogException(ex);
+            Debug.Log("(SignUp)request exception: " + ex.ErrorCode + "()msg: " + ex.Message);
+            // ErrorCode = ex.ErrorCode;
+            Debug.Log("--------------------current error code: " + ErrorCode);
+        }
+        catch (WebException ex)
+        {
+            Debug.Log("&&&&&&&&&webException: " + ex.Response);
         }
     }
 
     async Task SignInWithUsernamePasswordAsync(string username, string password)
     {
+        isSignUp = false;
         await UnityServices.InitializeAsync();
         try
         {
@@ -111,12 +171,18 @@ public class AuthManager : MonoBehaviour
             // Compare error code to AuthenticationErrorCodes
             // Notify the player with the proper error message
             Debug.LogException(ex);
+            Debug.Log("(SignIn)authentication exception: " + ex.ErrorCode + "()msg: " + ex.Message);
+            ErrorCode = ex.ErrorCode;
+            Debug.Log("--------------------current error code: " + ErrorCode);
         }
         catch (RequestFailedException ex)
         {
             // Compare error code to CommonErrorCodes
             // Notify the player with the proper error message
             Debug.LogException(ex);
+            Debug.Log("(SignIn)request exception: " + ex.ErrorCode + "()msg: " + ex.Message);
+            ErrorCode = ex.ErrorCode;
+            Debug.Log("--------------------current error code: " + ErrorCode);
         }
     }
 
