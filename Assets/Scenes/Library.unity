@@ -3762,7 +3762,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3586924198202407284, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -950.0491
+      value: -950.0884
+      objectReference: {fileID: 0}
+    - target: {fileID: 3715411227568368335, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060781493307464920, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419433043499972923, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4578000380897940204, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3779,6 +3791,10 @@ PrefabInstance:
     - target: {fileID: 4578000380897940204, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974061397683858983, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5645589642304077541, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
       propertyPath: m_Pivot.x
@@ -3889,6 +3905,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
+--- !u!114 &1332816041 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3627257386175454383, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
+  m_PrefabInstance: {fileID: 1332816040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1352421210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5304,6 +5331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoText: {fileID: 416227935}
+  balanceTextComponent: {fileID: 1332816041}
   CoinLevelText: {fileID: 302548718}
   EnergyLevelText: {fileID: 126410267}
   MissLevelText: {fileID: 373205251}
