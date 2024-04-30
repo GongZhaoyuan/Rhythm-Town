@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Ricimi;
 using UnityEngine;
 
@@ -25,8 +23,8 @@ public class EnterBuilding : MonoBehaviour
 
     void Enter()
     {
-        PlayerMovement.RecordLastPosition();
-        GetComponent<PopupOpener>().OpenPopup();
+        PopupOpener popupOpener = GetComponent<PopupOpener>();
+        popupOpener.OpenPopup();
     }
 
     void OnTriggerEnter2D(Collider2D other)

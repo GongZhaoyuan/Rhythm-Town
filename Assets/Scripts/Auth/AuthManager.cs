@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Threading.Tasks;
+using Ricimi;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
@@ -23,20 +24,20 @@ public class AuthManager : MonoBehaviour
     bool isSignUp = false;
 
     [SerializeField]
-    TMP_Text signUpEmailAsUserName;
+    TMP_InputField signUpEmailAsUserName;
 
     [SerializeField]
     // InputField signUpPassword;
-    TMP_Text signUpPassword;
+    TMP_InputField signUpPassword;
 
     [SerializeField]
-    TMP_Text signUpNickName;
+    TMP_InputField signUpNickName;
 
     [SerializeField]
-    TMP_Text logInEmail;
+    TMP_InputField logInEmail;
 
     [SerializeField]
-    TMP_Text logInPassword;
+    TMP_InputField logInPassword;
 
     void Start()
     {
@@ -164,7 +165,7 @@ public class AuthManager : MonoBehaviour
             );
             Debug.Log("SignIn is successful.");
             Debug.Log("PlayerID: " + AuthenticationService.Instance.PlayerId);
-            SceneManager.LoadScene("Map");
+            GetComponent<SceneTransition>().PerformTransition();
         }
         catch (AuthenticationException ex)
         {
