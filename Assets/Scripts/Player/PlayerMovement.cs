@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.E))
-        {            
+        {
             /*
             RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 2f, LayerMask.GetMask("Entry"));
             if (hit.collider != null)
@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("p"+position);
 
         position = rigidbody2d.position;
         position.x = position.x + speed * horizontal * Time.deltaTime;

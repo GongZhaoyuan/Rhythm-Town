@@ -9,6 +9,8 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models;
 using Unity.Services.Core;
+using Unity.Services.Economy;
+using Unity.Services.Economy.Model;
 using Unity.Services.Samples.ServerlessMultiplayerGame;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -22,7 +24,7 @@ using UnityEngine.UI;
 public class New_BookManager : MonoBehaviour
 {
     public TMP_Text infoText;
-
+    public TMP_Text balanceTextComponent;
     //Level
     public TMP_Text CoinLevelText;
     public TMP_Text EnergyLevelText;
@@ -49,6 +51,7 @@ public class New_BookManager : MonoBehaviour
     public Dictionary<string, BookData> cloudLoadDic;
 
     // LoanDisplayManager_Cloud loanDisplayManager = FindObjectOfType<LoanDisplayManager_Cloud>();
+
 
     int maxLevel = 5;
 
@@ -120,28 +123,53 @@ public class New_BookManager : MonoBehaviour
     {
         Debug.Log("coin level up");
         objectData_Cloud["Coin"].Level += 1;
-        CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}";;
+        CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}"; ;
         await UpdateRecordAsync();
+
+        string currencyID = "COINS";
+
+        int decrementAmount = 100;
+
+        PlayerBalance newBalance = await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(currencyID, decrementAmount);
+
+        GetBalancesOptions options = new GetBalancesOptions
+        {
+            ItemsPerFetch = 1,
+        };
+
+        GetBalancesResult getBalancesResult = await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance balance = getBalancesResult.Balances[0];
+
+            string balanceText = balance.Balance.ToString();
+
+            Debug.Log(balanceText);
+
+            balanceTextComponent.text = balanceText;
+        }
     }
 
     public async void EnergyLevelUP()
     {
         objectData_Cloud["Energy"].Level += 1;
-        EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}";;
+        EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}"; ;
         await UpdateRecordAsync();
     }
 
     public async void MissLevelUP()
     {
         objectData_Cloud["Miss"].Level += 1;
-        MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";;
+        MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}"; ;
         await UpdateRecordAsync();
     }
 
     public async void RangeLevelUP()
     {
         objectData_Cloud["Range"].Level += 1;
-        RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";;
+        RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}"; ;
         await UpdateRecordAsync();
     }
 
@@ -189,7 +217,7 @@ public class New_BookManager : MonoBehaviour
                     Range4Borrow.gameObject.SetActive(!isEquipped);
                     RangeStar.gameObject.SetActive(isEquipped);
                     break;
-                // Add cases for other books if needed
+                    // Add cases for other books if needed
             }
         }
         await UpdateRecordAsync();
