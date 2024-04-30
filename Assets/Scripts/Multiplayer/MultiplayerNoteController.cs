@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MultiplayerNoteController : NoteController
 {
-    MultiplayerGameController multiplayerGameController;
+    protected MultiplayerGameController multiplayerGameController;
     protected override void Start()
     {
         base.Start();

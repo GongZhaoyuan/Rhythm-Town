@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickDetection : MonoBehaviour
+public class ServiceBell : MonoBehaviour
 {
     public static bool clickFlag = false;
     Animator animator;
     AudioSource audioSource;
     public AudioClip soundFX;
 
-    void Start()
+    protected virtual void Start()
     {
         animator = gameObject.GetComponent<Animator>();
         audioSource = gameObject.GetComponent<AudioSource>();

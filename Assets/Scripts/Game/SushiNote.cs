@@ -7,9 +7,9 @@ public class SushiNote : NoteController
     {
         base.Start();        
         destination = new Vector2(0, -2);
-        Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
-        noteType = isTarget? 1: 0;
-        targetSource = (noteType > 0) ? "ServiceBell" : "None";
+        //Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
+        //noteType = isTarget? 1: 0;
+        targetSource = isTarget? "ServiceBell" : "None";
         if (isTarget)
         {
             display.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sushi/Sushi Orange");

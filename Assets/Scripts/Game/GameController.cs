@@ -63,7 +63,7 @@ public class GameController : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (isGameEnd) return;
 

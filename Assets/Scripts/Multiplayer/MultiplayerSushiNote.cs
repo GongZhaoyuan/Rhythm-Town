@@ -7,13 +7,16 @@ public class MultiplayerSushiNote : MultiplayerNoteController
     protected override void Start()
     {
         base.Start();        
-        destination = MultiplayerGameController.isHost? MultiplayerGameController._hostDestination : MultiplayerGameController._clientDestination;
-        Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
-        noteType = isTarget? 1: 0;
-        targetSource = (noteType > 0) ? "ServiceBell" : "None";
+        destination = multiplayerGameController.IsHost? multiplayerGameController.hostDestination.position : multiplayerGameController.clientDestination.position;
+        //Sprite[] sprites = Resources.LoadAll<Sprite>($"Sushi/{noteType}");
+        //noteType = isTarget? 1: 0;
+        targetSource = isTarget? "ServiceBell" : "None";
         if (isTarget)
         {
-            display.GetComponent<SpriteRenderer>().sprite = (Random.value > 0.5f)? hostSprite : clientSprite;
+            float randomTarget = Random.value;
+            GetComponent<SpriteRenderer>().sprite = (randomTarget > 0.5f)? hostSprite : clientSprite;
+            isTarget = multiplayerGameController.IsHost? randomTarget > 0.5f : randomTarget < 0.5f;
+            targetSource = isTarget? "ServiceBell" : "None";
         }
         else{
             if (Random.value > 0.5f)

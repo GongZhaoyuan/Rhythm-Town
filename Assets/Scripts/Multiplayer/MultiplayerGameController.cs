@@ -23,17 +23,24 @@ public class MultiplayerGameController : GameController
     }
 
     public NetworkList<NoteData> notes;
-    public Transform hostDestination, clientDestination;
-    public static Vector2 _hostDestination, _clientDestination;
-    public static bool isHost;
+    public Transform hostDestination, clientDestination, hostCheckPoint, clientCheckPoint;
+    public GameObject hostJudgeRange, clientJudgeRange;
+    public static Vector2 _hostDestination, _clientDestination; 
 
     protected override void Start()
-    {
+    {        
         base.Start();
         notes = new NetworkList<NoteData>();
         _hostDestination = hostDestination.position;
         _clientDestination = clientDestination.position;
-        isHost = IsHost;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        checkPosition = IsHost? hostCheckPoint.position: clientCheckPoint.position;
+        hostJudgeRange.SetActive(IsHost);
+        clientJudgeRange.SetActive(!IsHost);
     }
 
     public void RecordNote(GameObject noteObject)
@@ -55,7 +62,7 @@ public class MultiplayerGameController : GameController
 
     protected override void GenerateNote()
     {
-        if (noteID == notes.Count && isHost)
+        if (noteID == notes.Count && IsHost)
         {
             notes.Add(new NoteData
             {
