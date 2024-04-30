@@ -228,10 +228,14 @@ public class AuthManager : MonoBehaviour
         }
         else
         {
-            if (errorMsg.Contains("Username"))
+            if (isSignUp == false)
+            {
+                displayErrorMsg = "Invalid username or password.";
+            }
+            else if (errorMsg.Contains("Username"))
             {
                 displayErrorMsg =
-                    "username(3-20 digits): Insert only letters, digits and symbols among {., -, _, @}";
+                    "username(3-20 digits): Insert only letters, digits and symbols among . - _ @";
             }
             else if (errorMsg.Contains("Password"))
                 displayErrorMsg =
