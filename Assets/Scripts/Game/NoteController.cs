@@ -62,26 +62,7 @@ public class NoteController : MonoBehaviour
             
             if (isDetected && isClicked)
             {
-                float timing = beat;
-                if (destination == new Vector2(-99,-99))
-                {
-                    destination = GameObject.Find(clickSource).transform.position;
-                }
-                MoveToDestination();                
-                GameController.noteCount += 1;
-                if (clickSource == targetSource)
-                {                    
-                    bool isPerfect = getDistance(checkPosition) < distanceThreshold &&
-                        (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
-                    GameController.grade += isPerfect? 1f : 0.9f;
-                    gradeText.text = isPerfect? "Perfect!" : "Good!";
-                    GameController.comboCount += 1;
-                }
-                else
-                {
-                    gradeText.text = "Wrong!";
-                    GameController.comboCount = 0;
-                }
+                Judge();
                 isDetected = false;
             }        
             
@@ -97,6 +78,30 @@ public class NoteController : MonoBehaviour
         displayRb.MovePosition(destination);
         rb.MovePosition(destination);
         destroyTimer = fullBeat / 2;
+    }
+
+    protected virtual void Judge()
+    {
+        float timing = beat;
+        if (destination == new Vector2(-99,-99))
+        {
+            destination = GameObject.Find(clickSource).transform.position;
+        }
+        MoveToDestination();                
+        GameController.noteCount += 1;
+        if (clickSource == targetSource)
+        {                    
+            bool isPerfect = getDistance(checkPosition) < distanceThreshold &&
+                (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
+            GameController.grade += isPerfect? 1f : 0.9f;
+            gradeText.text = isPerfect? "Perfect!" : "Good!";
+            GameController.comboCount += 1;
+        }
+        else
+        {
+            gradeText.text = "Wrong!";
+            GameController.comboCount = 0;
+        }
     }
 
     public float getDistance(Vector2 position)

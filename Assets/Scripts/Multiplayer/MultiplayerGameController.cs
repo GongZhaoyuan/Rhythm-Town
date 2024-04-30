@@ -22,17 +22,22 @@ public class MultiplayerGameController : GameController
         public bool Equals(NoteData other) { return other.noteID == noteID; }
     }
 
-    public static NetworkList<NoteData> notes;
+    public NetworkList<NoteData> notes;
+    public Transform hostDestination, clientDestination;
+    public static Vector2 _hostDestination, _clientDestination;
+    public static bool isHost;
 
     protected override void Start()
     {
         base.Start();
         notes = new NetworkList<NoteData>();
+        _hostDestination = hostDestination.position;
+        _clientDestination = clientDestination.position;
+        isHost = IsHost;
     }
 
-    protected override void RecordNote(GameObject noteObject)
+    public void RecordNote(GameObject noteObject)
     {
-        base.RecordNote(noteObject);
         MultiplayerNoteController noteController = noteObject.GetComponent<MultiplayerNoteController>();
         int id = noteController.noteID;
         
@@ -50,7 +55,7 @@ public class MultiplayerGameController : GameController
 
     protected override void GenerateNote()
     {
-        if (noteID == notes.Count && IsHost)
+        if (noteID == notes.Count && isHost)
         {
             notes.Add(new NoteData
             {

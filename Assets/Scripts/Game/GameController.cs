@@ -161,13 +161,10 @@ public class GameController : NetworkBehaviour
                     NoteController nearestNote = noteObjects[0].GetComponent<NoteController>();
                     nearestNote.clickSource = hit.collider.gameObject.name;
                     nearestNote.isClicked = true;
-                    RecordNote(noteObjects[0]);
                 }
             }
         }
     }
-
-    protected virtual void RecordNote(GameObject noteObject) { return; }
 
     protected virtual void GenerateNote()
     {
