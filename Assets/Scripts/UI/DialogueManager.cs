@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour
         textbox.maxVisibleCharacters = 0;
     }
 
-    public static void SetText(string textContent)
+    public void SetText(string textContent)
     {
         textbox.maxVisibleCharacters = 0;
         textbox.text = textContent;

@@ -9,6 +9,7 @@ using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Core;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -18,9 +19,8 @@ public class AuthManager : MonoBehaviour
     public GameObject SignUpPanel;
     public GameObject SignInPanel;
     public GameObject AvatarChoosing;
-    public TMP_Text displayText;
 
-    static int ErrorCode;
+    string displayErrorMsg;
     bool isSignUp = false;
 
     [SerializeField]
@@ -39,36 +39,17 @@ public class AuthManager : MonoBehaviour
     [SerializeField]
     TMP_InputField logInPassword;
 
+    public GameObject dialogueBox;
+    DialogueManager dialogueManager;
+
     void Start()
     {
         SignInPanel.gameObject.SetActive(true);
         SignUpPanel.gameObject.SetActive(false);
         AvatarChoosing.gameObject.SetActive(false);
-        displayText.text = "Welcome to the Rhythm Town! May I have your ID?";
-    }
 
-    void Update()
-    {
-        int errorFirstDigit = Convert.ToInt32(ErrorCode.ToString().Substring(0, 1));
-        Debug.Log("***********errorFirstDigit" + errorFirstDigit);
-        if ((errorFirstDigit == 4) && (isSignUp = true))
-        {
-            displayText.text =
-                "The username requires a minimum of 3-20 characters and only supports letters, numbers and symbols like ., -, @ or _"
-                + "The password requires 8-30 characters and at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 symbol.";
-        }
-        else if ((errorFirstDigit == 4) && (isSignUp = false))
-        {
-            displayText.text = "Incorrect username or password.";
-        }
-        else if (errorFirstDigit == 5)
-        {
-            displayText.text = "Unity server error";
-        }
-        else
-        {
-            displayText.text = "Oops something went wrong.";
-        }
+        dialogueManager = dialogueBox.GetComponent<DialogueManager>();
+        dialogueManager.SetText("Welcome to the Rhythm Town! May I have your ID ? ");
     }
 
     public async void On_SignUp_SignUpPressed()
@@ -117,24 +98,24 @@ public class AuthManager : MonoBehaviour
             Debug.Log("authentication");
             Debug.LogException(ex);
             Debug.Log("(SignUp)authentication exception: " + ex.ErrorCode + "()msg: " + ex.Message);
-            // ErrorCode = ex.ErrorCode;
-            Debug.Log("--------------------current error code: " + ErrorCode);
+            Debug.Log("--------------------current error code: " + ex.Message);
+            DisplayErrorMsgInDialougueBox(ex.ErrorCode, ex.Message);
 
-            var webRequestException = ex.InnerException as WebRequestException;
-            if (webRequestException != null)
-            {
-                // Handle the WebRequestException
-                Debug.Log("WebRequestException: " + ex.InnerException.Message);
+            // var webRequestException = ex.InnerException as WebRequestException;
+            // if (webRequestException != null)
+            // {
+            //     // Handle the WebRequestException
+            //     Debug.Log("WebRequestException: " + ex.InnerException.Message);
 
-                // Access the response code
-                long responseCode = webRequestException.GetResponseCode();
-                Debug.Log("Response Code: " + responseCode);
-            }
-            else
-            {
-                // Handle other types of AuthenticationException
-                Debug.Log("AuthenticationException: " + ex.Message);
-            }
+            //     // Access the response code
+            //     long responseCode = webRequestException.GetResponseCode();
+            //     Debug.Log("Response Code: " + responseCode);
+            // }
+            // else
+            // {
+            //     // Handle other types of AuthenticationException
+            //     Debug.Log("AuthenticationException: " + ex.Message);
+            // }
         }
         catch (RequestFailedException ex)
         {
@@ -143,8 +124,9 @@ public class AuthManager : MonoBehaviour
             Debug.Log("requestfailed");
             Debug.LogException(ex);
             Debug.Log("(SignUp)request exception: " + ex.ErrorCode + "()msg: " + ex.Message);
-            // ErrorCode = ex.ErrorCode;
-            Debug.Log("--------------------current error code: " + ErrorCode);
+            ErrorMsg = ex.Message;
+            Debug.Log("--------------------current error code: " + ex.Message);
+            DisplayErrorMsgInDialougueBox(ex.ErrorCode, ex.Message);
         }
         catch (WebException ex)
         {
@@ -173,8 +155,9 @@ public class AuthManager : MonoBehaviour
             // Notify the player with the proper error message
             Debug.LogException(ex);
             Debug.Log("(SignIn)authentication exception: " + ex.ErrorCode + "()msg: " + ex.Message);
-            ErrorCode = ex.ErrorCode;
-            Debug.Log("--------------------current error code: " + ErrorCode);
+
+            Debug.Log("--------------------current error code: " + ex.ErrorCode);
+            DisplayErrorMsgInDialougueBox(ex.ErrorCode, ex.Message);
         }
         catch (RequestFailedException ex)
         {
@@ -182,8 +165,9 @@ public class AuthManager : MonoBehaviour
             // Notify the player with the proper error message
             Debug.LogException(ex);
             Debug.Log("(SignIn)request exception: " + ex.ErrorCode + "()msg: " + ex.Message);
-            ErrorCode = ex.ErrorCode;
-            Debug.Log("--------------------current error code: " + ErrorCode);
+
+            Debug.Log("--------------------current error code: " + ex.ErrorCode);
+            DisplayErrorMsgInDialougueBox(ex.ErrorCode, ex.Message);
         }
     }
 
@@ -200,5 +184,57 @@ public class AuthManager : MonoBehaviour
 
         // Task CloudSaveService.Instance.Data.Player.SaveAsync(Dictionary<string, object> data)；
         await CloudSaveService.Instance.Data.Player.SaveAsync(data);
+    }
+
+    public void DisplayErrorMsgInDialougueBox(int errorCode, string errorMsg)
+    {
+        if (errorCode == AuthenticationErrorCodes.ClientInvalidUserState)
+        {
+            displayErrorMsg = "test";
+        }
+        else if (errorCode == AuthenticationErrorCodes.ClientNoActiveSession)
+        {
+            displayErrorMsg = "";
+        }
+        else if (errorCode == AuthenticationErrorCodes.InvalidParameters)
+        {
+            displayErrorMsg = "";
+        }
+        else if (
+            (errorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+            || (errorCode == AuthenticationErrorCodes.AccountLinkLimitExceeded)
+        )
+        {
+            displayErrorMsg = "account already exist, please use login.";
+        }
+        else if (errorCode == AuthenticationErrorCodes.ClientUnlinkExternalIdNotFound)
+        {
+            displayErrorMsg = "";
+        }
+        else if (errorCode == AuthenticationErrorCodes.ClientInvalidProfile)
+        {
+            displayErrorMsg = "";
+        }
+        else if (errorCode == AuthenticationErrorCodes.InvalidSessionToken)
+        {
+            displayErrorMsg = "";
+        }
+        else if (errorCode == AuthenticationErrorCodes.InvalidProvider)
+        {
+            displayErrorMsg = "";
+        }
+        else if (errorCode == AuthenticationErrorCodes.BannedUser)
+        {
+            displayErrorMsg = "";
+        }
+        else if (errorCode == AuthenticationErrorCodes.EnvironmentMismatch)
+        {
+            displayErrorMsg = "";
+        }
+        else
+        {
+            displayErrorMsg = "something went wrong, try again later.";
+        }
+        dialogueManager.SetText(displayErrorMsg);
     }
 }
