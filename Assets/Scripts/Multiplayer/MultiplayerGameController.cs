@@ -30,6 +30,7 @@ public class MultiplayerGameController : GameController
     protected override void Start()
     {        
         base.Start();
+        isPaused = true;
         notes = new NetworkList<NoteData>();
         _hostDestination = hostDestination.position;
         _clientDestination = clientDestination.position;
