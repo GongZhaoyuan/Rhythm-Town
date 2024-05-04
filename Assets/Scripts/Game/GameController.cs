@@ -153,7 +153,7 @@ public class GameController : NetworkBehaviour
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
 
             //If something was hit, the RaycastHit2D.collider will not be null.
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.CompareTag("Clickable"))
             {
                 if (noteObjects.Count != 0)
                 {

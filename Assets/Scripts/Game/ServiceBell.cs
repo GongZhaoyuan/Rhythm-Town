@@ -5,8 +5,8 @@ using UnityEngine;
 public class ServiceBell : MonoBehaviour
 {
     public static bool clickFlag = false;
-    Animator animator;
-    AudioSource audioSource;
+    protected Animator animator;
+    protected AudioSource audioSource;
     public AudioClip soundFX;
 
     protected virtual void Start()
@@ -15,7 +15,7 @@ public class ServiceBell : MonoBehaviour
         audioSource = gameObject.GetComponent<AudioSource>();
     }
     
-    void OnMouseOver()
+    protected virtual void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
