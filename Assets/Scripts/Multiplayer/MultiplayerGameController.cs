@@ -31,7 +31,7 @@ public class MultiplayerGameController : GameController
     {        
         base.Start();
         isPaused = true;
-        notes = new NetworkList<NoteData>();
+        notes = new NetworkList<NoteData>();       
         _hostDestination = hostDestination.position;
         _clientDestination = clientDestination.position;
     }
@@ -61,19 +61,21 @@ public class MultiplayerGameController : GameController
         }
     }
 
-    protected override void GenerateNote()
+    public override void GenerateScore()
     {
-        if (noteID == notes.Count && IsHost)
+        base.GenerateScore();
+        if (IsHost)
         {
-            notes.Add(new NoteData
+            for (int i = 0; i < score.Count; i++)
             {
-                noteID = noteID,
-                isClicked = false,
-                gradeText = ""
-            });
+                notes.Add(new NoteData
+                {
+                    noteID = i,
+                    isClicked = false,
+                    gradeText = ""
+                });
+            }
         }
-
-        base.GenerateNote();        
     }
 
     [ServerRpc(RequireOwnership = false)]

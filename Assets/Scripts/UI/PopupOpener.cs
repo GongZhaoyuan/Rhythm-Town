@@ -12,11 +12,11 @@ namespace Ricimi
     {
         public GameObject popupPrefab;
 
-        protected Canvas m_canvas;
+        [SerializeField ] protected Canvas m_canvas;
 
         protected void Start()
         {
-            m_canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            if (m_canvas == null) { m_canvas = GameObject.Find("Canvas").GetComponent<Canvas>(); }
         }
 
         public virtual void OpenPopup()

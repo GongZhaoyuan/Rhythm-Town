@@ -22,7 +22,7 @@ public class GameController : NetworkBehaviour
     public AudioClip countIn;
     AudioSource audioSource, bgmAudioSource;
     static int countdown = 4, barLength;
-    protected int noteID, difficulty = 1;
+    public int noteID, difficulty = 1;
     protected Queue<bool> score;
 
     // Start is called before the first frame update
@@ -39,12 +39,9 @@ public class GameController : NetworkBehaviour
         fullBeat = 60 / BPM;
         beat = fullBeat;
         countdownBeat = fullBeat;        
-
+        
         difficulty = GameStartManager.lastDifficulty;
-        List<int> barLengths = new List<int> {2, 4, 4, 8};
-        barLength = barLengths[difficulty];
-        generateSpeed = barLength / 4f;
-        score = ScoreGenerator.GetScore(musiclength, barLength, 42);
+        GenerateScore();
 
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
         noteObjects = new List<GameObject>();
@@ -172,8 +169,16 @@ public class GameController : NetworkBehaviour
         newNote.GetComponent<NoteController>().isTarget = score.Dequeue();
         newNote.GetComponent<NoteController>().noteID = noteID++;
     }
+
+    public virtual void GenerateScore()
+    {        
+        List<int> barLengths = new List<int> {2, 4, 4, 8};
+        barLength = barLengths[difficulty];
+        generateSpeed = barLength / 4f;
+        score = ScoreGenerator.GetScore(musiclength, barLength, 42);
+    }
     
-    public void Pause()
+    public static void Pause()
     {
         isPaused = true;
         NoteController.isPaused = true;
@@ -181,7 +186,7 @@ public class GameController : NetworkBehaviour
         countdownBeat = fullBeat;
     }
 
-    public void Resume()
+    public static void Resume()
     {
         isPaused = false;        
     }

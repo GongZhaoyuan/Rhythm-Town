@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -21,10 +19,7 @@ public class MultiplayerServiceBell : ServiceBell
         {
             transform.position = new Vector2(-transform.position.x, transform.position.y);            
         }
-        if (!networkObject.IsOwner)
-        {
-            GetComponent<CircleCollider2D>().enabled = false;
-        }
+        GetComponent<CircleCollider2D>().enabled = networkObject.IsOwner;
     }
 
     protected override void OnMouseOver()
