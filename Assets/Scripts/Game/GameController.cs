@@ -41,7 +41,7 @@ public class GameController : NetworkBehaviour
         countdownBeat = fullBeat;        
         
         difficulty = GameStartManager.lastDifficulty;
-        GenerateScore();
+        GenerateScore(System.DateTime.Now.Second * 1000 + System.DateTime.Now.Millisecond);
 
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
         noteObjects = new List<GameObject>();
@@ -170,12 +170,12 @@ public class GameController : NetworkBehaviour
         newNote.GetComponent<NoteController>().noteID = noteID++;
     }
 
-    public virtual void GenerateScore()
+    public virtual void GenerateScore(int seed)
     {        
         List<int> barLengths = new List<int> {2, 4, 4, 8};
         barLength = barLengths[difficulty];
         generateSpeed = barLength / 4f;
-        score = ScoreGenerator.GetScore(musiclength, barLength, 42);
+        score = ScoreGenerator.GetScore(musiclength, barLength, seed);
     }
     
     public static void Pause()

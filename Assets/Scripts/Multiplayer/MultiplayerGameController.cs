@@ -61,9 +61,9 @@ public class MultiplayerGameController : GameController
         }
     }
 
-    public override void GenerateScore()
+    public override void GenerateScore(int seed)
     {
-        base.GenerateScore();
+        base.GenerateScore(seed);
         if (IsHost)
         {
             for (int i = 0; i < score.Count; i++)

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using ChristinaCreatesGames.Typography.Typewriter;
 using Ricimi;
 using TMPro;
 using Unity.Collections;
@@ -56,7 +56,8 @@ public class RelayManager : NetworkBehaviour
     {
         if (GameStarted.Value)
         {
-            multiplayerGameController.GenerateScore();
+            int seed = joinCodeInputField.text.ToUpper().ToIntArray().Sum();
+            multiplayerGameController.GenerateScore(seed);
             preparationUI.SetActive(false);
             ResumeGameServerRpc();
             GameController.Resume();
