@@ -41,7 +41,7 @@ public class AuthManager : MonoBehaviour
 
     public GameObject dialogueBox;
 
-    DialogueManager dialogueManager;
+    // DialogueManager dialogueManager;
 
     void Start()
     {
@@ -49,8 +49,8 @@ public class AuthManager : MonoBehaviour
         SignUpPanel.gameObject.SetActive(false);
         AvatarChoosing.gameObject.SetActive(false);
 
-        dialogueManager = dialogueBox.GetComponent<DialogueManager>();
-        dialogueManager.SetText("Welcome to the Rhythm Town! May I have your ID ? ");
+        // dialogueManager = dialogueBox.GetComponent<DialogueManager>();
+        // dialogueManager.SetText("Welcome to the Rhythm Town! May I have your ID ? ");
     }
 
     public async void On_SignUp_SignUpPressed()
@@ -249,6 +249,6 @@ public class AuthManager : MonoBehaviour
                     displayErrorMsg = "Something went wrong.";
             }
         }
-        dialogueManager.SetText(displayErrorMsg);
+        // dialogueManager.SetText(displayErrorMsg);
     }
 }
