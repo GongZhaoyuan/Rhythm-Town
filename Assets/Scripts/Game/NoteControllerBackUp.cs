@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class NoteController : MonoBehaviour
+public class NoteControllerBackUp : MonoBehaviour
 {
     protected Vector2 position,
         endPosition,
@@ -31,6 +31,7 @@ public class NoteController : MonoBehaviour
 
     protected virtual void Start()
     {
+        Debug.Log("testing music note");
         fullBeat = 60 / GameController.BPM / GameController.generateSpeed;
         beat = fullBeat;
         position = GameController.spawnPosition;
@@ -46,7 +47,6 @@ public class NoteController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         displayRb = display.GetComponent<Rigidbody2D>();
         rb.MovePosition(position);
-        Debug.Log("originate");
     }
 
     protected virtual void Update()
@@ -84,7 +84,7 @@ public class NoteController : MonoBehaviour
         }
     }
 
-    protected virtual void MoveToDestination()
+    protected virtual void MoveToDestination(string clickSource)
     {
         displayRb.MovePosition(destination);
         rb.MovePosition(destination);
@@ -98,7 +98,7 @@ public class NoteController : MonoBehaviour
         {
             destination = GameObject.Find(clickSource).transform.position;
         }
-        MoveToDestination();
+        MoveToDestination(clickSource);
         GameController.noteCount += 1;
         if (clickSource == targetSource)
         {

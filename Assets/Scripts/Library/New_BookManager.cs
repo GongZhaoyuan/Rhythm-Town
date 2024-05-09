@@ -24,6 +24,7 @@ public class New_BookManager : MonoBehaviour
 {
     public TMP_Text infoText;
     public TMP_Text balanceTextComponent;
+
     //Level
     public TMP_Text CoinLevelText;
     public TMP_Text EnergyLevelText;
@@ -53,7 +54,7 @@ public class New_BookManager : MonoBehaviour
 
 
     int maxLevel = 5;
-
+    int currentCoin = 100;
 
     [System.Serializable]
     public class BookData
@@ -122,22 +123,24 @@ public class New_BookManager : MonoBehaviour
     {
         Debug.Log("coin level up");
         objectData_Cloud["Coin"].Level += 1;
-        CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}"; ;
+        CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}";
+        ;
         await UpdateRecordAsync();
 
         string currencyID = "COINS";
 
         int decrementAmount = 100;
 
-        PlayerBalance newBalance = await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(currencyID, decrementAmount);
+        PlayerBalance newBalance =
+            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                currencyID,
+                decrementAmount
+            );
 
-        GetBalancesOptions options = new GetBalancesOptions
-        {
-            ItemsPerFetch = 1,
-        };
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
 
-        GetBalancesResult getBalancesResult = await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
-
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
 
         if (getBalancesResult.Balances.Count > 0)
         {
@@ -153,23 +156,63 @@ public class New_BookManager : MonoBehaviour
 
     public async void EnergyLevelUP()
     {
-        objectData_Cloud["Energy"].Level += 1;
-        EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}"; ;
-        await UpdateRecordAsync();
+        if (LevelUpCoinCheck(objectData_Cloud["Energy"].Level))
+        {
+            objectData_Cloud["Energy"].Level += 1;
+            EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}";
+            ;
+            await UpdateRecordAsync();
+        }
     }
 
     public async void MissLevelUP()
     {
-        objectData_Cloud["Miss"].Level += 1;
-        MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}"; ;
-        await UpdateRecordAsync();
+        if (LevelUpCoinCheck(objectData_Cloud["Miss"].Level))
+        {
+            objectData_Cloud["Miss"].Level += 1;
+            MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";
+
+            await UpdateRecordAsync();
+        }
     }
 
     public async void RangeLevelUP()
     {
-        objectData_Cloud["Range"].Level += 1;
-        RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}"; ;
-        await UpdateRecordAsync();
+        if (LevelUpCoinCheck(objectData_Cloud["Range"].Level))
+        {
+            objectData_Cloud["Range"].Level += 1;
+            RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";
+            ;
+            await UpdateRecordAsync();
+        }
+    }
+
+    public bool LevelUpCoinCheck(int bookLevel)
+    {
+        bool couldLevelUp;
+        int nextLevelCost = (bookLevel + 1) * 10;
+
+        if (currentCoin >= nextLevelCost)
+        {
+            couldLevelUp = true;
+            currentCoin = currentCoin - nextLevelCost;
+            Debug.Log("currentCoin" + currentCoin);
+        }
+        else
+        {
+            couldLevelUp = false;
+            // infoText.text = "Insufficient coins~";
+            StartCoroutine(ShowInsufficientCoinsText());
+        }
+
+        IEnumerator ShowInsufficientCoinsText()
+        {
+            infoText.text = "Insufficient coins~";
+            yield return new WaitForSeconds(2);
+            infoText.text = " Welcome to the library! What can I help?";
+        }
+
+        return couldLevelUp;
     }
 
     public async void SetBookEquipped(string bookName, bool isEquipped)
@@ -216,7 +259,7 @@ public class New_BookManager : MonoBehaviour
                     Range4Borrow.gameObject.SetActive(!isEquipped);
                     RangeStar.gameObject.SetActive(isEquipped);
                     break;
-                    // Add cases for other books if needed
+                // Add cases for other books if needed
             }
         }
         await UpdateRecordAsync();
