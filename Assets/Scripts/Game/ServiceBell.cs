@@ -11,6 +11,7 @@ public class ServiceBell : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.volume = GameSettings.soundVolume / 100f;
     }
     
     protected virtual void OnMouseOver()

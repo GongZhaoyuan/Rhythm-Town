@@ -2146,8 +2146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameName: Sushi
-  skillNo: 0
-  skillLevel: 0
+  bestRecordText: {fileID: 1250373371596767992}
   multiplayerButton: {fileID: 2820435128372272427}
 --- !u!1 &7125794420601554448
 GameObject:
@@ -3456,6 +3455,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1825480525834109033, guid: 83b7083b38d49490682a0c69c7d0eb26, type: 3}
   m_PrefabInstance: {fileID: 1551872439396202919}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1250373371596767992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 347740575494044511, guid: 83b7083b38d49490682a0c69c7d0eb26, type: 3}
+  m_PrefabInstance: {fileID: 1551872439396202919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1761210380837554068
 PrefabInstance:
   m_ObjectHideFlags: 0
