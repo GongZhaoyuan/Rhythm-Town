@@ -1924,6 +1924,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 547162961}
   m_CullTransparentMesh: 0
+--- !u!1 &568384180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 999904932541595402, guid: 0376c8a3de6b542fb9f84c6c4b2e82f2, type: 3}
+  m_PrefabInstance: {fileID: 86144475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &590443673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5344,6 +5349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 100310, guid: 438e1e914277b4d72b9b5ec90232fcbc, type: 3}
+  m_canvas: {fileID: 0}
 --- !u!1 &1691705645
 GameObject:
   m_ObjectHideFlags: 0
@@ -6001,6 +6007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 109460, guid: 83a916c7d11854a3c8e63f548dcb0c0f, type: 3}
+  m_canvas: {fileID: 0}
 --- !u!1 &1775145659
 GameObject:
   m_ObjectHideFlags: 0
@@ -6968,7 +6975,7 @@ MonoBehaviour:
   signUpNickName: {fileID: 1720473450}
   logInEmail: {fileID: 1738188693}
   logInPassword: {fileID: 1122747709}
-  dialogueBox: {fileID: 0}
+  dialogueBox: {fileID: 568384180}
 --- !u!114 &2060582274
 MonoBehaviour:
   m_ObjectHideFlags: 0
