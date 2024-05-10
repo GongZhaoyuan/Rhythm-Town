@@ -30,14 +30,16 @@ public class GameController : NetworkBehaviour
     {
         BPM = musicBPM;
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameSettings.soundVolume / 100f;
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        bgmAudioSource.volume = GameSettings.musicVolume / 100f;
 
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
         checkPosition = checkPoint.position;
 
         fullBeat = 60 / BPM;
-        beat = fullBeat;
+        beat = fullBeat - GameSettings.offset * Time.deltaTime;
         countdownBeat = fullBeat;        
         
         difficulty = GameStartManager.lastDifficulty;

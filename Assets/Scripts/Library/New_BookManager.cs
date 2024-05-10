@@ -54,11 +54,12 @@ public class New_BookManager : MonoBehaviour
 
 
     int maxLevel = 5;
-    int currentCoin = 100;
 
     public int maxEXP = 100;
 
     int currentEXP;
+
+    int currentCoin;
 
     [System.Serializable]
     public class BookData
@@ -79,6 +80,9 @@ public class New_BookManager : MonoBehaviour
         {
             PlayerBalance balance = getBalancesResult.Balances[0];
             string balanceText = balance.Balance.ToString();
+
+            currentCoin = int.Parse(balanceText);
+
             balanceTextComponent.text = balanceText;
 
 
@@ -153,15 +157,18 @@ public class New_BookManager : MonoBehaviour
 
     public async void CoinLevelUP()
     {
-        Debug.Log("coin level up");
-        objectData_Cloud["Coin"].Level += 1;
-        CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}";
-        ;
-        await UpdateRecordAsync();
+        if (LevelUpCoinCheck(objectData_Cloud["Coin"].Level))
+        {
+            Debug.Log("coin level up");
+            objectData_Cloud["Coin"].Level += 1;
+            CoinLevelText.text = $"Lv.{objectData_Cloud["Coin"].Level}/{maxLevel}";
+            ;
+            await UpdateRecordAsync();
+        }
 
         string currencyID = "COINS";
 
-        int decrementAmount = 100;
+        int decrementAmount = 1000;
 
         PlayerBalance newBalance =
             await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
@@ -194,33 +201,38 @@ public class New_BookManager : MonoBehaviour
             EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}";
             ;
             await UpdateRecordAsync();
+
+            string currencyID = "COINS";
+
+            int decrementAmount = 1000;
+
+            PlayerBalance newBalance =
+                await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                    currencyID,
+                    decrementAmount
+                );
+
+            GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
+
+            GetBalancesResult getBalancesResult =
+                await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+            if (getBalancesResult.Balances.Count > 0)
+            {
+                PlayerBalance balance = getBalancesResult.Balances[0];
+
+                string balanceText = balance.Balance.ToString();
+
+                Debug.Log(balanceText);
+
+                balanceTextComponent.text = balanceText;
+            }
+
+
+
         }
 
-        string currencyID = "COINS";
 
-        int decrementAmount = 100;
-
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
-                currencyID,
-                decrementAmount
-            );
-
-        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
-
-        GetBalancesResult getBalancesResult =
-            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
-
-        if (getBalancesResult.Balances.Count > 0)
-        {
-            PlayerBalance balance = getBalancesResult.Balances[0];
-
-            string balanceText = balance.Balance.ToString();
-
-            Debug.Log(balanceText);
-
-            balanceTextComponent.text = balanceText;
-        }
     }
 
     public async void MissLevelUP()
@@ -231,33 +243,35 @@ public class New_BookManager : MonoBehaviour
             MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";
 
             await UpdateRecordAsync();
+            string currencyID = "COINS";
+
+            int decrementAmount = 1000;
+
+            PlayerBalance newBalance =
+                await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                    currencyID,
+                    decrementAmount
+                );
+
+            GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
+
+            GetBalancesResult getBalancesResult =
+                await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+            if (getBalancesResult.Balances.Count > 0)
+            {
+                PlayerBalance balance = getBalancesResult.Balances[0];
+
+                string balanceText = balance.Balance.ToString();
+
+                Debug.Log(balanceText);
+
+                balanceTextComponent.text = balanceText;
+            }
+
         }
 
-        string currencyID = "COINS";
 
-        int decrementAmount = 100;
-
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
-                currencyID,
-                decrementAmount
-            );
-
-        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
-
-        GetBalancesResult getBalancesResult =
-            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
-
-        if (getBalancesResult.Balances.Count > 0)
-        {
-            PlayerBalance balance = getBalancesResult.Balances[0];
-
-            string balanceText = balance.Balance.ToString();
-
-            Debug.Log(balanceText);
-
-            balanceTextComponent.text = balanceText;
-        }
     }
 
     public async void RangeLevelUP()
@@ -268,39 +282,41 @@ public class New_BookManager : MonoBehaviour
             RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";
             ;
             await UpdateRecordAsync();
+
+            string currencyID = "COINS";
+
+            int decrementAmount = 1000;
+
+            PlayerBalance newBalance =
+                await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                    currencyID,
+                    decrementAmount
+                );
+
+            GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
+
+            GetBalancesResult getBalancesResult =
+                await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+            if (getBalancesResult.Balances.Count > 0)
+            {
+                PlayerBalance balance = getBalancesResult.Balances[0];
+
+                string balanceText = balance.Balance.ToString();
+
+                Debug.Log(balanceText);
+
+                balanceTextComponent.text = balanceText;
+            }
         }
 
-        string currencyID = "COINS";
 
-        int decrementAmount = 100;
-
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
-                currencyID,
-                decrementAmount
-            );
-
-        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
-
-        GetBalancesResult getBalancesResult =
-            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
-
-        if (getBalancesResult.Balances.Count > 0)
-        {
-            PlayerBalance balance = getBalancesResult.Balances[0];
-
-            string balanceText = balance.Balance.ToString();
-
-            Debug.Log(balanceText);
-
-            balanceTextComponent.text = balanceText;
-        }
     }
 
     public bool LevelUpCoinCheck(int bookLevel)
     {
         bool couldLevelUp;
-        int nextLevelCost = (bookLevel + 1) * 10;
+        int nextLevelCost = 1000;
 
         if (currentCoin >= nextLevelCost)
         {

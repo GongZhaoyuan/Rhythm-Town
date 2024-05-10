@@ -30,63 +30,7 @@ public class MapManager : MonoBehaviour
     private int avatarNo;
     GameObject playerPrefab;
 
-    public TMP_Text coinTextComponent;
 
-    public TMP_Text timerText;
-    public TMP_Text counterText;
-    private int counter = 4;
-    private float timer = 0f;
-    private float interval = 1800f; // 30 minutes in seconds
-
-    int currentEXP;
-
-    public int maxEXP = 100;
-
-    async void Awake()
-    {
-        //get the coin data
-        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 3, };
-
-        GetBalancesResult getBalancesResult =
-            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
-
-        if (getBalancesResult.Balances.Count > 0)
-        {
-
-            //coin
-            PlayerBalance coin = getBalancesResult.Balances[0];
-            string coinText = coin.Balance.ToString();
-            coinTextComponent.text = coinText;
-
-            //energy
-            //PlayerBalance energy = getBalancesResult.Balances[1];
-            //string enemgyText = coin.Balance.ToString();
-            //counterText.text = enemgyText;
-
-
-            //exp
-            PlayerBalance exp = getBalancesResult.Balances[2];
-            string expText = exp.Balance.ToString();
-            currentEXP = int.Parse(expText);
-            MaskController.instance.SetValue(currentEXP / (float)maxEXP);
-
-            Debug.Log(currentEXP);
-        }
-
-
-        if (getBalancesResult.Balances.Count > 0)
-        {
-            PlayerBalance balance = getBalancesResult.Balances[2];
-
-            string balanceText = balance.Balance.ToString();
-
-            currentEXP = int.Parse(balanceText);
-
-            MaskController.instance.SetValue(currentEXP / (float)maxEXP);
-
-        }
-
-    }
 
     private async void Start()
     {
@@ -95,36 +39,8 @@ public class MapManager : MonoBehaviour
         playerInstance = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
         virtualCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerInstance.transform;
 
-        string currencyID = "EXP";
-
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                currencyID,
-                5
-            );
     }
 
-    private void Update()
-    {
-        if (counter < 5)
-        {
-            timer += Time.deltaTime;
-            if (timer >= interval)
-            {
-                timer = 0f;
-                counter++;
-                Debug.Log("enemgy add!");
-            }
-        }
-        // 计算剩余时间
-        float remainingTime = interval - timer;
-        int minutes = Mathf.FloorToInt(remainingTime / 60f);
-        int seconds = Mathf.FloorToInt(remainingTime % 60f);
-        string timeText = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-        timerText.text = timeText;
-        counterText.text = counter.ToString() + "/5";
-    }
 
     public async Task LoadData()
     {
@@ -145,28 +61,4 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public async void addEXP(int amount)
-    {
-
-        string currencyID = "EXP";
-
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                currencyID,
-                amount
-            );
-    }
-
-
-    public async void addCoin(int amount)
-    {
-
-        string currencyID = "COINS";
-
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                currencyID,
-                amount
-            );
-    }
 }
