@@ -47,26 +47,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.E))
-        {            
-            /*
-            RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 2f, LayerMask.GetMask("Entry"));
+        {
+            RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
             if (hit.collider != null)
             {
-                NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
-                if (character != null)
-                {
-                    character.DisplayDialog();
-                }
+                Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
             }
-            */
         }
     }
 
     void FixedUpdate()
     {
         Vector2 position = rigidbody2d.position;
-        lastPosition.x = position.x + speed * horizontal * Time.deltaTime;
-        lastPosition.y = position.y + speed * vertical * Time.deltaTime;
+        lastPosition.x = position.x + speed * horizontal * Time.deltaTime + speed * vertical * Time.deltaTime;
+        lastPosition.y = position.y + speed * vertical * Time.deltaTime - speed * horizontal * Time.deltaTime;
 
         rigidbody2d.MovePosition(lastPosition);
     }

@@ -56,6 +56,10 @@ public class New_BookManager : MonoBehaviour
     int maxLevel = 5;
     int currentCoin = 100;
 
+    public int maxEXP = 100;
+
+    int currentEXP;
+
     [System.Serializable]
     public class BookData
     {
@@ -74,12 +78,16 @@ public class New_BookManager : MonoBehaviour
         if (getBalancesResult.Balances.Count > 0)
         {
             PlayerBalance balance = getBalancesResult.Balances[0];
-
             string balanceText = balance.Balance.ToString();
-
-            Debug.Log(balanceText);
-
             balanceTextComponent.text = balanceText;
+
+
+            PlayerBalance exp = getBalancesResult.Balances[2];
+            string expText = exp.Balance.ToString();
+            currentEXP = int.Parse(expText);
+            MaskController.instance.SetValue(currentEXP / (float)maxEXP);
+            Debug.Log(currentEXP);
+
         }
     }
 
