@@ -52,6 +52,12 @@ public class PlayerMovement : MonoBehaviour
             if (hit.collider != null)
             {
                 Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+
+                npcDialogue character = hit.collider.GetComponent<npcDialogue>();
+                if (character != null)
+                {
+                    character.DisplayDialog();
+                }
             }
         }
     }

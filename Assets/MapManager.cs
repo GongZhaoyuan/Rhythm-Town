@@ -34,6 +34,9 @@ public class MapManager : MonoBehaviour
 
     public TMP_Text timerText;
     public TMP_Text counterText;
+
+    public TMP_Text levelTextComponent;
+
     private int counter = 4;
     private float timer = 0f;
     private float interval = 1800f; // 30 minutes in seconds
@@ -45,7 +48,7 @@ public class MapManager : MonoBehaviour
     async void Awake()
     {
         //get the coin data
-        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 3, };
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
 
         GetBalancesResult getBalancesResult =
             await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
@@ -70,20 +73,10 @@ public class MapManager : MonoBehaviour
             currentEXP = int.Parse(expText);
             MaskController.instance.SetValue(currentEXP / (float)maxEXP);
 
-            Debug.Log(currentEXP);
-        }
-
-
-        if (getBalancesResult.Balances.Count > 0)
-        {
-            PlayerBalance balance = getBalancesResult.Balances[2];
-
-            string balanceText = balance.Balance.ToString();
-
-            currentEXP = int.Parse(balanceText);
-
-            MaskController.instance.SetValue(currentEXP / (float)maxEXP);
-
+            //level
+            PlayerBalance level = getBalancesResult.Balances[3];
+            string levelText = exp.Balance.ToString();
+            levelTextComponent.text = levelText;
         }
 
     }
@@ -149,12 +142,35 @@ public class MapManager : MonoBehaviour
     {
 
         string currencyID = "EXP";
+        string currencyLevel = "LEVEL";
 
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                currencyID,
-                amount
-            );
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
+
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+        PlayerBalance exp = getBalancesResult.Balances[2];
+        string expText = exp.Balance.ToString();
+        currentEXP = int.Parse(expText);
+
+        if (currentEXP + amount > 100)
+        {
+            PlayerBalance newBalance =
+                        await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
+                            currencyLevel,
+                            1
+                        );
+            PlayerBalance EXPnewBalance = await EconomyService.Instance.PlayerBalances.SetBalanceAsync(currencyID, 0);
+        }
+        else
+        {
+            PlayerBalance newBalance =
+                        await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
+                            currencyID,
+                            amount
+                        );
+        }
+
     }
 
 
