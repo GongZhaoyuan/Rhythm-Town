@@ -507,6 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 182674, guid: e340f342607574ef2acfc083e19918fd, type: 3}
+  m_canvas: {fileID: 0}
 --- !u!82 &4472426946988078994
 AudioSource:
   m_ObjectHideFlags: 0
@@ -947,6 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 169892, guid: 065b3f0e192154b3981df998009257e7, type: 3}
+  m_canvas: {fileID: 0}
 --- !u!82 &885234916617291487
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1146,7 +1148,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<size=50%>Level\n<size=10\x030%>1"
+  m_text: '<size=100%>1
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2f3a4a16908464577a12e2bcc7996116, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: dfcfdfadb1e7a491fb7dd5ae345b6b0f, type: 2}
@@ -1706,7 +1710,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 015573da50ed04390be9f20287a541d6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 884ae8638e5a0488c8cc90fb256efb51, type: 2}
@@ -2081,6 +2085,7 @@ GameObject:
   - component: {fileID: 6108280894624411916}
   - component: {fileID: 6914775030124385654}
   - component: {fileID: 1130720142098441169}
+  - component: {fileID: 3490903117793688288}
   m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
@@ -2104,7 +2109,7 @@ RectTransform:
   m_Father: {fileID: 368510132644271306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
@@ -2159,6 +2164,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &3490903117793688288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108755914089268990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 579a63af0265a43ba8a15a3e0de230bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask: {fileID: 6914775030124385654}
 --- !u!1 &4150703590220839246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2914,7 +2932,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Sense of Rhythm: 50%\x03"
+  m_text: Sense of Rhythm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 015573da50ed04390be9f20287a541d6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 884ae8638e5a0488c8cc90fb256efb51, type: 2}
@@ -4378,6 +4396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 109460, guid: c89a9cf8346ee42ef97d5905accb3448, type: 3}
+  m_canvas: {fileID: 0}
 --- !u!1 &8555298943984281660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4491,6 +4510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5645589642304077541}
+  - component: {fileID: 1209506589142019624}
   m_Layer: 5
   m_Name: PlayerInfo
   m_TagString: Untagged
@@ -4518,6 +4538,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1209506589142019624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8804947780757489339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f253a0d8f4e55483ea3805b04121f942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinTextComponent: {fileID: 3627257386175454383}
+  timerText: {fileID: 4713911351731127957}
+  enemgyTexComonent: {fileID: 6000703775098943981}
+  levelTextComponent: {fileID: 8984004732815953412}
+  maxEXP: 100
 --- !u!1 &9043251407605690092
 GameObject:
   m_ObjectHideFlags: 0
