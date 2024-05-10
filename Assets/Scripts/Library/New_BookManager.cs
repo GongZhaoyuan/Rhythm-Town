@@ -63,6 +63,26 @@ public class New_BookManager : MonoBehaviour
         public bool IsEquipped { get; set; }
     }
 
+    async void Awake()
+    {
+        //get the coin data
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
+
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance balance = getBalancesResult.Balances[0];
+
+            string balanceText = balance.Balance.ToString();
+
+            Debug.Log(balanceText);
+
+            balanceTextComponent.text = balanceText;
+        }
+    }
+
     async void Start()
     {
         StartCoroutine(StartAsync());
@@ -71,6 +91,10 @@ public class New_BookManager : MonoBehaviour
         EnergyLevelText.text = $"Lv.{objectData_Cloud["Energy"].Level}/{maxLevel}";
         MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";
         RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";
+
+
+
+
     }
 
     private IEnumerator StartAsync()
@@ -163,6 +187,32 @@ public class New_BookManager : MonoBehaviour
             ;
             await UpdateRecordAsync();
         }
+
+        string currencyID = "COINS";
+
+        int decrementAmount = 100;
+
+        PlayerBalance newBalance =
+            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                currencyID,
+                decrementAmount
+            );
+
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
+
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance balance = getBalancesResult.Balances[0];
+
+            string balanceText = balance.Balance.ToString();
+
+            Debug.Log(balanceText);
+
+            balanceTextComponent.text = balanceText;
+        }
     }
 
     public async void MissLevelUP()
@@ -174,6 +224,32 @@ public class New_BookManager : MonoBehaviour
 
             await UpdateRecordAsync();
         }
+
+        string currencyID = "COINS";
+
+        int decrementAmount = 100;
+
+        PlayerBalance newBalance =
+            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                currencyID,
+                decrementAmount
+            );
+
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
+
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance balance = getBalancesResult.Balances[0];
+
+            string balanceText = balance.Balance.ToString();
+
+            Debug.Log(balanceText);
+
+            balanceTextComponent.text = balanceText;
+        }
     }
 
     public async void RangeLevelUP()
@@ -184,6 +260,32 @@ public class New_BookManager : MonoBehaviour
             RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";
             ;
             await UpdateRecordAsync();
+        }
+
+        string currencyID = "COINS";
+
+        int decrementAmount = 100;
+
+        PlayerBalance newBalance =
+            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                currencyID,
+                decrementAmount
+            );
+
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 1, };
+
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance balance = getBalancesResult.Balances[0];
+
+            string balanceText = balance.Balance.ToString();
+
+            Debug.Log(balanceText);
+
+            balanceTextComponent.text = balanceText;
         }
     }
 
@@ -259,7 +361,7 @@ public class New_BookManager : MonoBehaviour
                     Range4Borrow.gameObject.SetActive(!isEquipped);
                     RangeStar.gameObject.SetActive(isEquipped);
                     break;
-                // Add cases for other books if needed
+                    // Add cases for other books if needed
             }
         }
         await UpdateRecordAsync();
