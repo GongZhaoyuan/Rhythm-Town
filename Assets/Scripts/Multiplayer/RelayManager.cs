@@ -35,14 +35,15 @@ public class RelayManager : NetworkBehaviour
     
     [SerializeField] TMP_InputField joinCodeInputField;
     [SerializeField] Button hostButton, joinButton, startButton, pauseButton;
-    [SerializeField] TMP_Text startButtonText, hintText;
+    [SerializeField] TMP_Text startButtonText, hintText, dialogueText;
     [SerializeField] List<GameObject> difficultyIcons, playerIcons;
     [SerializeField] GameObject preparationUI;
     [SerializeField] MultiplayerGameController multiplayerGameController;
     [SerializeField] Color readyColor;
     public NetworkList<PlayerData> players = new NetworkList<PlayerData>();
     NetworkVariable<int> difficulty = new NetworkVariable<int>(0);
-    public static NetworkVariable<bool> GameStarted = new NetworkVariable<bool>(false), GamePaused = new NetworkVariable<bool>(true);
+    public static NetworkVariable<bool> GameStarted = new NetworkVariable<bool>(false);
+    public static NetworkVariable<bool> GamePaused = new NetworkVariable<bool>(true);
     int playerNo;
 
     public override void OnNetworkSpawn()
@@ -73,6 +74,7 @@ public class RelayManager : NetworkBehaviour
         }
         else
         {
+            Debug.Log("Pause Change Listened");
             GameObject.FindWithTag("Pause").GetComponent<Popup>().Close();
             GameController.Resume();            
         }
@@ -93,10 +95,18 @@ public class RelayManager : NetworkBehaviour
 
     public async void StartRelay()
     {
-        DisplayHint();
-        string joinCode = await StartHostWithRelay();
-        joinCodeInputField.text = joinCode;
-        playerNo = 0;
+        try
+        {
+            DisplayHint();
+            string joinCode = await StartHostWithRelay();
+            joinCodeInputField.text = joinCode;
+            playerNo = 0;
+        }
+        catch (Exception)
+        {
+            dialogueText.maxVisibleCharacters = 0;
+            dialogueText.text = "Something went wrong! Please check your input or try again later.";
+        }
     }
     
     public async void JoinRelay()
@@ -188,5 +198,9 @@ public class RelayManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void PauseGameServerRpc() { GamePaused.Value = true; }
     [ServerRpc(RequireOwnership = false)]
-    public void ResumeGameServerRpc() { GamePaused.Value = false; }
+    public void ResumeGameServerRpc()
+    {
+        Debug.Log("Before Change Paused");
+        GamePaused.Value = false;
+        Debug.Log("ResumeRpc Called"); }
 }

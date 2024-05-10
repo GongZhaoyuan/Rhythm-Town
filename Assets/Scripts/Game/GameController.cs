@@ -175,7 +175,7 @@ public class GameController : NetworkBehaviour
         List<int> barLengths = new List<int> {2, 4, 4, 8};
         barLength = barLengths[difficulty];
         generateSpeed = barLength / 4f;
-        score = ScoreGenerator.GetScore(musiclength, barLength, seed);
+        score = ScoreGenerator.GetScore(difficulty, musiclength, barLength, seed);
     }
     
     public static void Pause()
