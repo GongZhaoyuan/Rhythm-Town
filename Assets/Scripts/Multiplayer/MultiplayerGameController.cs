@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class MultiplayerGameController : GameController
     public Transform hostDestination, clientDestination, hostCheckPoint, clientCheckPoint;
     public GameObject hostJudgeRange, clientJudgeRange;
     public static Vector2 _hostDestination, _clientDestination; 
+    [SerializeField] TMP_Text hostText, clientText;
 
     protected override void Start()
     {        
@@ -42,6 +44,8 @@ public class MultiplayerGameController : GameController
         checkPosition = IsHost? hostCheckPoint.position: clientCheckPoint.position;
         hostJudgeRange.SetActive(IsHost);
         clientJudgeRange.SetActive(!IsHost);
+        hostText.text = IsHost? "1P\n<size=50%>(You)" : "1P";
+        clientText.text = IsHost? "2P" : "2P\n<size=50%>(You)";
     }
 
     public void RecordNote(GameObject noteObject)

@@ -514,6 +514,7 @@ MonoBehaviour:
   gameName: 
   skillNo: 0
   skillLevel: 0
+  multiplayerButton: {fileID: 0}
 --- !u!4 &1964012921
 Transform:
   m_ObjectHideFlags: 0
@@ -686,6 +687,10 @@ PrefabInstance:
     - target: {fileID: 1402376149157631087, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550419016141463621, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
+      propertyPath: gameName
+      value: Mail
       objectReference: {fileID: 0}
     - target: {fileID: 1831422909841656408, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_AnchorMax.y

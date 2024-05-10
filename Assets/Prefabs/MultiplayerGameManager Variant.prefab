@@ -6590,6 +6590,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3077227539789950699, guid: a621ad5ca9788438b8981587521edf1e, type: 3}
   m_PrefabInstance: {fileID: 188667893516987881}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3989435782077586612 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3873969550251684189, guid: a621ad5ca9788438b8981587521edf1e, type: 3}
+  m_PrefabInstance: {fileID: 188667893516987881}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4799880226995101387 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4612479666709541666, guid: a621ad5ca9788438b8981587521edf1e, type: 3}
@@ -6660,6 +6671,10 @@ PrefabInstance:
       propertyPath: startButton
       value: 
       objectReference: {fileID: 2140374737538270638}
+    - target: {fileID: 2384915300200434552, guid: 2316eb2ac0a5e435e9f4c46c67d16c4f, type: 3}
+      propertyPath: dialogueText
+      value: 
+      objectReference: {fileID: 3989435782077586612}
     - target: {fileID: 2384915300200434552, guid: 2316eb2ac0a5e435e9f4c46c67d16c4f, type: 3}
       propertyPath: preparationUI
       value: 
@@ -6984,6 +6999,8 @@ MonoBehaviour:
   clientCheckPoint: {fileID: 2560478550773079176}
   hostJudgeRange: {fileID: 8148275240934020198}
   clientJudgeRange: {fileID: 6451586546697251442}
+  hostText: {fileID: 0}
+  clientText: {fileID: 0}
 --- !u!114 &1724847270724588600 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4414180198186733797, guid: 7743565811a894b2f8278e4928fdc724, type: 3}

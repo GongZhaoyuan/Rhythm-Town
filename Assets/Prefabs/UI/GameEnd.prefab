@@ -1360,7 +1360,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 125}
-  m_SizeDelta: {x: 675, y: 125}
+  m_SizeDelta: {x: 700, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5780197607532205311
 MonoBehaviour:
@@ -4685,13 +4685,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2ab9b3e328b4315899dfd49e50c902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameName: 
   accuracyText: {fileID: 4483887182942488160}
   bestRecordText: {fileID: 7898997655081004862}
-  easy: {fileID: 986840446537607530}
-  normal: {fileID: 6727645758580342380}
-  hard: {fileID: 5047509000670184559}
-  expert: {fileID: 1349701569987649897}
-  infinite: {fileID: 8571022490747099334}
+  difficultyIcons:
+  - {fileID: 986840446537607530}
+  - {fileID: 6727645758580342380}
+  - {fileID: 5047509000670184559}
+  - {fileID: 1349701569987649897}
+  - {fileID: 8571022490747099334}
 --- !u!1 &8014194794543880226
 GameObject:
   m_ObjectHideFlags: 0
@@ -5982,7 +5984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8961328327431068595, guid: 5841fe7e812514ec6bbde3de3f45dfd2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
