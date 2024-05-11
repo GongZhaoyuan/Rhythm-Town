@@ -18,6 +18,7 @@ public class GameStartManager : MonoBehaviour
     [SerializeField] TMP_Text bestRecordText;
     public static List<float> bestRecordList = new List<float> {-1, -1, -1, -1, -1};
     [SerializeField] Button multiplayerButton;
+    [SerializeField] List<Image> starIcons;
     Dictionary<string, New_BookManager.BookData> skillsDict;
     public static string skillType;
 
@@ -90,6 +91,7 @@ public class GameStartManager : MonoBehaviour
                     if (float.TryParse(record.Value.GetAsString(), out float recordValue))
                         bestRecordList[i] = recordValue;
                 }
+                starIcons[i].sprite = Resources.Load<Sprite>("Stars/Star " + (bestRecordList[i] < 60? "Gray" : bestRecordList[i] < 90? "Yellow" : "Pink"));
             }
         }
         catch (Exception ex)

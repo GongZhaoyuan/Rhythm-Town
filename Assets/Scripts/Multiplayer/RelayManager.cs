@@ -226,6 +226,8 @@ public class RelayManager : NetworkBehaviour
         MultiplayerGameEndManager.hostData = players[0];
         MultiplayerGameEndManager.clientData = players[1];
     }
+
+    public void Disconnect() { NetworkManager.Singleton.Shutdown(); }
     
     [ServerRpc(RequireOwnership = false)]
     private void SetPlayerDataServerRpc(int index, PlayerData playerData) { players[index] = playerData; }

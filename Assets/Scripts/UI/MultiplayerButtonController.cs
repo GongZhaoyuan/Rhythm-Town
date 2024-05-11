@@ -14,7 +14,6 @@ public class MultiplayerButtonController : MonoBehaviour
     {
         GameObject.Find("RelayManager").GetComponent<RelayManager>().hasQuit = true;
         GameObject.Find("RelayManager").GetComponent<RelayManager>().QuitGameServerRpc();
-        NetworkManager.Singleton.Shutdown();
         GetComponent<SceneTransition>().PerformTransition();
     }
 }
