@@ -16,7 +16,15 @@ public class GameEndManager : MonoBehaviour
     private async void Awake()
     {
         await UnityServices.InitializeAsync();
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Anonymous");
+        }
+        else
+        {
+            Debug.Log("Signed In");
+        }
     }
 
     async void Start()

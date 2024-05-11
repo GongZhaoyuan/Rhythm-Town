@@ -13,6 +13,7 @@ public class GameController : NetworkBehaviour
     public static int noteCount, comboCount;
     public static List<GameObject> noteObjects;
     static float beat, countdownBeat, fullBeat;
+    float beatReset, fullBeatReset;
     public static bool isPaused, isOver, isGameEnd;
     public GameObject notePrefab;
     public Transform spawnPoint, endPoint, checkPoint;
@@ -39,8 +40,10 @@ public class GameController : NetworkBehaviour
         checkPosition = checkPoint.position;
 
         fullBeat = 60 / BPM;
-        beat = fullBeat - GameSettings.offset * Time.deltaTime;
-        countdownBeat = fullBeat;        
+        beat = fullBeat / generateSpeed - GameSettings.offset * Time.deltaTime;
+        countdownBeat = fullBeat;
+        fullBeatReset = fullBeat * 4;
+        beatReset = fullBeat;
         
         difficulty = GameStartManager.lastDifficulty;
         GenerateScore(System.DateTime.Now.Second * 1000 + System.DateTime.Now.Millisecond);
@@ -91,6 +94,12 @@ public class GameController : NetworkBehaviour
             if (CountIn())
             {
                 beat -= Time.deltaTime;
+                beatReset -= Time.deltaTime;
+                if (beatReset <= 0)
+                {
+                    beat = 0;
+                    beatReset = fullBeatReset;
+                }
                 if (beat <= 0)
                 {
                     beat = fullBeat / generateSpeed;

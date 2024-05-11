@@ -30,6 +30,10 @@ public class GameStartManager : MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Anonymous");
         }
+        else
+        {
+            Debug.Log("Signed In");
+        }
     }
 
     async void Start()
