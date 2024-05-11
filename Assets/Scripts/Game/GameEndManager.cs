@@ -10,7 +10,7 @@ using UnityEngine;
 public class GameEndManager : MonoBehaviour
 {
     [SerializeField] string gameName;
-    public TMP_Text accuracyText, bestRecordText;
+    [SerializeField] TMP_Text accuracyText, bestRecordText, coinText, expText;
     [SerializeField] List<GameObject> difficultyIcons;
     
     private async void Awake()
@@ -33,6 +33,7 @@ public class GameEndManager : MonoBehaviour
         if (GameController.accuracy > GameStartManager.bestRecord)
         {
             bestRecordText.text = $"{ GameController.accuracy }%";
+            GameStartManager.bestRecordList[GameStartManager.lastDifficulty] = GameController.accuracy;
             string[] recordLabels = {"Easy", "Normal", "Hard", "Expert", "Infinite"};
             var recordData = new Dictionary<string, object> {
                 { $"Record_{gameName}_{recordLabels[GameStartManager.lastDifficulty]}", GameController.accuracy }
@@ -58,15 +59,15 @@ public class GameEndManager : MonoBehaviour
         ); 
     }
 
-    public async void GainCoin(int amount)
-    {
+    // public async void GainCoin(int amount)
+    // {
 
-        string currencyID = "COINS";
+    //     string currencyID = "COINS";
 
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                currencyID,
-                amount
-            );
-    }
+    //     PlayerBalance newBalance =
+    //         await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
+    //             currencyID,
+    //             amount
+    //         );
+    // }
 }

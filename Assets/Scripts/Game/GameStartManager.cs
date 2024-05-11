@@ -16,49 +16,28 @@ public class GameStartManager : MonoBehaviour
     public static bool isInfinite;
     public static int lastDifficulty, skillLevel;
     [SerializeField] TMP_Text bestRecordText;
-    private static List<float> bestRecordList;
+    public static List<float> bestRecordList = new List<float> {-1, -1, -1, -1, -1};
     [SerializeField] Button multiplayerButton;
     Dictionary<string, New_BookManager.BookData> skillsDict;
     public static string skillType;
 
     private async void Awake()
     {
-        bestRecordList = new List<float> {0, 0, 0, 0, 0};
         await UnityServices.InitializeAsync();
         if (!AuthenticationService.Instance.IsSignedIn)
-        {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log("Anonymous");
-        }
-        else
-        {
-            Debug.Log("Signed In");
-        }
     }
 
     async void Start()
     {
         await LoadProp();
-        try
+        foreach (float record in bestRecordList)
         {
-            string[] recordLabels = {"Easy", "Normal", "Hard", "Expert", "Infinite"};
-            for (int i = 0; i < recordLabels.Length; i++)
+            if (record < 0)
             {
-                recordLabels[i] = $"Record_{gameName}_{recordLabels[i]}";
+                await LoadRecord();
+                break;
             }
-            var recordData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>(recordLabels));
-            for (int i = 0; i < recordLabels.Length; i++)
-            {
-                if (recordData.TryGetValue(recordLabels[i], out var record))
-                {
-                    if (float.TryParse(record.Value.GetAsString(), out float recordValue))
-                        bestRecordList[i] = recordValue;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.Log("Record Exception: "+ex);
         }
         foreach (string skillLabel in skillsDict.Keys)
         {
@@ -77,7 +56,7 @@ public class GameStartManager : MonoBehaviour
         lastDifficulty = gameMode;
         isInfinite = gameMode == 4;
         bestRecord = bestRecordList[gameMode];
-        bestRecordText.text = bestRecord == 0? "None" : $"{bestRecord}%";
+        bestRecordText.text = bestRecord == -1 ? "Loading...": bestRecord == 0? "None" : $"{bestRecord}%";
         multiplayerButton.interactable = !isInfinite;
     }
 
@@ -92,6 +71,30 @@ public class GameStartManager : MonoBehaviour
             Item item = playerData["objectLevelRecord_Cloud"];
             skillsDict = item.Value.GetAs<Dictionary<string, New_BookManager.BookData>>();
             Debug.Log($"Dictionary Loaded:{skillsDict["Coin"].Level}");
+        }
+    }
+
+    async Task LoadRecord()
+    {
+        try
+        {
+            string[] recordLabels = {"Easy", "Normal", "Hard", "Expert", "Infinite"};
+            for (int i = 0; i < recordLabels.Length; i++)
+                recordLabels[i] = $"Record_{gameName}_{recordLabels[i]}";
+            var recordData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>(recordLabels));
+            for (int i = 0; i < recordLabels.Length; i++)
+            {
+                bestRecordList[i] = 0;
+                if (recordData.TryGetValue(recordLabels[i], out var record))
+                {                        
+                    if (float.TryParse(record.Value.GetAsString(), out float recordValue))
+                        bestRecordList[i] = recordValue;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Record Exception: "+ex);
         }
     }
 }

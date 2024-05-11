@@ -70,6 +70,7 @@ public class GameController : NetworkBehaviour
         if (isGameEnd) return;
 
         if (isOver) {
+            UploadRecord();
             beat -= Time.deltaTime;
             if (beat <= 0)
             {
@@ -80,6 +81,7 @@ public class GameController : NetworkBehaviour
             {
                 GetComponent<SceneTransition>().PerformTransition();
                 isGameEnd = true;                
+                GetResult();
             }
             return;        
         }
@@ -188,6 +190,10 @@ public class GameController : NetworkBehaviour
         generateSpeed = barLength / 4f;
         score = ScoreGenerator.GetScore(difficulty, musiclength, barLength, seed);
     }
+
+    protected virtual void UploadRecord() { return; }
+    protected virtual void GetResult() { return; }
+
     
     public static void Pause()
     {

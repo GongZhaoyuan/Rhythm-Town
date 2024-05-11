@@ -21,13 +21,15 @@ public class RelayManager : NetworkBehaviour
     {
         public int avatarID;
         public FixedString32Bytes nickname;
-        public bool hasJoined, isReady;        
+        public bool hasJoined, isReady;     
+        public float accuracy;   
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
             serializer.SerializeValue(ref avatarID);
             serializer.SerializeValue(ref nickname);
             serializer.SerializeValue(ref isReady);
             serializer.SerializeValue(ref hasJoined);
+            serializer.SerializeValue(ref accuracy);
         }
 
         public bool Equals(PlayerData other) { throw new NotImplementedException(); }
@@ -36,15 +38,25 @@ public class RelayManager : NetworkBehaviour
     [SerializeField] TMP_InputField joinCodeInputField;
     [SerializeField] Button hostButton, joinButton, startButton, pauseButton;
     [SerializeField] TMP_Text startButtonText, hintText, dialogueText;
-    [SerializeField] List<GameObject> difficultyIcons, playerIcons;
+    [SerializeField] List<GameObject> difficultyIcons, playerIconBorders, playerIcons, playerNameTexts;
     [SerializeField] GameObject preparationUI;
     [SerializeField] MultiplayerGameController multiplayerGameController;
     [SerializeField] Color readyColor;
     public NetworkList<PlayerData> players = new NetworkList<PlayerData>();
-    NetworkVariable<int> difficulty = new NetworkVariable<int>(0);
-    public static NetworkVariable<bool> GameStarted = new NetworkVariable<bool>(false);
-    public static NetworkVariable<bool> GamePaused = new NetworkVariable<bool>(true);
-    int playerNo;
+    NetworkVariable<int> difficulty;
+    public NetworkVariable<bool> GameStarted, GamePaused;
+    public static int playerNo;
+    public bool hasQuit, hasStarted;
+
+    void Awake()
+    {
+        players = new NetworkList<PlayerData>();
+        difficulty = new NetworkVariable<int>(0);
+        GameStarted = new NetworkVariable<bool>(false);
+        GamePaused = new NetworkVariable<bool>(true);
+        hasQuit = false;
+        hasStarted = false;
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -61,7 +73,13 @@ public class RelayManager : NetworkBehaviour
             multiplayerGameController.GenerateScore(seed);
             preparationUI.SetActive(false);
             ResumeGameServerRpc();
+            hasStarted = true;
             GameController.Resume();
+        }
+        else 
+        {
+            if (IsHost)
+                DisconnectHintClientRpc();
         }
     }
 
@@ -75,8 +93,9 @@ public class RelayManager : NetworkBehaviour
         else
         {
             Debug.Log("Pause Change Listened");
-            GameObject.FindWithTag("Pause").GetComponent<Popup>().Close();
-            GameController.Resume();            
+            foreach (GameObject pauseObject in GameObject.FindGameObjectsWithTag("Pause"))
+                pauseObject.GetComponent<Popup>().Close();
+            GameController.Resume();     
         }
     }
 
@@ -88,8 +107,10 @@ public class RelayManager : NetworkBehaviour
         }
         for (int i = 0; i < players.Count; i++)
         {
-            playerIcons[i].transform.parent.gameObject.SetActive(players[i].hasJoined);
-            playerIcons[i].GetComponent<Image>().color = Color.Lerp(playerIcons[i].GetComponent<Image>().color, players[i].isReady? readyColor : Color.white, 0.1f);
+            playerIcons[i].GetComponent<Image>().sprite = Resources.Load<Sprite>($"Avatars/{players[i].avatarID}");
+            playerNameTexts[i].GetComponent<TMP_Text>().text = $"{i + 1}P" + (i == playerNo? " (You)": "");
+            playerIconBorders[i].transform.parent.gameObject.SetActive(players[i].hasJoined);
+            playerIconBorders[i].GetComponent<Image>().color = Color.Lerp(playerIconBorders[i].GetComponent<Image>().color, players[i].isReady? readyColor : Color.white, 0.1f);
         }
     }
 
@@ -97,10 +118,10 @@ public class RelayManager : NetworkBehaviour
     {
         try
         {
+            playerNo = 0;
             DisplayHint();
             string joinCode = await StartHostWithRelay();
             joinCodeInputField.text = joinCode;
-            playerNo = 0;
         }
         catch (Exception)
         {
@@ -111,10 +132,10 @@ public class RelayManager : NetworkBehaviour
     
     public async void JoinRelay()
     {
+        playerNo = 1;
         DisplayHint();
         Debug.Log(joinCodeInputField.text.ToUpper());
         await StartClientWithRelay(joinCodeInputField.text.ToUpper());
-        playerNo = 1;
     }
 
     async Task<string> StartHostWithRelay()
@@ -152,16 +173,24 @@ public class RelayManager : NetworkBehaviour
         if (IsHost)
         {
             difficulty.Value = GameStartManager.lastDifficulty;
-            players.Add(new PlayerData{avatarID = 0, nickname = "", isReady = false, hasJoined = false});
-            players.Add(new PlayerData{avatarID = 0, nickname = "", isReady = false, hasJoined = false});
+            while (players.Count < 2)
+                players.Add(new PlayerData{avatarID = 0, nickname = "", isReady = false, hasJoined = false, accuracy = 100});
         }
-        PlayerData temp = new PlayerData{avatarID = players[playerNo].avatarID, nickname = players[playerNo].nickname, isReady = false, hasJoined = true};
+        playerNo = IsHost? 0 : 1;
+        PlayerData temp = new PlayerData {
+            avatarID = GameSettings.avatarID,
+            nickname = GameSettings.nickname,
+            isReady = false,
+            hasJoined = true,
+            accuracy = 100,
+        };
         SetPlayerDataServerRpc(playerNo, temp);
         for (int i = 0; i < difficultyIcons.Count; i++)
         {
             difficultyIcons[i].SetActive(i == difficulty.Value);
         }
         multiplayerGameController.difficulty = difficulty.Value;
+        GameStartManager.lastDifficulty = difficulty.Value;
         joinCodeInputField.interactable = false;
         joinButton.interactable = false;
         hostButton.interactable = false;
@@ -172,14 +201,18 @@ public class RelayManager : NetworkBehaviour
     {
         if (startButtonText.text == "Ready")
         {
-            PlayerData temp = new PlayerData{avatarID = players[playerNo].avatarID, nickname = players[playerNo].nickname, isReady = true, hasJoined = true};
+            PlayerData temp = new PlayerData {
+                avatarID = players[playerNo].avatarID,
+                nickname = players[playerNo].nickname,
+                isReady = true,
+                hasJoined = true,
+                accuracy = players[playerNo].accuracy
+            };
             SetPlayerDataServerRpc(playerNo, temp);
             startButtonText.text = "Start";
         }
         else
-        {
             StartGameServerRpc();
-        }
     }
 
     void DisplayHint()
@@ -188,6 +221,12 @@ public class RelayManager : NetworkBehaviour
         hintText.text = "Loading...";
     }
 
+    public void GetResult()
+    {
+        MultiplayerGameEndManager.hostData = players[0];
+        MultiplayerGameEndManager.clientData = players[1];
+    }
+    
     [ServerRpc(RequireOwnership = false)]
     private void SetPlayerDataServerRpc(int index, PlayerData playerData) { players[index] = playerData; }
 
@@ -198,9 +237,24 @@ public class RelayManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void PauseGameServerRpc() { GamePaused.Value = true; }
     [ServerRpc(RequireOwnership = false)]
-    public void ResumeGameServerRpc()
+    public void ResumeGameServerRpc() { GamePaused.Value = false; }
+    [ServerRpc(RequireOwnership = false)]
+    public void UploadPlayerRecordServerRpc(int index, float record)
     {
-        Debug.Log("Before Change Paused");
-        GamePaused.Value = false;
-        Debug.Log("ResumeRpc Called"); }
+        PlayerData temp = new PlayerData {
+            avatarID = players[index].avatarID,
+            nickname = players[index].nickname,
+            isReady = players[index].isReady,
+            hasJoined = players[index].hasJoined,
+            accuracy = record,
+        };
+        SetPlayerDataServerRpc(index, temp);
+    }
+    [ClientRpc]
+    private void DisconnectHintClientRpc()
+    {
+        if (hasStarted && !hasQuit)
+            GetComponent<PopupOpener>().OpenPopup();
+        NetworkManager.Singleton.Shutdown();
+    }
 }

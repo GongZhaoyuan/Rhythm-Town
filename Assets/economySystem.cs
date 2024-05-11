@@ -28,6 +28,7 @@ public class economySystem : MonoBehaviour
     public TMP_Text enemgyTexComonent;
 
     public TMP_Text levelTextComponent;
+    [SerializeField] Image avatarIcon;
 
 
     private float timer = 0f;
@@ -90,6 +91,7 @@ public class economySystem : MonoBehaviour
     // Update is called once per frame
     private async void Update()
     {
+        avatarIcon.sprite = Resources.Load<Sprite>($"Avatars/{GameSettings.avatarID}");
         if (currentEnergy < 5)
         {
             timer += Time.deltaTime;

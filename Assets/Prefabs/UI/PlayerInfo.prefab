@@ -3726,7 +3726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: da96a2b9bbb9649f4a8360aca134c209, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 19bdc7fc9e4ae4fe9abc7388fc09b1ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4396,7 +4396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 109460, guid: c89a9cf8346ee42ef97d5905accb3448, type: 3}
-  m_canvas: {fileID: 0}
+  m_canvas: {fileID: 3377914023302020032}
 --- !u!1 &8555298943984281660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4554,6 +4554,7 @@ MonoBehaviour:
   timerText: {fileID: 4713911351731127957}
   enemgyTexComonent: {fileID: 6000703775098943981}
   levelTextComponent: {fileID: 8984004732815953412}
+  avatarIcon: {fileID: 1773100759612970986}
   maxEXP: 100
 --- !u!1 &9043251407605690092
 GameObject:
