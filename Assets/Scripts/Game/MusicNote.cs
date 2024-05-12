@@ -44,11 +44,10 @@ public class MusicNote : NoteController
         Debug.Log("clickSource: " + clickSource);
         Debug.Log("targetSource: " + targetSource);
         GameController.noteCount++;
-        if
-        // (
-        (clickSource == targetSource)
-        // || ((clickSource == "instra_3") && (targetSource == "instra_2"))
-        // )
+        if (
+            (clickSource == targetSource)
+            || ((clickSource == "instra_3") && (targetSource == "instra_2"))
+        )
         {
             bool isPerfect =
                 getDistance(checkPosition) < distanceThreshold
