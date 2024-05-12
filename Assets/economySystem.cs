@@ -61,6 +61,8 @@ public class economySystem : MonoBehaviour
             PlayerBalance energy = getBalancesResult.Balances[1];
             string enemgyText = energy.Balance.ToString();
             currentEnergy = int.Parse(enemgyText);
+            enemgyTexComonent.text = enemgyText + "/100";
+
 
 
             //exp
