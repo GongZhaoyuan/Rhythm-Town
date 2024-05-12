@@ -616,6 +616,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3402569775353601754, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: bgmAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b45c76aae0bc429ab698d1d05224cd9, type: 3}
+    - target: {fileID: 3402569775353601754, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: musicBPM
       value: 180
       objectReference: {fileID: 0}
@@ -627,6 +631,10 @@ PrefabInstance:
       propertyPath: musiclength
       value: 98
       objectReference: {fileID: 0}
+    - target: {fileID: 3402569775353601754, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: bgmLoopAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 4cbe6753387044c92b6c6fca58a6146a, type: 3}
     - target: {fileID: 3870646067941197172, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

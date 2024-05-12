@@ -76,7 +76,7 @@ public class economySystem : MonoBehaviour
             PlayerBalance exp = getBalancesResult.Balances[2];
             string expText = exp.Balance.ToString();
             currentEXP = int.Parse(expText);
-            MaskController.instance.SetValue(currentEXP / (float)Level * 10);
+            MaskController.instance.SetValue(Math.Clamp(currentEXP / (float)Level * 10, 0, 1));
 
             int number = currentEXP / Level * 10;
 
