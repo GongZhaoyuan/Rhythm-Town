@@ -31,7 +31,7 @@ public class GameController : NetworkBehaviour
     [SerializeField] GameObject lifeIconsGroup;
     [SerializeField] Button pauseButton;
     [SerializeField] AudioClip bgmAudio, bgmLoopAudio;
-    List<int> barLengths = new List<int> {4, 4, 4, 8};
+    List<int> barLengths = new List<int> {2, 4, 4, 8};
 
     // Start is called before the first frame update
     protected virtual void Start()
