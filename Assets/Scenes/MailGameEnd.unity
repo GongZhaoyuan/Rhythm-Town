@@ -512,9 +512,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameName: 
-  skillNo: 0
-  skillLevel: 0
+  bestRecordText: {fileID: 0}
+  skillText: {fileID: 0}
   multiplayerButton: {fileID: 0}
+  starIcons: []
 --- !u!4 &1964012921
 Transform:
   m_ObjectHideFlags: 0

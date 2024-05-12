@@ -15,7 +15,7 @@ public class GameStartManager : MonoBehaviour
     public static float bestRecord;
     public static bool isInfinite;
     public static int lastDifficulty, skillLevel;
-    [SerializeField] TMP_Text bestRecordText;
+    [SerializeField] TMP_Text bestRecordText, skillText;
     public static List<float> bestRecordList;
     [SerializeField] Button multiplayerButton;
     [SerializeField] List<Image> starIcons;
@@ -75,6 +75,29 @@ public class GameStartManager : MonoBehaviour
                 skillLevel = skillsDict[skillLabel].Level;
             }
         }
+        string skillContent = "";
+        switch (skillType)
+        {
+            case "Coin":
+                skillContent = $"Get {skillLevel * 5}% more coins";
+                break;
+
+            case "Miss":
+                skillContent = $"Protect from {skillLevel * 2} miss";
+                break;
+
+            case "Energy":
+                skillContent = $"Save {skillLevel} energy";
+                break;
+
+            case "Range":
+                skillContent = $"Expand judge range by {skillLevel * 20}%";
+                break;
+            
+            default:
+                break;
+        }
+        skillText.text = skillLevel > 0? "Bonus: " + skillContent : "";
     }
 
     async Task LoadRecord()
@@ -93,8 +116,8 @@ public class GameStartManager : MonoBehaviour
                     if (float.TryParse(record.Value.GetAsString(), out float recordValue))
                         bestRecordList[i] = recordValue;
                 }
-                starIcons[i].sprite = Resources.Load<Sprite>("Stars/Star " + (bestRecordList[i] < (i < 4? 60 : 2000)? "Gray" :
-                    bestRecordList[i] < (i < 4? 90 : 3000)? "Yellow" : "Pink"));
+                starIcons[i].sprite = Resources.Load<Sprite>("Stars/Star " + (bestRecordList[i] < (i < 4? 60 : 1000)? "Gray" :
+                    bestRecordList[i] < (i < 4? 90 : 1500)? "Yellow" : "Pink"));
             }
         }
         catch (Exception ex)

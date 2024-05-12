@@ -76,6 +76,9 @@ public class GameController : NetworkBehaviour
         grade = 0f;
         noteID = 0;
         noteCount = 0;
+        if (GameStartManager.skillType == "Miss")
+            noteCount -= GameStartManager.skillLevel * 2;
+
         comboCount = 0;
         life = 5;      
         foreach (Image icon in lifeIcons)
