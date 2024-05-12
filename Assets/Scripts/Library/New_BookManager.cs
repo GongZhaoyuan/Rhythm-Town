@@ -102,11 +102,11 @@ public class New_BookManager : MonoBehaviour
         MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";
         RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";
 
-        foreach (var bookData in objectData_Cloud.Values)
+        foreach (var bookData in objectData_Cloud)
         {
-            if (bookData.IsEquipped == true)
+            if (bookData.Value.IsEquipped == true)
             {
-                SetBookEquipped($"{bookData}", true);
+                SetBookEquipped($"{bookData.Key}", true);
             }
         }
     }

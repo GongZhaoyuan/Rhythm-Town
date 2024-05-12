@@ -42,7 +42,7 @@ public class GameController : NetworkBehaviour
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         bgmAudioSource.clip = GameStartManager.isInfinite? bgmLoopAudio : bgmAudio;
         bgmAudioSource.loop = GameStartManager.isInfinite;
-        bgmAudioSource.volume = GameSettings.musicVolume / 100f;
+        //bgmAudioSource.volume = GameSettings.musicVolume / 100f;
 
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
@@ -76,6 +76,9 @@ public class GameController : NetworkBehaviour
         grade = 0f;
         noteID = 0;
         noteCount = 0;
+        if (GameStartManager.skillType == "Miss")
+            noteCount -= GameStartManager.skillLevel * 2;
+
         comboCount = 0;
         life = 5;      
         foreach (Image icon in lifeIcons)

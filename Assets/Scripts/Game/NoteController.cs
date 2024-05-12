@@ -49,6 +49,9 @@ public class NoteController : MonoBehaviour
         rb.MovePosition(position);
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         Debug.Log("originate");
+
+        if (GameStartManager.skillType == "Range")
+            perfectThreshold += GameStartManager.skillLevel * Time.deltaTime;
     }
 
     protected virtual void Update()
