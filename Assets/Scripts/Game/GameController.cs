@@ -183,10 +183,10 @@ public class GameController : NetworkBehaviour
         float accuracy;
         if (infiniteMode)
         {
-            accuracy = grade * 10;
+            accuracy = (int) (grade * 10);
             float progress = Math.Clamp(accuracy / 3000, 0, 1);
             accuracyBar.anchorMax = Vector2.Lerp(accuracyBar.anchorMax, new Vector2(progress, 1), 3 * Time.deltaTime);
-            accuracyText.text = $"{ (int)accuracy }";
+            accuracyText.text = $"{ accuracy }";
         }
         else
         {
