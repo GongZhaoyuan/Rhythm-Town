@@ -98,13 +98,6 @@ public class economySystem : MonoBehaviour
             if (timer >= interval)
             {
                 timer = 0f;
-                string currencyID = "ENERGY";
-
-                PlayerBalance newBalance =
-                    await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                        currencyID,
-                        1
-                    );
             }
         }
         // 计算剩余时间
