@@ -79,6 +79,8 @@ public class MultiplayerGameController : GameController
                     isClicked = false,
                     gradeText = ""
                 });
+                if (i == score.Count - 1)
+                    Debug.Log("Notelist finalized with length" + i);
             }
         }
     }

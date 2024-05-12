@@ -25,7 +25,7 @@ public class GameEndManager : MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
         energyConsumed = 10;
-        coinAwarded = 0;
+        coinAwarded = 100;
 
         GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
         GetBalancesResult getBalancesResult =

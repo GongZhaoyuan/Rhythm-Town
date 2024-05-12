@@ -93,7 +93,15 @@ public class EnterBuilding : MonoBehaviour
     {
         if (!isPopupOpened)
         {
-            Enter();
+            if (Level >= levelLimit)
+            {
+                Enter();
+
+            }
+            else
+            {
+                Limited();
+            }
         }
     }
 }

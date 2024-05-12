@@ -47,7 +47,8 @@ public class NoteController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         displayRb = display.GetComponent<Rigidbody2D>();
         rb.MovePosition(position);
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        if (GameObject.Find("GameController") != null)
+            gameController = GameObject.Find("GameController").GetComponent<GameController>();
         Debug.Log("originate");
 
         if (GameStartManager.skillType == "Range")
