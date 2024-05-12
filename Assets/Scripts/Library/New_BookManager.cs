@@ -123,15 +123,15 @@ public class New_BookManager : MonoBehaviour
             },
             {
                 "Coin",
-                new BookData { Level = 1, IsEquipped = false }
+                new BookData { Level = 0, IsEquipped = false }
             },
             {
                 "Range",
-                new BookData { Level = 2, IsEquipped = false }
+                new BookData { Level = 0, IsEquipped = false }
             },
             {
                 "Energy",
-                new BookData { Level = 3, IsEquipped = false }
+                new BookData { Level = 0, IsEquipped = false }
             }
         };
         yield return UnityServices.InitializeAsync();

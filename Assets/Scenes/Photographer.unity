@@ -739,6 +739,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8456348908512050457, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
+      propertyPath: scene
+      value: PhotographerGameEnd
+      objectReference: {fileID: 0}
     - target: {fileID: 8554183444746393698, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_SortingOrder
       value: 0

@@ -402,7 +402,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6763469283418936496}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f4dd32fbf82b249ebb15d7ba1b50e5aa, type: 2}
   m_CullingMode: 0
@@ -1180,6 +1180,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6404987899955602212, guid: c2de0605e80bf4d5ab6cf8ffb6b6e072, type: 3}
+      propertyPath: enabledStyle
+      value: 
+      objectReference: {fileID: 21300000, guid: 44811c534dd5c4c96935f7375ce24944, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1738,6 +1742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 178356, guid: 5003602427df14b96aa47dd43eaccead, type: 3}
+  m_canvas: {fileID: 0}
 --- !u!224 &3160066267557548897 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5661048754608618396, guid: 373bbead8d94348de94dbde36aa1aae7, type: 3}

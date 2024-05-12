@@ -513,6 +513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: 
   bestRecordText: {fileID: 0}
+  skillText: {fileID: 0}
   multiplayerButton: {fileID: 0}
   starIcons: []
 --- !u!4 &1964012921
@@ -844,6 +845,10 @@ PrefabInstance:
       propertyPath: scene
       value: OrchesGameStart
       objectReference: {fileID: 0}
+    - target: {fileID: 5084407018795931133, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 270
+      objectReference: {fileID: 0}
     - target: {fileID: 5178546997963942582, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -875,6 +880,10 @@ PrefabInstance:
     - target: {fileID: 5236474195784609246, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316435874951812864, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 5464430808610129244, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -894,7 +903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5474753838812681803, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_text
-      value: Senior
+      value: Conductor
       objectReference: {fileID: 0}
     - target: {fileID: 5867028653103497336, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -914,16 +923,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6033712438330435166, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_text
-      value: Good job!
+      value: Nice performance! The audience seemed  to be joyful.
       objectReference: {fileID: 0}
     - target: {fileID: 6045721725639783859, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 928d4d7fba3b748f5b3485a63efd7b1f, type: 3}
+      objectReference: {fileID: 21300000, guid: e20da081c4b894d47a8011f4311c1952, type: 3}
     - target: {fileID: 6600310788164120633, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 78dcbdd2abb37480f9d0e7f21a82c561, type: 3}
+      objectReference: {fileID: 21300000, guid: b680b3b9fca984d10a8a03b6ba29e5b3, type: 3}
     - target: {fileID: 6876474194471600858, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_text
       value: Symphony Performing

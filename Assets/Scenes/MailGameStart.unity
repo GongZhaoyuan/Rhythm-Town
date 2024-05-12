@@ -591,6 +591,26 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 42
       objectReference: {fileID: 0}
+    - target: {fileID: 362744978173747522, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362744978173747522, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362744978173747522, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362744978173747522, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 362744978173747549, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 477212387114742541, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -765,18 +785,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5577561971557162153, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5577561971557162153, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5577561971557162153, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 187.5
       objectReference: {fileID: 0}
     - target: {fileID: 5577561971557162153, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: -55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577561971557162166, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6774158004716263834, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}

@@ -4937,8 +4937,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameName: 
-  skillNo: 0
-  skillLevel: 0
+  bestRecordText: {fileID: 0}
+  skillText: {fileID: 0}
+  multiplayerButton: {fileID: 0}
+  starIcons: []
 --- !u!4 &1964012921
 Transform:
   m_ObjectHideFlags: 0
@@ -5348,6 +5350,7 @@ MonoBehaviour:
   EnergyStar: {fileID: 519177128}
   MissStar: {fileID: 1249336320}
   RangeStar: {fileID: 492580482}
+  maxEXP: 100
 --- !u!1 &2124574049
 GameObject:
   m_ObjectHideFlags: 0
@@ -5989,6 +5992,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 574156998981418030, guid: fef951ddcbc034ba9aec2effa028492e, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057892631110822870, guid: fef951ddcbc034ba9aec2effa028492e, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3003443650961017869, guid: fef951ddcbc034ba9aec2effa028492e, type: 3}

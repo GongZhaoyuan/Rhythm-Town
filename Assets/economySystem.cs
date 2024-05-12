@@ -76,26 +76,15 @@ public class economySystem : MonoBehaviour
             PlayerBalance exp = getBalancesResult.Balances[2];
             string expText = exp.Balance.ToString();
             currentEXP = int.Parse(expText);
-            MaskController.instance.SetValue(Math.Clamp(currentEXP / (float)Level * 10, 0, 1));
+            MaskController.instance.SetValue(Math.Clamp(currentEXP / ((float)Level * 10), 0, 1));
 
-            int number = currentEXP / Level * 10;
+            float number = (float) currentEXP / ((float) Level * 10f) * 100f;
 
-            EXPTexComonent.text = "Sense of Rhythm:" + number + "%";
+            EXPTexComonent.text = "Sense of Rhythm: " + (int) number + "%";
 
 
         }
 
-    }
-    private async void Start()
-    {
-
-        string currencyID = "EXP";
-
-        PlayerBalance newBalance =
-            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                currencyID,
-                5
-            );
     }
 
     // Update is called once per frame
@@ -152,20 +141,25 @@ public class economySystem : MonoBehaviour
         string currencyID = "EXP";
         string currencyLevel = "LEVEL";
 
+        int Levelone;
+        int currentEXP;
+
         GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
 
         GetBalancesResult getBalancesResult =
             await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
 
-        PlayerBalance exp = getBalancesResult.Balances[2];
-        string expText = exp.Balance.ToString();
-        currentEXP = int.Parse(expText);
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance exp = getBalancesResult.Balances[2];
+            string expText = exp.Balance.ToString();
+            currentEXP = int.Parse(expText);
 
-        PlayerBalance level = getBalancesResult.Balances[3];
-        string levelText = level.Balance.ToString();
-        Level = int.Parse(levelText);
+            PlayerBalance level = getBalancesResult.Balances[3];
+            string levelText = level.Balance.ToString();
+            Levelone = int.Parse(levelText);
 
-        if (currentEXP + amount > 10 * Level)
+        if (currentEXP + amount >= 10 * Levelone)
         {
             PlayerBalance newBalance =
                         await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
@@ -173,6 +167,7 @@ public class economySystem : MonoBehaviour
                             1
                         );
             PlayerBalance EXPnewBalance = await EconomyService.Instance.PlayerBalances.SetBalanceAsync(currencyID, 0);
+            Debug.Log("Level up");
         }
         else
         {
@@ -182,6 +177,11 @@ public class economySystem : MonoBehaviour
                             amount
                         );
         }
+        }
+
+    
+    
+        
 
     }
 

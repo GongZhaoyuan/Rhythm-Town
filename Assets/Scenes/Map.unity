@@ -46907,7 +46907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613742014423294800, guid: bf920c088a7d644a78129556dc9ec791, type: 3}
       propertyPath: scene
-      value: Photographer
+      value: PhotographerGameStart
       objectReference: {fileID: 0}
     - target: {fileID: 6016121918564665045, guid: bf920c088a7d644a78129556dc9ec791, type: 3}
       propertyPath: m_LocalPosition.x

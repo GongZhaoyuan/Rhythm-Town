@@ -86,7 +86,7 @@ public class GameEndManager : MonoBehaviour
         coinText.text = $"<size=80%>Coin\n<size=100%>+ {coinAwarded}";
         expText.text = $"<size=80%>Sense of Rhythm\n<size=100%>+ {expAwarded}";
         Award("COINS", coinAwarded);
-        Award("EXP", expAwarded);
+        AddEXP(expAwarded);
         ConsumeEnergy(energyConsumed);
     }
 
@@ -96,6 +96,63 @@ public class GameEndManager : MonoBehaviour
             currencyID,
             amount
         ); 
+    }
+
+    public async void AddEXP(int amount)
+    {
+        string currencyID = "EXP";
+        string currencyLevel = "LEVEL";
+
+        int Levelone;
+        int currentEXP;
+
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
+
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance exp = getBalancesResult.Balances[2];
+            string expText = exp.Balance.ToString();
+            currentEXP = int.Parse(expText);
+
+            PlayerBalance level = getBalancesResult.Balances[3];
+            string levelText = level.Balance.ToString();
+            Levelone = int.Parse(levelText);
+
+        if (currentEXP + amount >= 10 * Levelone)
+        {
+            PlayerBalance newBalance =
+                        await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
+                            currencyLevel,
+                            1
+                        );
+            PlayerBalance EXPnewBalance = await EconomyService.Instance.PlayerBalances.SetBalanceAsync(currencyID, currentEXP + amount - 10 * Levelone);
+            Debug.Log("Level up");
+        }
+        else
+        {
+            PlayerBalance newBalance =
+                        await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
+                            currencyID,
+                            amount
+                        );
+        }
+        }
+    }
+
+
+    public async void addCoin(int amount)
+    {
+
+        string currencyID = "COINS";
+
+        PlayerBalance newBalance =
+            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
+                currencyID,
+                amount
+            );
     }
 
     public async void ConsumeEnergy(int amount)

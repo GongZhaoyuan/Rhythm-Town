@@ -4569,9 +4569,9 @@ MonoBehaviour:
   coinTextComponent: {fileID: 3627257386175454383}
   timerText: {fileID: 4713911351731127957}
   enemgyTexComonent: {fileID: 6000703775098943981}
+  EXPTexComonent: {fileID: 111812364517172573}
   levelTextComponent: {fileID: 8984004732815953412}
   avatarIcon: {fileID: 1773100759612970986}
-  maxEXP: 100
 --- !u!1 &9043251407605690092
 GameObject:
   m_ObjectHideFlags: 0

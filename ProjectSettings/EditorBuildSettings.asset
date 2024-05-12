@@ -38,4 +38,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SushiMultiplayerGameEnd.unity
     guid: a85342be1065b416c8d381d8f5ac4199
+  - enabled: 1
+    path: Assets/Scenes/OrchesGameStart.unity
+    guid: e8b3acf7190bfaf4199067f4bef40bc5
+  - enabled: 1
+    path: Assets/Scenes/Orchestra.unity
+    guid: 49fc6a10e7a590141a8263aedb3b7984
+  - enabled: 1
+    path: Assets/Scenes/OrchesGameEnd.unity
+    guid: 3cca048a8b7e7a046a286dae633d8015
+  - enabled: 1
+    path: Assets/Scenes/PhotographerGameStart.unity
+    guid: 8a61907b960224fabb8fc22f0aa29eb2
+  - enabled: 1
+    path: Assets/Scenes/Photographer.unity
+    guid: 1b2e2f2e0ad324de1b28b971e5291adb
+  - enabled: 1
+    path: Assets/Scenes/PhotographerGameEnd.unity
+    guid: 1d66ff73e1fe741598703f9451f707d0
   m_configObjects: {}

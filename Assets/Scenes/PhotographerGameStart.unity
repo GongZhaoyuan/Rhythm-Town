@@ -713,7 +713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3617547048283995369, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: scene
-      value: Orchestra
+      value: Photographer
       objectReference: {fileID: 0}
     - target: {fileID: 3808390447708521048, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_LocalScale.x
@@ -737,7 +737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4235992356560849722, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: gameName
-      value: Orchestra
+      value: Photographer
       objectReference: {fileID: 0}
     - target: {fileID: 4395572440316137299, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchorMax.y
@@ -773,12 +773,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4665045908129430149, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_text
-      value: Symphony Performing
+      value: Photographer
       objectReference: {fileID: 0}
     - target: {fileID: 5354130379498887336, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b680b3b9fca984d10a8a03b6ba29e5b3, type: 3}
+      objectReference: {fileID: 21300000, guid: b7f404356fecd4b5696f3a0d9836cf23, type: 3}
     - target: {fileID: 5356258879546424310, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -833,14 +833,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7066040519365206575, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_text
-      value: 'Hi! Here is your task today: play the percussion instruments according
-        to the command. Be careful about the different instruments types, or the
-        music will be a mess!'
+      value: Hi! Thank you for coming to our car race. Please take photos for us
+        when we reach the center!
       objectReference: {fileID: 0}
     - target: {fileID: 7545311121880080817, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e20da081c4b894d47a8011f4311c1952, type: 3}
+      objectReference: {fileID: 21300000, guid: 487dd40c62d614abab6c6838bf72ce75, type: 3}
     - target: {fileID: 7605520115428761975, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -877,21 +876,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8591990860711235980, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 270
-      objectReference: {fileID: 0}
     - target: {fileID: 8656343858166389013, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_Name
       value: SkillText
       objectReference: {fileID: 0}
     - target: {fileID: 8679656210299376497, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 8811759451048497722, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_text
-      value: Conductor
+      value: Racer
       objectReference: {fileID: 0}
     - target: {fileID: 9040983437796933017, guid: 894ef9bf360ff4155822de5f40a4d448, type: 3}
       propertyPath: m_Pivot.x
