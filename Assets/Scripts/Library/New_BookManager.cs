@@ -85,13 +85,11 @@ public class New_BookManager : MonoBehaviour
 
             balanceTextComponent.text = balanceText;
 
-
             PlayerBalance exp = getBalancesResult.Balances[2];
             string expText = exp.Balance.ToString();
             currentEXP = int.Parse(expText);
             MaskController.instance.SetValue(currentEXP / (float)maxEXP);
             Debug.Log(currentEXP);
-
         }
     }
 
@@ -104,9 +102,13 @@ public class New_BookManager : MonoBehaviour
         MissLevelText.text = $"Lv.{objectData_Cloud["Miss"].Level}/{maxLevel}";
         RangeLevelText.text = $"Lv.{objectData_Cloud["Range"].Level}/{maxLevel}";
 
-
-
-
+        foreach (var bookData in objectData_Cloud.Values)
+        {
+            if (bookData.IsEquipped == true)
+            {
+                SetBookEquipped($"{bookData}", true);
+            }
+        }
     }
 
     private IEnumerator StartAsync()
@@ -227,12 +229,7 @@ public class New_BookManager : MonoBehaviour
 
                 balanceTextComponent.text = balanceText;
             }
-
-
-
         }
-
-
     }
 
     public async void MissLevelUP()
@@ -268,10 +265,7 @@ public class New_BookManager : MonoBehaviour
 
                 balanceTextComponent.text = balanceText;
             }
-
         }
-
-
     }
 
     public async void RangeLevelUP()
@@ -309,8 +303,6 @@ public class New_BookManager : MonoBehaviour
                 balanceTextComponent.text = balanceText;
             }
         }
-
-
     }
 
     public bool LevelUpCoinCheck(int bookLevel)
@@ -385,7 +377,7 @@ public class New_BookManager : MonoBehaviour
                     Range4Borrow.gameObject.SetActive(!isEquipped);
                     RangeStar.gameObject.SetActive(isEquipped);
                     break;
-                    // Add cases for other books if needed
+                // Add cases for other books if needed
             }
         }
         await UpdateRecordAsync();
