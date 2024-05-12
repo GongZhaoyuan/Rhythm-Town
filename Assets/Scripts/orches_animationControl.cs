@@ -7,13 +7,13 @@ public class orches_animationControl : MonoBehaviour
     public static bool clickFlag = false;
     protected Animator animator;
 
-    // protected AudioSource audioSource;
-    // public AudioClip soundFX;
+    protected AudioSource audioSource;
+    public AudioClip soundFX;
 
     protected virtual void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        // audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     protected virtual void OnMouseOver()
@@ -21,7 +21,7 @@ public class orches_animationControl : MonoBehaviour
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             animator.SetTrigger("active");
-            // audioSource.PlayOneShot(soundFX);
+            audioSource.PlayOneShot(soundFX);
         }
     }
 }
