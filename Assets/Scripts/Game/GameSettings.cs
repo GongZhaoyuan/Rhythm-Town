@@ -11,7 +11,7 @@ public class GameSettings : MonoBehaviour
 {
     [SerializeField] Slider musicSlider, soundSlider;
     [SerializeField] TMP_Text musicText, soundText, offsetText;
-    public static int avatarID, musicVolume, soundVolume, offset;
+    public static int avatarID, musicVolume = 100, soundVolume = 100, offset;
     public static string nickname;
     static bool hasLoaded = false;
     static string[] settingsLabels = {"Settings_MusicVolume", "Settings_SoundVolume", "Settings_Offset", "Avatar", "inGameDisplayNickName"};

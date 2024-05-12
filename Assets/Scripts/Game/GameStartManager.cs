@@ -79,7 +79,7 @@ public class GameStartManager : MonoBehaviour
         switch (skillType)
         {
             case "Coin":
-                skillContent = $"Get {skillLevel * 5}% more coins";
+                skillContent = $"Get {skillLevel * 5} more coins";
                 break;
 
             case "Miss":

@@ -23,7 +23,7 @@ public class GameController : NetworkBehaviour
     public TMP_Text countdownText, accuracyText, comboText;
     public AudioClip countIn;
     AudioSource audioSource, bgmAudioSource;
-    static int countdown = 4, barLength, scoreSeed;
+    static int countdown, barLength, scoreSeed;
     public int noteID, difficulty = 1;
     int scoreLength;
     protected Queue<bool> score;
@@ -31,7 +31,7 @@ public class GameController : NetworkBehaviour
     [SerializeField] GameObject lifeIconsGroup;
     [SerializeField] Button pauseButton;
     [SerializeField] AudioClip bgmAudio, bgmLoopAudio;
-    List<int> barLengths = new List<int> {2, 4, 4, 8};
+    List<int> barLengths = new List<int> {4, 4, 4, 8};
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -42,7 +42,7 @@ public class GameController : NetworkBehaviour
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         bgmAudioSource.clip = GameStartManager.isInfinite? bgmLoopAudio : bgmAudio;
         bgmAudioSource.loop = GameStartManager.isInfinite;
-        //bgmAudioSource.volume = GameSettings.musicVolume / 100f;
+        bgmAudioSource.volume = GameSettings.musicVolume / 100f;
 
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
@@ -69,6 +69,7 @@ public class GameController : NetworkBehaviour
         accuracyBar.anchorMax = new Vector2(1, 1);
         accuracyText.text = "100%";
 
+        countdown = 4;
         isPaused = false;
         isOver = false;
         isGameEnd = false;
@@ -178,7 +179,7 @@ public class GameController : NetworkBehaviour
                 countdownText.text = (countdown > 0) ? countdown.ToString(): "GO!";                
             }
         }
-        else
+        if (countdown < 0)
         {
             if (!bgmAudioSource.isPlaying) { bgmAudioSource.Play(); }
         }
@@ -252,7 +253,7 @@ public class GameController : NetworkBehaviour
         generateSpeed = barLength / 4f;
         int seed = DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
         score = ScoreGenerator.GetScore(level, (level + 1) * 10, barLength, seed);
-        scoreLength += score.Count - ((level == 1 || level == 3)? 0: barLength * 2);
+        scoreLength += score.Count - ((level != 2)? 0: barLength * 2);
     }
 
     public void DecreaseLife()

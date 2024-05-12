@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Core;
 using Unity.Services.Economy;
+using Unity.Services.Economy.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,18 +24,39 @@ public class GameEndManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
-        coinAwarded = 100;
         energyConsumed = 10;
+        coinAwarded = 0;
+
+        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
+        GetBalancesResult getBalancesResult =
+            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+        if (getBalancesResult.Balances.Count > 0)
+        {
+            PlayerBalance energy = getBalancesResult.Balances[1]; 
+            coinAwarded = Math.Clamp(int.Parse(energy.Balance.ToString()) * 10, 0, 100);
+            energyConsumed = Math.Clamp(10, 0, (int)energy.Balance);
+        }
     }
 
     async void Start()
     {
         accuracyText.text = $"{ GameController.accuracy }" + (GameStartManager.isInfinite? "" : "%");
+        for (int i = 0; i < starIcons.Count; i ++)
+            starIcons[i].sprite = Resources.Load<Sprite>("Stars/Star " + (GameStartManager.bestRecordList[i] < (i < 4? 60 : 1000)? "Gray" :
+                GameStartManager.bestRecordList[i] < (i < 4? 90 : 1500)? "Yellow" : "Pink"));
+
+        for (int i = 0; i < difficultyIcons.Count; i++)
+        {
+            difficultyIcons[i].SetActive(i == GameStartManager.lastDifficulty);
+        }
         if (GameController.accuracy > GameStartManager.bestRecord)
         {
             GameStartManager.bestRecordList[GameStartManager.lastDifficulty] = GameController.accuracy;
+            starIcons[GameStartManager.lastDifficulty].sprite = Resources.Load<Sprite>("Stars/Star " + 
+                (GameStartManager.bestRecordList[GameStartManager.lastDifficulty] < (GameStartManager.lastDifficulty < 4? 60 : 1000)? "Gray" :
+                GameStartManager.bestRecordList[GameStartManager.lastDifficulty] < (GameStartManager.lastDifficulty < 4? 90 : 1500)? "Yellow" : "Pink"));
             bestRecordText.text = $"{ GameController.accuracy }" + (GameStartManager.isInfinite? "" : "%");
-            GameStartManager.bestRecordList[GameStartManager.lastDifficulty] = GameController.accuracy;
             string[] recordLabels = {"Easy", "Normal", "Hard", "Expert", "Infinite"};
             var recordData = new Dictionary<string, object> {
                 { $"Record_{gameName}_{recordLabels[GameStartManager.lastDifficulty]}", GameController.accuracy }
@@ -46,14 +69,6 @@ public class GameEndManager : MonoBehaviour
             expAwarded = 1;
         }
         
-        for (int i = 0; i < starIcons.Count; i ++)
-            starIcons[i].sprite = Resources.Load<Sprite>("Stars/Star " + (GameStartManager.bestRecordList[i] < (i < 4? 60 : 1000)? "Gray" :
-                GameStartManager.bestRecordList[i] < (i < 4? 90 : 1500)? "Yellow" : "Pink"));
-
-        for (int i = 0; i < difficultyIcons.Count; i++)
-        {
-            difficultyIcons[i].SetActive(i == GameStartManager.lastDifficulty);
-        }
         switch (GameStartManager.skillType)
         {
             case "Coin":

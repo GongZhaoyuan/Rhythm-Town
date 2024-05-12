@@ -6,21 +6,22 @@ public class ScoreGenerator
 {
     static List<List<bool>> easy = new List<List<bool>>()
     {
-        new List<bool>() {true, false},
-        new List<bool>() {true, true},
-        new List<bool>() {false, true}
+        new List<bool>() {true, false, false, false},
+        new List<bool>() {true, false, true, false},
+        new List<bool>() {false, false, true, false}
     };
     
     static List<List<bool>> normal = new List<List<bool>>()
     {
         new List<bool>() {true, false, true, false},
-        new List<bool>() {true, true, true, false},
+        new List<bool>() {true, true, false, false},
         new List<bool>() {true, false, false, true}
     };
 
     static List<List<bool>> hard = new List<List<bool>>()
     {
         new List<bool>() {true, false, true, false},
+        new List<bool>() {true, true, false, false},
         new List<bool>() {true, true, true, false},
         new List<bool>() {true, false, false, true},
         new List<bool>() {false, false, false, true},
@@ -30,6 +31,7 @@ public class ScoreGenerator
     static List<List<bool>> expert = new List<List<bool>>()
     {
         new List<bool>() {true, false, true, false},
+        new List<bool>() {true, true, false, false},
         new List<bool>() {true, true, true, false},
         new List<bool>() {true, false, false, true},
         new List<bool>() {false, false, false, true},
