@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarNote : NoteControllerBackUp
+public class CarNote : NoteController
 {
     // Start is called before the first frame update
     protected override void Start()
@@ -12,7 +12,7 @@ public class CarNote : NoteControllerBackUp
         noteType = Random.Range(0, 3);
         Sprite[] sprites = Resources.LoadAll<Sprite>("car");
         Debug.Log("sprites: " + sprites);
-        targetSource = $"Cardboard Box_{noteType}";
+        targetSource = $"camera";
         destination = new Vector2(-99, -99);
         display.GetComponent<SpriteRenderer>().sprite = sprites[noteType];
         if (!isTarget)
@@ -27,9 +27,8 @@ public class CarNote : NoteControllerBackUp
         base.Update();
     }
 
-    protected override void MoveToDestination(string clickSource)
+    protected override void MoveToDestination()
     {
-        base.MoveToDestination(clickSource);
-        displayRb.gameObject.GetComponent<Animator>().SetTrigger("Moved");
+        destroyTimer = fullBeat / 3;
     }
 }

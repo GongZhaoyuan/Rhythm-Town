@@ -11,11 +11,10 @@ public class clickCamera : MonoBehaviour
         shutterAnimator = shutter.GetComponent<Animator>();
     }
 
-    private void Update()
+    private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            shutterAnimator.SetTrigger("click");
-        }
+        // 当物体被点击时触发
+        shutterAnimator.SetTrigger("click");
+        Debug.Log("ada");
     }
 }
