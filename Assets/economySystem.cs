@@ -78,7 +78,9 @@ public class economySystem : MonoBehaviour
             currentEXP = int.Parse(expText);
             MaskController.instance.SetValue(currentEXP / (float)Level * 10);
 
-            EXPTexComonent.text = "Sense of Rhythm:" + expText;
+            int number = currentEXP / Level * 10;
+
+            EXPTexComonent.text = "Sense of Rhythm:" + number + "%";
 
 
         }
@@ -138,19 +140,6 @@ public class economySystem : MonoBehaviour
         string timeText = string.Format("{0:00}:{1:00}", minutes, seconds);
 
         timerText.text = timeText;
-
-        //GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
-
-        //GetBalancesResult getBalancesResult =
-        //await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
-
-        //if (getBalancesResult.Balances.Count > 0)
-        //{
-        //energy
-        //PlayerBalance energy = getBalancesResult.Balances[1];
-        //string enemgyText = energy.Balance.ToString();
-
-        //enemgyTexComonent.text = enemgyText + "/5";
 
 
 
