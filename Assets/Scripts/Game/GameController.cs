@@ -41,6 +41,7 @@ public class GameController : NetworkBehaviour
         audioSource.volume = GameSettings.soundVolume / 100f;
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         bgmAudioSource.clip = GameStartManager.isInfinite? bgmLoopAudio : bgmAudio;
+        bgmAudioSource.loop = GameStartManager.isInfinite;
         bgmAudioSource.volume = GameSettings.musicVolume / 100f;
 
         spawnPosition = spawnPoint.position;
@@ -100,9 +101,9 @@ public class GameController : NetworkBehaviour
             }
             if (countdown <= 0)
             {
-                GetComponent<SceneTransition>().PerformTransition();
                 isGameEnd = true;                
                 GetResult();
+                GetComponent<SceneTransition>().PerformTransition();
             }
             return;        
         }
