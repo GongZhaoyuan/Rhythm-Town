@@ -281,7 +281,6 @@ GameObject:
   - component: {fileID: 4749204662447254874}
   - component: {fileID: 47504934560195985}
   - component: {fileID: 8573066945136031068}
-  - component: {fileID: 3308983760310101276}
   - component: {fileID: -7741452496469864143}
   m_Layer: 8
   m_Name: instra
@@ -430,25 +429,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3308983760310101276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6898789336938769288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08d8404d70a8642c6b2886e27b6b97f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noteID: 0
-  gradeText: {fileID: 2756839399509814979}
-  display: {fileID: 1022064739774106949}
-  isClicked: 0
-  isTarget: 0
-  clickSource: 
-  targetSource: 
 --- !u!114 &-7741452496469864143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,7 +436,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6898789336938769288}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df64d3bf485f9c2459f22eaf53c2312d, type: 3}
   m_Name: 

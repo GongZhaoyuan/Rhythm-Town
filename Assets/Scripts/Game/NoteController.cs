@@ -12,7 +12,7 @@ public class NoteController : MonoBehaviour
     public int noteID;
     public TMP_Text gradeText;
     public GameObject display;
-    float speed,
+    protected float speed,
         displaySpeed,
         beat,
         fullBeat,
