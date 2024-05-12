@@ -147,6 +147,7 @@ public class AuthManager : MonoBehaviour
             );
             Debug.Log("SignIn is successful.");
             Debug.Log("PlayerID: " + AuthenticationService.Instance.PlayerId);
+            await GameSettings.LoadSettings();
             GetComponent<SceneTransition>().PerformTransition();
         }
         catch (AuthenticationException ex)

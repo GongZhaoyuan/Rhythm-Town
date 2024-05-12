@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicBPM: 0
   speed: 10
-  generateSpeed: 0.25
+  musiclength: 0
   notePrefab: {fileID: 0}
   spawnPoint: {fileID: 3294165347781571603}
   endPoint: {fileID: 2083946167455200965}
@@ -373,6 +373,15 @@ MonoBehaviour:
   accuracyText: {fileID: 0}
   comboText: {fileID: 0}
   countIn: {fileID: 8300000, guid: aa97ce2eceec14e008bdcf3dd6a542d0, type: 3}
+  noteID: 0
+  difficulty: 1
+  lifeIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lifeIconsGroup: {fileID: 0}
 --- !u!114 &2732705871378840995
 MonoBehaviour:
   m_ObjectHideFlags: 0

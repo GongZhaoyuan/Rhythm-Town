@@ -28,6 +28,7 @@ public class MultiplayerGameController : GameController
     public GameObject hostJudgeRange, clientJudgeRange;
     public static Vector2 _hostDestination, _clientDestination; 
     [SerializeField] TMP_Text hostText, clientText;
+    [SerializeField] RelayManager relayManager;
 
     protected override void Start()
     {        
@@ -82,9 +83,10 @@ public class MultiplayerGameController : GameController
         }
     }
 
+    protected override void UploadRecord() { relayManager.UploadPlayerRecordServerRpc(RelayManager.playerNo, accuracy); }
+
+    protected override void GetResult() { relayManager.GetResult(); NetworkManager.Singleton.Shutdown(); }
+
     [ServerRpc(RequireOwnership = false)]
-    private void UpdateNoteListServerRpc(NoteData noteData)
-    {
-        notes[noteData.noteID] = noteData;    
-    }
+    private void UpdateNoteListServerRpc(NoteData noteData) { notes[noteData.noteID] = noteData; }
 }

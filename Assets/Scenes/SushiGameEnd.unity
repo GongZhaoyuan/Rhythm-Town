@@ -512,8 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameName: 
-  skillNo: 0
-  skillLevel: 0
+  bestRecordText: {fileID: 0}
   multiplayerButton: {fileID: 0}
 --- !u!4 &1964012921
 Transform:
@@ -885,6 +884,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5464430808610129244, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867028653103497336, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867028653103497336, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867028653103497336, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867028653103497336, guid: b089a92b0fddb44b48e18cc5eec5670a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}

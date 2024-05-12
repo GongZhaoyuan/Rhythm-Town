@@ -19,7 +19,11 @@ public class MultiplayerServiceBell : ServiceBell
         {
             transform.position = new Vector2(-transform.position.x, transform.position.y);            
         }
-        GetComponent<CircleCollider2D>().enabled = networkObject.IsOwner;
+    }
+
+    void Update()
+    {
+        GetComponent<CircleCollider2D>().enabled = networkObject.IsOwner && GameObject.Find("RelayManager").GetComponent<RelayManager>().hasStarted;
     }
 
     protected override void OnMouseOver()

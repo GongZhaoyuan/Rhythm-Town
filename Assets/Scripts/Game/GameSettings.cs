@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
@@ -10,8 +11,10 @@ public class GameSettings : MonoBehaviour
 {
     [SerializeField] Slider musicSlider, soundSlider;
     [SerializeField] TMP_Text musicText, soundText, offsetText;
-    public static int musicVolume, soundVolume, offset;
-    string[] settingsLabels = {"Settings_MusicVolume", "Settings_SoundVolume", "Settings_Offset"};
+    public static int avatarID, musicVolume, soundVolume, offset;
+    public static string nickname;
+    static bool hasLoaded = false;
+    static string[] settingsLabels = {"Settings_MusicVolume", "Settings_SoundVolume", "Settings_Offset", "Avatar", "inGameDisplayNickName"};
 
     void Awake()
     {
@@ -29,22 +32,7 @@ public class GameSettings : MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Anonymous");
         }
-        var settingsData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> (settingsLabels));
-        if (settingsData.TryGetValue(settingsLabels[0], out var data))
-        {
-            if (!int.TryParse(data.Value.GetAsString(), out musicVolume))
-                musicVolume = 100;
-        }
-        if (settingsData.TryGetValue(settingsLabels[1], out data))
-        {
-            if (!int.TryParse(data.Value.GetAsString(), out soundVolume))
-                soundVolume = 100;
-        }
-        if (settingsData.TryGetValue(settingsLabels[2], out data))
-        {
-            if (!int.TryParse(data.Value.GetAsString(), out offset))
-                offset = 0;
-        }
+        if (!hasLoaded) {await LoadSettings();}
         musicSlider.value = musicVolume;
         soundSlider.value = soundVolume;
     }
@@ -62,6 +50,27 @@ public class GameSettings : MonoBehaviour
         musicText.text = musicVolume.ToString();
         soundText.text = soundVolume.ToString();
         offsetText.text = offset.ToString();
+    }
+
+    public static async Task LoadSettings()
+    {
+        var settingsData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> (settingsLabels));
+        musicVolume = 100;
+        soundVolume = 100;
+        offset = 0;
+        avatarID = 0;
+
+        if (settingsData.TryGetValue(settingsLabels[0], out var data))
+            int.TryParse(data.Value.GetAsString(), out musicVolume);
+        if (settingsData.TryGetValue(settingsLabels[1], out data))
+            int.TryParse(data.Value.GetAsString(), out soundVolume);
+        if (settingsData.TryGetValue(settingsLabels[2], out data))
+            int.TryParse(data.Value.GetAsString(), out offset);
+        if (settingsData.TryGetValue(settingsLabels[3], out data))
+            int.TryParse(data.Value.GetAsString(), out avatarID);
+        nickname = settingsData.TryGetValue(settingsLabels[4], out data)? data.Value.GetAsString() : "New Citizen";
+
+        hasLoaded = true;
     }
 
     public async void SaveSettings()

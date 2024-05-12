@@ -28,6 +28,7 @@ public class NoteController : MonoBehaviour
         targetSource;
     protected Rigidbody2D rb,
         displayRb;
+    GameController gameController;
 
     protected virtual void Start()
     {
@@ -46,6 +47,7 @@ public class NoteController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         displayRb = display.GetComponent<Rigidbody2D>();
         rb.MovePosition(position);
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
         Debug.Log("originate");
     }
 
@@ -99,20 +101,21 @@ public class NoteController : MonoBehaviour
             destination = GameObject.Find(clickSource).transform.position;
         }
         MoveToDestination();
-        GameController.noteCount += 1;
+        GameController.noteCount++;
         if (clickSource == targetSource)
         {
             bool isPerfect =
                 getDistance(checkPosition) < distanceThreshold
                 && (timing >= fullBeat - perfectThreshold || timing <= perfectThreshold);
-            GameController.grade += isPerfect ? 1f : 0.9f;
+            GameController.grade += isPerfect ? 1f : 0.8f;
             gradeText.text = isPerfect ? "Perfect!" : "Good!";
-            GameController.comboCount += 1;
+            GameController.comboCount++;
         }
         else
         {
             gradeText.text = "Wrong!";
             GameController.comboCount = 0;
+            gameController.DecreaseLife();
         }
     }
 
@@ -134,8 +137,9 @@ public class NoteController : MonoBehaviour
         if (targetSource != "None" && !isClicked)
         {
             gradeText.text = "Miss!";
-            GameController.noteCount += 1;
+            GameController.noteCount++;
             GameController.comboCount = 0;
+            gameController.DecreaseLife();
         }
 
         GameController.noteObjects.Remove(this.gameObject);
