@@ -50,9 +50,7 @@ public class ScoreGenerator
         {
             List<bool> choice = beatList[Random.Range(0, beatList.Count - 1)];
             for (int i = 0; i < choice.Count; i++)
-            {
                 score.Enqueue(choice[i]);
-            }
             length -= choice.Count;
         }
 

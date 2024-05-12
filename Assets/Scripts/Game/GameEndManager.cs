@@ -4,7 +4,6 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.Core;
 using Unity.Services.Economy;
-using Unity.Services.Economy.Model;
 using UnityEngine;
 
 public class GameEndManager : MonoBehaviour
@@ -19,36 +18,32 @@ public class GameEndManager : MonoBehaviour
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log("Anonymous");
-        }
-        else
-        {
-            Debug.Log("Signed In");
         }
     }
 
     async void Start()
     {
-        accuracyText.text = $"{ GameController.accuracy }%";
+        accuracyText.text = $"{ GameController.accuracy }" + (GameStartManager.isInfinite? "" : "%");
         if (GameController.accuracy > GameStartManager.bestRecord)
         {
-            bestRecordText.text = $"{ GameController.accuracy }%";
+            bestRecordText.text = $"{ GameController.accuracy }" + (GameStartManager.isInfinite? "" : "%");
             GameStartManager.bestRecordList[GameStartManager.lastDifficulty] = GameController.accuracy;
             string[] recordLabels = {"Easy", "Normal", "Hard", "Expert", "Infinite"};
             var recordData = new Dictionary<string, object> {
                 { $"Record_{gameName}_{recordLabels[GameStartManager.lastDifficulty]}", GameController.accuracy }
             };
             await CloudSaveService.Instance.Data.Player.SaveAsync(recordData);
+            Award("EXP", 10);
         }
         else{
-            bestRecordText.text = $"{ GameStartManager.bestRecord }%";
+            bestRecordText.text = $"{ GameStartManager.bestRecord }" + (GameStartManager.isInfinite? "" : "%");
+            Award("EXP", 1);
         }
         for (int i = 0; i < difficultyIcons.Count; i++)
         {
             difficultyIcons[i].SetActive(i == GameStartManager.lastDifficulty);
         }
-        Award("EXP", 10);
-        Award("COINS", 10);
+        Award("COINS", 100);
     }
 
     public async void Award(string currencyID, int amount)

@@ -57,7 +57,7 @@ public class GameStartManager : MonoBehaviour
         lastDifficulty = gameMode;
         isInfinite = gameMode == 4;
         bestRecord = bestRecordList[gameMode];
-        bestRecordText.text = bestRecord == -1 ? "Loading...": bestRecord == 0? "None" : $"{bestRecord}%";
+        bestRecordText.text = bestRecord == -1 ? "Loading...": bestRecord == 0? "None" : ($"{bestRecord}" + (isInfinite? "" : "%"));
         multiplayerButton.interactable = !isInfinite;
     }
 
@@ -91,7 +91,8 @@ public class GameStartManager : MonoBehaviour
                     if (float.TryParse(record.Value.GetAsString(), out float recordValue))
                         bestRecordList[i] = recordValue;
                 }
-                starIcons[i].sprite = Resources.Load<Sprite>("Stars/Star " + (bestRecordList[i] < 60? "Gray" : bestRecordList[i] < 90? "Yellow" : "Pink"));
+                starIcons[i].sprite = Resources.Load<Sprite>("Stars/Star " + (bestRecordList[i] < (i < 4? 60 : 2000)? "Gray" :
+                    bestRecordList[i] < (i < 4? 90 : 3000)? "Yellow" : "Pink"));
             }
         }
         catch (Exception ex)
