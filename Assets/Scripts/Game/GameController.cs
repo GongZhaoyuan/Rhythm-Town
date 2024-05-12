@@ -42,7 +42,7 @@ public class GameController : NetworkBehaviour
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         bgmAudioSource.clip = GameStartManager.isInfinite? bgmLoopAudio : bgmAudio;
         bgmAudioSource.loop = GameStartManager.isInfinite;
-        bgmAudioSource.volume = GameSettings.musicVolume / 100f;
+        //bgmAudioSource.volume = GameSettings.musicVolume / 100f;
 
         spawnPosition = spawnPoint.position;
         endPosition = endPoint.position;
