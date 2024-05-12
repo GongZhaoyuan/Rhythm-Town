@@ -10,7 +10,7 @@ public class npcDialogue : MonoBehaviour
 
     void Start()
     {
-        dialogBox.SetActive(false);
+
         timerDisplay = -1.0f;
     }
 

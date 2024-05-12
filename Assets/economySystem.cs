@@ -32,7 +32,7 @@ public class economySystem : MonoBehaviour
 
 
     private float timer = 0f;
-    private float interval = 600f; // 30 minutes in seconds
+    private float interval = 60f; // 30 minutes in seconds
 
     int currentEXP;
 
@@ -92,12 +92,35 @@ public class economySystem : MonoBehaviour
     private async void Update()
     {
         avatarIcon.sprite = Resources.Load<Sprite>($"Avatars/{GameSettings.avatarID}");
-        if (currentEnergy < 5)
+        if (currentEnergy < 100)
         {
             timer += Time.deltaTime;
             if (timer >= interval)
             {
                 timer = 0f;
+                string currencyID = "ENERGY";
+
+                PlayerBalance newBalance =
+                    await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
+                        currencyID,
+                        1
+                    );
+
+                GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
+
+                GetBalancesResult getBalancesResult =
+                    await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+
+                if (getBalancesResult.Balances.Count > 0)
+                {
+                    PlayerBalance energy = getBalancesResult.Balances[1];
+                    string enemgyText = energy.Balance.ToString();
+                    currentEnergy = int.Parse(enemgyText);
+                    enemgyTexComonent.text = enemgyText + "/100";
+                }
+
+
+
             }
         }
         // 计算剩余时间
@@ -124,6 +147,8 @@ public class economySystem : MonoBehaviour
 
 
     }
+
+
     public async void addEXP(int amount)
     {
 
@@ -171,4 +196,18 @@ public class economySystem : MonoBehaviour
                 amount
             );
     }
+
+
+    public async void addEnergy(int amount)
+    {
+
+        string currencyID = "ENERGY";
+
+        PlayerBalance newBalance =
+            await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(
+                currencyID,
+                amount
+            );
+    }
+
 }
