@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 1087888001671640872}
+  m_canvas: {fileID: 0}
 --- !u!114 &2745175193245272170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd0296b93221411a9347aa3a2c2ffdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLimit: 0
+  limitedPopUp: {fileID: 3640330246090318054}
 --- !u!60 &4788325643412947692
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -377,3 +380,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 178356, guid: 35dc09f3495094b259c9fecd57152469, type: 3}
   m_PrefabInstance: {fileID: 1087888001671794588}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3640330246090318054 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4439978920663347066, guid: 35dc09f3495094b259c9fecd57152469, type: 3}
+  m_PrefabInstance: {fileID: 1087888001671794588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729d3571ed7354ba184275ba6042151c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

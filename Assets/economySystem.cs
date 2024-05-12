@@ -23,9 +23,9 @@ public class economySystem : MonoBehaviour
 {
 
     public TMP_Text coinTextComponent;
-
     public TMP_Text timerText;
     public TMP_Text enemgyTexComonent;
+    public TMP_Text EXPTexComonent;
 
     public TMP_Text levelTextComponent;
     [SerializeField] Image avatarIcon;
@@ -38,7 +38,8 @@ public class economySystem : MonoBehaviour
 
     int currentEnergy;
 
-    public int maxEXP = 100;
+    int Level;
+
     // Start is called before the first frame update
 
     async void Awake()
@@ -61,18 +62,27 @@ public class economySystem : MonoBehaviour
             PlayerBalance energy = getBalancesResult.Balances[1];
             string enemgyText = energy.Balance.ToString();
             currentEnergy = int.Parse(enemgyText);
+            enemgyTexComonent.text = enemgyText + "/100";
+
+            //level
+            PlayerBalance level = getBalancesResult.Balances[3];
+            string levelText = level.Balance.ToString();
+            Level = int.Parse(levelText);
+            levelTextComponent.text = "<size=50%>Level\n<size=100%>" + levelText;
+
 
 
             //exp
             PlayerBalance exp = getBalancesResult.Balances[2];
             string expText = exp.Balance.ToString();
             currentEXP = int.Parse(expText);
-            MaskController.instance.SetValue(currentEXP / (float)maxEXP);
+            MaskController.instance.SetValue(Math.Clamp(currentEXP / (float)Level * 10, 0, 1));
 
-            //level
-            PlayerBalance level = getBalancesResult.Balances[3];
-            string levelText = level.Balance.ToString();
-            levelTextComponent.text = levelText;
+            int number = currentEXP / Level * 10;
+
+            EXPTexComonent.text = "Sense of Rhythm:" + number + "%";
+
+
         }
 
     }
@@ -131,19 +141,6 @@ public class economySystem : MonoBehaviour
 
         timerText.text = timeText;
 
-        //GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
-
-        //GetBalancesResult getBalancesResult =
-        //await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
-
-        //if (getBalancesResult.Balances.Count > 0)
-        //{
-        //energy
-        //PlayerBalance energy = getBalancesResult.Balances[1];
-        //string enemgyText = energy.Balance.ToString();
-
-        //enemgyTexComonent.text = enemgyText + "/5";
-
 
 
     }
@@ -164,7 +161,11 @@ public class economySystem : MonoBehaviour
         string expText = exp.Balance.ToString();
         currentEXP = int.Parse(expText);
 
-        if (currentEXP + amount > 100)
+        PlayerBalance level = getBalancesResult.Balances[3];
+        string levelText = level.Balance.ToString();
+        Level = int.Parse(levelText);
+
+        if (currentEXP + amount > 10 * Level)
         {
             PlayerBalance newBalance =
                         await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
