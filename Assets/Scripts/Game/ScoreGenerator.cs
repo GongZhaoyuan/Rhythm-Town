@@ -6,9 +6,9 @@ public class ScoreGenerator
 {
     static List<List<bool>> easy = new List<List<bool>>()
     {
-        new List<bool>() {true, false, false, false},
-        new List<bool>() {true, false, true, false},
-        new List<bool>() {false, false, true, false}
+        new List<bool>() {true, false},
+        new List<bool>() {true, true},
+        new List<bool>() {false, true}
     };
     
     static List<List<bool>> normal = new List<List<bool>>()
