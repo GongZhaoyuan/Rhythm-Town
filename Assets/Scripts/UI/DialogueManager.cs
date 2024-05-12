@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    private static TMP_Text textbox;
+    TMP_Text textbox;
 
-    void Start()
+    void Awake()
     {
         textbox = GetComponent<TMP_Text>();
         textbox.maxVisibleCharacters = 0;

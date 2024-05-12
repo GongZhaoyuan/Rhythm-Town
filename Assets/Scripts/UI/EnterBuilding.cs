@@ -57,6 +57,7 @@ public class EnterBuilding : MonoBehaviour
         if (!inRange) return;
         if (Input.GetKeyDown(KeyCode.E) && !isPopupOpened)
         {
+            Debug.Log("Level"+Level);
 
             if (Level >= levelLimit)
             {
