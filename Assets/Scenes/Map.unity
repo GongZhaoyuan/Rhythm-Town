@@ -234,35 +234,6 @@ PolygonCollider2D:
       - {x: 0.16746026, y: -0.5730577}
       - {x: 0.58933127, y: -0.5221119}
   m_UseDelaunayMesh: 0
---- !u!1 &47843095 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4108755914089268990, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-  m_PrefabInstance: {fileID: 180830645}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &47843097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47843095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 579a63af0265a43ba8a15a3e0de230bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mask: {fileID: 47843099}
---- !u!114 &47843099 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6914775030124385654, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-  m_PrefabInstance: {fileID: 180830645}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47843095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &77784868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1328,10 +1299,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 111812364517172573, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_text
-      value: Sense of Rhythm
-      objectReference: {fileID: 0}
     - target: {fileID: 3586924198202407284, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1346,30 +1313,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3586924198202407284, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3627257386175454383, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_text
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699594195368731386, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699594195368731386, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699594195368731386, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699594195368731386, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4060781493307464920, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4578000380897940204, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
@@ -1488,19 +1431,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerInfo
       objectReference: {fileID: 0}
-    - target: {fileID: 8984004732815953412, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      propertyPath: m_text
-      value: '<size=100%>1
-
-'
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4108755914089268990, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 47843097}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98d0ddd1bea9544128ccb6f808f7d128, type: 3}
 --- !u!1 &193090471
 GameObject:

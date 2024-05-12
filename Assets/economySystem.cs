@@ -98,13 +98,6 @@ public class economySystem : MonoBehaviour
             if (timer >= interval)
             {
                 timer = 0f;
-                string currencyID = "ENERGY";
-
-                PlayerBalance newBalance =
-                    await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
-                        currencyID,
-                        1
-                    );
             }
         }
         // 计算剩余时间
@@ -115,20 +108,20 @@ public class economySystem : MonoBehaviour
 
         timerText.text = timeText;
 
-        GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
+        //GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
 
-        GetBalancesResult getBalancesResult =
-            await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
+        //GetBalancesResult getBalancesResult =
+        //await EconomyService.Instance.PlayerBalances.GetBalancesAsync(options);
 
-        if (getBalancesResult.Balances.Count > 0)
-        {
-            //energy
-            PlayerBalance energy = getBalancesResult.Balances[1];
-            string enemgyText = energy.Balance.ToString();
+        //if (getBalancesResult.Balances.Count > 0)
+        //{
+        //energy
+        //PlayerBalance energy = getBalancesResult.Balances[1];
+        //string enemgyText = energy.Balance.ToString();
 
-            enemgyTexComonent.text = enemgyText + "/5";
+        //enemgyTexComonent.text = enemgyText + "/5";
 
-        }
+
 
     }
     public async void addEXP(int amount)

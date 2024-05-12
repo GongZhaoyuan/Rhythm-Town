@@ -16,7 +16,7 @@ public class GameStartManager : MonoBehaviour
     public static bool isInfinite;
     public static int lastDifficulty, skillLevel;
     [SerializeField] TMP_Text bestRecordText;
-    public static List<float> bestRecordList = new List<float> {-1, -1, -1, -1, -1};
+    public static List<float> bestRecordList;
     [SerializeField] Button multiplayerButton;
     [SerializeField] List<Image> starIcons;
     Dictionary<string, New_BookManager.BookData> skillsDict;
@@ -31,7 +31,8 @@ public class GameStartManager : MonoBehaviour
 
     async void Start()
     {
-        await LoadProp();
+        bestRecordList = new List<float> {-1, -1, -1, -1, -1};
+        await LoadSkill();
         foreach (float record in bestRecordList)
         {
             if (record < 0)
@@ -40,14 +41,7 @@ public class GameStartManager : MonoBehaviour
                 break;
             }
         }
-        foreach (string skillLabel in skillsDict.Keys)
-        {
-            if (skillsDict[skillLabel].IsEquipped)
-            {
-                skillType = skillLabel;
-                skillLevel = skillsDict[skillLabel].Level;
-            }
-        }
+        
         Debug.Log($"{bestRecordList[1]}");
         Debug.Log($"{skillType}, Level {skillLevel}");
     }
@@ -61,7 +55,7 @@ public class GameStartManager : MonoBehaviour
         multiplayerButton.interactable = !isInfinite;
     }
 
-    async Task LoadProp()
+    async Task LoadSkill()
     {
         var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(
             new HashSet<string> { "objectLevelRecord_Cloud" }
@@ -72,6 +66,14 @@ public class GameStartManager : MonoBehaviour
             Item item = playerData["objectLevelRecord_Cloud"];
             skillsDict = item.Value.GetAs<Dictionary<string, New_BookManager.BookData>>();
             Debug.Log($"Dictionary Loaded:{skillsDict["Coin"].Level}");
+        }
+        foreach (string skillLabel in skillsDict.Keys)
+        {
+            if (skillsDict[skillLabel].IsEquipped)
+            {
+                skillType = skillLabel;
+                skillLevel = skillsDict[skillLabel].Level;
+            }
         }
     }
 

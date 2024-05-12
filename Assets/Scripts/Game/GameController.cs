@@ -8,55 +8,30 @@ using UnityEngine.UI;
 
 public class GameController : NetworkBehaviour
 {
-    public float musicBPM,
-        speed = 10f;
+    public float musicBPM, speed = 10f;
     public int musiclength;
-    public static float BPM,
-        noteSpeed,
-        generateSpeed,
-        grade,
-        accuracy;
-    public static int noteCount,
-        comboCount,
-        life,
-        infiniteLevel;
+    public static float BPM, noteSpeed, generateSpeed, grade, accuracy;
+    public static int noteCount, comboCount, life, infiniteLevel;
     public static List<GameObject> noteObjects;
-    static float beat,
-        countdownBeat,
-        fullBeat;
-    float beatReset,
-        fullBeatReset;
-    public static bool isPaused,
-        isOver,
-        isGameEnd;
+    static float beat, countdownBeat, fullBeat;
+    float beatReset, fullBeatReset;
+    public static bool isPaused, isOver, isGameEnd;
     public GameObject notePrefab;
-    public Transform spawnPoint,
-        endPoint,
-        checkPoint;
+    public Transform spawnPoint, endPoint, checkPoint;
     public RectTransform accuracyBar;
-    public static Vector2 spawnPosition,
-        endPosition,
-        checkPosition;
-    public TMP_Text countdownText,
-        accuracyText,
-        comboText;
+    public static Vector2 spawnPosition, endPosition, checkPosition;
+    public TMP_Text countdownText, accuracyText, comboText;
     public AudioClip countIn;
-    AudioSource audioSource,
-        bgmAudioSource;
-    static int countdown = 4,
-        barLength,
-        scoreSeed;
-    public int noteID,
-        difficulty = 1;
+    AudioSource audioSource, bgmAudioSource;
+    static int countdown = 4, barLength, scoreSeed;
+    public int noteID, difficulty = 1;
     int scoreLength;
     protected Queue<bool> score;
-
-    [SerializeField]
-    List<Image> lifeIcons;
-
-    [SerializeField]
-    GameObject lifeIconsGroup;
-    List<int> barLengths = new List<int> { 2, 4, 4, 8 };
+    [SerializeField] List<Image> lifeIcons;
+    [SerializeField] GameObject lifeIconsGroup;
+    [SerializeField] Button pauseButton;
+    [SerializeField] AudioClip bgmAudio, bgmLoopAudio;
+    List<int> barLengths = new List<int> {2, 4, 4, 8};
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -65,6 +40,7 @@ public class GameController : NetworkBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameSettings.soundVolume / 100f;
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        bgmAudioSource.clip = GameStartManager.isInfinite? bgmLoopAudio : bgmAudio;
         bgmAudioSource.volume = GameSettings.musicVolume / 100f;
 
         spawnPosition = spawnPoint.position;
@@ -76,7 +52,7 @@ public class GameController : NetworkBehaviour
         countdownBeat = fullBeat;
         fullBeatReset = fullBeat * 4;
         beatReset = fullBeat;
-
+        
         difficulty = GameStartManager.lastDifficulty;
         scoreSeed = DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
         infiniteLevel = 0;
@@ -85,7 +61,7 @@ public class GameController : NetworkBehaviour
             GenerateInfiniteScore(infiniteLevel);
         else
             GenerateScore(scoreSeed);
-
+        
         noteSpeed = Vector2.Distance(endPosition, spawnPosition) / speed / 2;
         noteObjects = new List<GameObject>();
 
@@ -100,23 +76,21 @@ public class GameController : NetworkBehaviour
         noteID = 0;
         noteCount = 0;
         comboCount = 0;
-        life = 5;
+        life = 5;      
         foreach (Image icon in lifeIcons)
             icon.sprite = Resources.Load<Sprite>("Life/Heart - Pink");
         lifeIconsGroup.SetActive(GameStartManager.isInfinite);
 
-        accuracyText.text = GameStartManager.isInfinite ? "0" : "100%";
-        accuracyBar.anchorMax = new Vector2(GameStartManager.isInfinite ? 0 : 1, 1);
+        accuracyText.text = GameStartManager.isInfinite? "0" : "100%";
+        accuracyBar.anchorMax = new Vector2(GameStartManager.isInfinite? 0 : 1, 1); 
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (isGameEnd)
-            return;
+        if (isGameEnd) return;
 
-        if (isOver)
-        {
+        if (isOver) {
             UploadRecord();
             beat -= Time.deltaTime;
             if (beat <= 0)
@@ -127,24 +101,22 @@ public class GameController : NetworkBehaviour
             if (countdown <= 0)
             {
                 GetComponent<SceneTransition>().PerformTransition();
-                isGameEnd = true;
+                isGameEnd = true;                
                 GetResult();
             }
-            return;
+            return;        
         }
 
         if (isPaused)
         {
             countdownText.text = "";
-            if (bgmAudioSource.isPlaying)
-            {
-                bgmAudioSource.Pause();
-            }
+            if (bgmAudioSource.isPlaying) { bgmAudioSource.Pause(); }
         }
         else
         {
             if (CountIn())
             {
+                pauseButton.interactable = true;
                 beat -= Time.deltaTime;
                 beatReset -= Time.deltaTime;
                 if (beatReset <= 0)
@@ -163,7 +135,7 @@ public class GameController : NetworkBehaviour
                 accuracy = AccuracyCalculate(GameStartManager.isInfinite);
                 DetectClick();
                 if (!GameStartManager.isInfinite && score.Count <= 0)
-                {
+                {                    
                     isOver = true;
                     countdown = barLength * 2;
                 }
@@ -179,7 +151,7 @@ public class GameController : NetworkBehaviour
                         if (infiniteLevel < 3)
                             infiniteLevel++;
                         GenerateInfiniteScore(infiniteLevel);
-                    }
+                    }                      
                 }
             }
         }
@@ -189,27 +161,24 @@ public class GameController : NetworkBehaviour
     {
         countdownText.enabled = countdown >= 0;
         if (countdown >= 0)
-        {
+        {            
+            pauseButton.interactable = false;
             countdownBeat -= Time.deltaTime;
-            if (countdownBeat <= 0)
-            {
+            if (countdownBeat <= 0) {
                 countdown--;
                 if (countdown >= 0)
                 {
                     audioSource.PlayOneShot(countIn);
-                }
+                }     
                 countdownBeat = fullBeat;
-                countdownText.text = (countdown > 0) ? countdown.ToString() : "GO!";
+                countdownText.text = (countdown > 0) ? countdown.ToString(): "GO!";                
             }
         }
         else
         {
-            if (!bgmAudioSource.isPlaying)
-            {
-                bgmAudioSource.Play();
-            }
+            if (!bgmAudioSource.isPlaying) { bgmAudioSource.Play(); }
         }
-
+        
         NoteController.isPaused = countdown >= 0;
         return countdown < 0;
     }
@@ -219,29 +188,18 @@ public class GameController : NetworkBehaviour
         float accuracy;
         if (infiniteMode)
         {
-            accuracy = (int)(grade * 10);
+            accuracy = (int) (grade * 10);
             float progress = Math.Clamp(accuracy / 3000, 0, 1);
-            accuracyBar.anchorMax = Vector2.Lerp(
-                accuracyBar.anchorMax,
-                new Vector2(progress, 1),
-                3 * Time.deltaTime
-            );
-            accuracyText.text = $"{accuracy}";
+            accuracyBar.anchorMax = Vector2.Lerp(accuracyBar.anchorMax, new Vector2(progress, 1), 3 * Time.deltaTime);
+            accuracyText.text = $"{ accuracy }";
         }
         else
         {
             accuracy = grade / noteCount;
-            if (float.IsNaN(accuracy))
-            {
-                accuracy = 1f;
-            }
-            accuracyBar.anchorMax = Vector2.Lerp(
-                accuracyBar.anchorMax,
-                new Vector2(accuracy, 1),
-                3 * Time.deltaTime
-            );
+            if (float.IsNaN(accuracy)) { accuracy = 1f; }
+            accuracyBar.anchorMax = Vector2.Lerp(accuracyBar.anchorMax, new Vector2(accuracy, 1), 3 * Time.deltaTime);
             accuracy = Mathf.Round(accuracy * 10000) / 100f;
-            accuracyText.text = $"{accuracy}%";
+            accuracyText.text = $"{ accuracy }%";
         }
         comboText.text = (comboCount == 0) ? "" : $"{comboCount}\nCombo";
 
@@ -260,13 +218,7 @@ public class GameController : NetworkBehaviour
             {
                 if (noteObjects.Count != 0)
                 {
-                    noteObjects.Sort(
-                        (o1, o2) =>
-                            (int)(
-                                o1.GetComponent<NoteController>().getDistance(checkPosition)
-                                - o2.GetComponent<NoteController>().getDistance(checkPosition)
-                            )
-                    );
+                    noteObjects.Sort((o1, o2) => (int)(o1.GetComponent<NoteController>().getDistance(checkPosition) - o2.GetComponent<NoteController>().getDistance(checkPosition)));
                     NoteController nearestNote = noteObjects[0].GetComponent<NoteController>();
                     nearestNote.clickSource = hit.collider.gameObject.name;
                     nearestNote.isClicked = true;
@@ -283,7 +235,7 @@ public class GameController : NetworkBehaviour
     }
 
     public virtual void GenerateScore(int seed)
-    {
+    {        
         barLength = barLengths[difficulty];
         generateSpeed = barLength / 4f;
         score = ScoreGenerator.GetScore(difficulty, musiclength, barLength, seed);
@@ -296,28 +248,20 @@ public class GameController : NetworkBehaviour
         generateSpeed = barLength / 4f;
         int seed = DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
         score = ScoreGenerator.GetScore(level, (level + 1) * 10, barLength, seed);
-        scoreLength += score.Count - ((level == 1 || level == 3) ? 0 : barLength * 2);
+        scoreLength += score.Count - ((level == 1 || level == 3)? 0: barLength * 2);
     }
 
     public void DecreaseLife()
     {
         life--;
         for (int i = 0; i < lifeIcons.Count; i++)
-            lifeIcons[i].sprite = Resources.Load<Sprite>(
-                "Life/Heart - " + (i < life ? "Pink" : "Gray")
-            );
+            lifeIcons[i].sprite = Resources.Load<Sprite>("Life/Heart - " + (i < life? "Pink" : "Gray"));
     }
 
-    protected virtual void UploadRecord()
-    {
-        return;
-    }
+    protected virtual void UploadRecord() { return; }
+    protected virtual void GetResult() { return; }
 
-    protected virtual void GetResult()
-    {
-        return;
-    }
-
+    
     public static void Pause()
     {
         isPaused = true;
@@ -328,6 +272,6 @@ public class GameController : NetworkBehaviour
 
     public static void Resume()
     {
-        isPaused = false;
+        isPaused = false;        
     }
 }
