@@ -18,7 +18,7 @@ public class NoteController : MonoBehaviour
         fullBeat,
         distanceThreshold,
         destroyTimer;
-    float perfectThreshold = 5f;
+    protected float perfectThreshold = 5f;
     protected int noteType;
     protected bool isDetected;
     public bool isClicked = false,
@@ -28,7 +28,7 @@ public class NoteController : MonoBehaviour
         targetSource;
     protected Rigidbody2D rb,
         displayRb;
-    GameController gameController;
+    protected GameController gameController;
 
     protected virtual void Start()
     {
