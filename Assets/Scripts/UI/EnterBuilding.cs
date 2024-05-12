@@ -28,7 +28,7 @@ public class EnterBuilding : MonoBehaviour
 
     int Level;
 
-    async void Awake()
+    async void Start()
     {
         //get the coin data
         GetBalancesOptions options = new GetBalancesOptions { ItemsPerFetch = 4, };
@@ -44,12 +44,9 @@ public class EnterBuilding : MonoBehaviour
             Level = int.Parse(levelText);
         }
 
-    }
-
-    void Start()
-    {
         inRange = false;
         isPopupOpened = false;
+
     }
 
     void Update()

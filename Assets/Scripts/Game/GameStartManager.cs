@@ -66,38 +66,38 @@ public class GameStartManager : MonoBehaviour
             Item item = playerData["objectLevelRecord_Cloud"];
             skillsDict = item.Value.GetAs<Dictionary<string, New_BookManager.BookData>>();
             Debug.Log($"Dictionary Loaded:{skillsDict["Coin"].Level}");
-        }
-        foreach (string skillLabel in skillsDict.Keys)
-        {
-            if (skillsDict[skillLabel].IsEquipped)
+            foreach (string skillLabel in skillsDict.Keys)
             {
-                skillType = skillLabel;
-                skillLevel = skillsDict[skillLabel].Level;
+                if (skillsDict[skillLabel].IsEquipped)
+                {
+                    skillType = skillLabel;
+                    skillLevel = skillsDict[skillLabel].Level;
+                }
             }
-        }
-        string skillContent = "";
-        switch (skillType)
-        {
-            case "Coin":
-                skillContent = $"Get {skillLevel * 5} more coins";
-                break;
+            string skillContent = "";
+            switch (skillType)
+            {
+                case "Coin":
+                    skillContent = $"Get {skillLevel * 5} more coins";
+                    break;
 
-            case "Miss":
-                skillContent = $"Protect from {skillLevel * 2} miss";
-                break;
+                case "Miss":
+                    skillContent = $"Protect from {skillLevel * 2} miss";
+                    break;
 
-            case "Energy":
-                skillContent = $"Save {skillLevel} energy";
-                break;
+                case "Energy":
+                    skillContent = $"Save {skillLevel} energy";
+                    break;
 
-            case "Range":
-                skillContent = $"Expand judge range by {skillLevel * 20}%";
-                break;
-            
-            default:
-                break;
-        }
-        skillText.text = skillLevel > 0? "Bonus: " + skillContent : "";
+                case "Range":
+                    skillContent = $"Expand judge range by {skillLevel * 20}%";
+                    break;
+                
+                default:
+                    break;
+            }
+            skillText.text = skillLevel > 0? "Bonus: " + skillContent : "";
+        }        
     }
 
     async Task LoadRecord()

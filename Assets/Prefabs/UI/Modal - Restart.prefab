@@ -305,7 +305,7 @@ PrefabInstance:
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 9191321459616194144, guid: 3cb0b78bd22ed4ca3b4d3ec8cfd9a8e7, type: 3}
+      objectReference: {fileID: 2732705871378840995, guid: 3cb0b78bd22ed4ca3b4d3ec8cfd9a8e7, type: 3}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -320,11 +320,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: Restart
+      value: PerformTransition
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: GameController, Assembly-CSharp
+      value: Ricimi.SceneTransition, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: 8d40feae465264f4faccc735d163c8ba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
