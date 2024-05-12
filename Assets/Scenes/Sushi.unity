@@ -495,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3402569775353601754, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: musiclength
-      value: 79
+      value: 76
       objectReference: {fileID: 0}
     - target: {fileID: 3870646067941197172, guid: 7743565811a894b2f8278e4928fdc724, type: 3}
       propertyPath: m_AnchorMax.y
