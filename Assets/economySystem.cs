@@ -23,9 +23,9 @@ public class economySystem : MonoBehaviour
 {
 
     public TMP_Text coinTextComponent;
-
     public TMP_Text timerText;
     public TMP_Text enemgyTexComonent;
+    public TMP_Text EXPTexComonent;
 
     public TMP_Text levelTextComponent;
     [SerializeField] Image avatarIcon;
@@ -38,7 +38,8 @@ public class economySystem : MonoBehaviour
 
     int currentEnergy;
 
-    public int maxEXP = 100;
+    int Level;
+
     // Start is called before the first frame update
 
     async void Awake()
@@ -63,18 +64,23 @@ public class economySystem : MonoBehaviour
             currentEnergy = int.Parse(enemgyText);
             enemgyTexComonent.text = enemgyText + "/100";
 
+            //level
+            PlayerBalance level = getBalancesResult.Balances[3];
+            string levelText = level.Balance.ToString();
+            Level = int.Parse(levelText);
+            levelTextComponent.text = "<size=50%>Level\n<size=100%>" + levelText;
+
 
 
             //exp
             PlayerBalance exp = getBalancesResult.Balances[2];
             string expText = exp.Balance.ToString();
             currentEXP = int.Parse(expText);
-            MaskController.instance.SetValue(currentEXP / (float)maxEXP);
+            MaskController.instance.SetValue(currentEXP / (float)Level * 10);
 
-            //level
-            PlayerBalance level = getBalancesResult.Balances[3];
-            string levelText = level.Balance.ToString();
-            levelTextComponent.text = levelText;
+            EXPTexComonent.text = "Sense of Rhythm:" + expText;
+
+
         }
 
     }
@@ -166,7 +172,11 @@ public class economySystem : MonoBehaviour
         string expText = exp.Balance.ToString();
         currentEXP = int.Parse(expText);
 
-        if (currentEXP + amount > 100)
+        PlayerBalance level = getBalancesResult.Balances[3];
+        string levelText = level.Balance.ToString();
+        Level = int.Parse(levelText);
+
+        if (currentEXP + amount > 10 * Level)
         {
             PlayerBalance newBalance =
                         await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(
