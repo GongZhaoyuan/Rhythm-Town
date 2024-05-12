@@ -251,10 +251,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiplayerGameManager Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 8249086825409167877, guid: 7ecdf3f6ef6934fd190d3593d8762ed5, type: 3}
-      propertyPath: musiclength
-      value: 76
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
