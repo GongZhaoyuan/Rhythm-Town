@@ -29,6 +29,8 @@ public class GameController : NetworkBehaviour
     protected Queue<bool> score;
     [SerializeField] List<Image> lifeIcons;
     [SerializeField] GameObject lifeIconsGroup;
+    [SerializeField] Button pauseButton;
+    [SerializeField] AudioClip bgmAudio, bgmLoopAudio;
     List<int> barLengths = new List<int> {2, 4, 4, 8};
 
     // Start is called before the first frame update
@@ -38,6 +40,7 @@ public class GameController : NetworkBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameSettings.soundVolume / 100f;
         bgmAudioSource = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        bgmAudioSource.clip = GameStartManager.isInfinite? bgmLoopAudio : bgmAudio;
         bgmAudioSource.volume = GameSettings.musicVolume / 100f;
 
         spawnPosition = spawnPoint.position;
@@ -113,6 +116,7 @@ public class GameController : NetworkBehaviour
         {
             if (CountIn())
             {
+                pauseButton.interactable = true;
                 beat -= Time.deltaTime;
                 beatReset -= Time.deltaTime;
                 if (beatReset <= 0)
@@ -158,6 +162,7 @@ public class GameController : NetworkBehaviour
         countdownText.enabled = countdown >= 0;
         if (countdown >= 0)
         {            
+            pauseButton.interactable = false;
             countdownBeat -= Time.deltaTime;
             if (countdownBeat <= 0) {
                 countdown--;
